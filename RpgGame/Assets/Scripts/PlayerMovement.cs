@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.AI;
 
 
 
@@ -28,8 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     
     void Start()
-    {
-        
+    { 
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
         anim = GetComponent<Animator>();
 
@@ -40,39 +40,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Подсчет скорости 
         x = nav.velocity.x;
         z = nav.velocity.z;
-        velocitySpeed = x + z;
+        velocitySpeed = new Vector2(x, z).magnitude;
 
-        //Получаем позицию курсора
-        pos = Input.mousePosition;
-        cinemTransposer.m_FollowOffset = currPos;
-
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))
             {
                 nav.destination = hit.point;
             }
         }
-        if(velocitySpeed != 0)
-        {
-            anim.SetBool("sprinting", true);
-        }
-        if (velocitySpeed == 0)
-        {
-            anim.SetBool("sprinting", false);
-        }
 
-        if(Input.GetMouseButton(1))
-        {
-            if(pos.x != 0 || pos.y != 0)
-            {
-                currPos = pos / 200;
-            }
-        }
-      
+        // Check if the character is moving (forward or backward)
+        anim.SetBool("sprinting", velocitySpeed > 0.1f);
     }
+
 }
