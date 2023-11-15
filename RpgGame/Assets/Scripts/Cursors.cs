@@ -7,6 +7,7 @@ public class Cursors : MonoBehaviour
 {
 
     public GameObject CursorObject;
+
     public Sprite CursorBasic;
     public Sprite CursorHand;
     public Image CursorImage;
