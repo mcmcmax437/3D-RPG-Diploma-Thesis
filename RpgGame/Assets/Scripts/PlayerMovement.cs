@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+
 
 
 
@@ -26,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 mouse_pos;
     private Vector3 current_pos;
 
+    private bool isPlayerSelectScene;
+
 
 
 
@@ -37,69 +41,62 @@ public class PlayerMovement : MonoBehaviour
         //cinemachineTransposer = playerCamera.GetCinemachineComponent<CinemachineTransposer>();
         //current_pos = cinemachineTransposer.m_FollowOffset;
 
+        if (SceneManager.GetActiveScene().name == "PlayerSelect")
+        {
+            isPlayerSelectScene = true;
+      
+        }
+
     }
 
     void Update()
     {
-        x = nav.velocity.x;
-        z = nav.velocity.z;
-        velocitySpeed = new Vector2(x, z).magnitude;
 
-        //Get mouse possition
-        //mouse_pos = Input.mousePosition;
-        //cinemachineTransposer.m_FollowOffset = current_pos;
-
-
-        
-        Ray[] rays = new Ray[ray_numbers];
-
-        if (Input.GetMouseButtonDown(0))
+        if (isPlayerSelectScene == false)
         {
-            for (int i = 0; i < ray_numbers; i++)
+            x = nav.velocity.x;
+            z = nav.velocity.z;
+            velocitySpeed = new Vector2(x, z).magnitude;
+
+            Ray[] rays = new Ray[ray_numbers];
+
+            if (Input.GetMouseButtonDown(0))
             {
-                rays[i] = Camera.main.ScreenPointToRay(Input.mousePosition);
-            }
-
-            Vector3 averageHitPoint = Vector3.zero;
-
-            foreach (Ray ray in rays)
-            {
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
+                for (int i = 0; i < ray_numbers; i++)
                 {
-                    averageHitPoint += hit.point;
+                    rays[i] = Camera.main.ScreenPointToRay(Input.mousePosition);
                 }
+
+                Vector3 averageHitPoint = Vector3.zero;
+
+                foreach (Ray ray in rays)
+                {
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        averageHitPoint += hit.point;
+                    }
+                }
+                averageHitPoint /= rays.Length;
+                nav.destination = averageHitPoint;
             }
-            averageHitPoint /= rays.Length;
-            nav.destination = averageHitPoint;
-        }
 
 
 
-        // Check if the character is moving (forward or backward)
-        anim.SetBool("sprinting", velocitySpeed > 0.1f);
+            // Check if the character is moving (forward or backward)
+            anim.SetBool("sprinting", velocitySpeed > 0.1f);
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            anim.SetBool("sprinting", false);
-            nav.destination = transform.position;
-        }
-
-        /*
-        if (Input.GetMouseButton(0))
-        {
-            if (mouse_pos.x != 0 || mouse_pos.y != 0)
+            if (Input.GetKeyDown(KeyCode.S))
             {
-                //current_pos = new Vector3(mouse_pos.x, 0, mouse_pos.y) / 400;
-                //cinemachineTransposer.m_FollowOffset = current_pos;
+                anim.SetBool("sprinting", false);
+                nav.destination = transform.position;
             }
         }
-        */
+        else
+        {
 
-
-
-
+        }
     }
 
 }
