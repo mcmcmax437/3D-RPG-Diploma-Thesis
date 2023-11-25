@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 current_pos;
 
     private bool isPlayerSelectScene;
+    public static bool canMove = true;
 
 
 
@@ -62,24 +63,27 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                for (int i = 0; i < ray_numbers; i++)
+                if (canMove == true)
                 {
-                    rays[i] = Camera.main.ScreenPointToRay(Input.mousePosition);
-                }
-
-                Vector3 averageHitPoint = Vector3.zero;
-
-                foreach (Ray ray in rays)
-                {
-                    RaycastHit hit;
-
-                    if (Physics.Raycast(ray, out hit))
+                    for (int i = 0; i < ray_numbers; i++)
                     {
-                        averageHitPoint += hit.point;
+                        rays[i] = Camera.main.ScreenPointToRay(Input.mousePosition);
                     }
+
+                    Vector3 averageHitPoint = Vector3.zero;
+
+                    foreach (Ray ray in rays)
+                    {
+                        RaycastHit hit;
+
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            averageHitPoint += hit.point;
+                        }
+                    }
+                    averageHitPoint /= rays.Length;
+                    nav.destination = averageHitPoint;
                 }
-                averageHitPoint /= rays.Length;
-                nav.destination = averageHitPoint;
             }
 
 
