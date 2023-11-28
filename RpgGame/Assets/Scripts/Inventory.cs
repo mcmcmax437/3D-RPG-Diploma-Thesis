@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour
     public GameObject bookClose;
 
     private bool isInventoryOpened = false;
+    public static int amount_of_redMushrooms = 0;
+    public static int amount_of_blueFlowers = 0;
 
     public Image[] empty_slots;
     public Sprite[] sprite_icons;
@@ -31,6 +33,10 @@ public class Inventory : MonoBehaviour
         Time.timeScale = 1;
 
         max = empty_slots.Length;
+
+        //Temp
+        amount_of_redMushrooms = 0;
+        amount_of_blueFlowers = 0;
 
     }
 

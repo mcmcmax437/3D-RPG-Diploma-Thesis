@@ -16,7 +16,7 @@ public class PlayerSpawn : MonoBehaviour
         Instantiate(Characters[SaveScript.player_index_character], spawnPosition, spawnRotation);
 
         // Debug log to print the spawn position
-        Debug.Log("Spawned at: " + spawnPosition);
+        //Debug.Log("Spawned at: " + spawnPosition);
     }
  
 }
