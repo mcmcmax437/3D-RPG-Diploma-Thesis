@@ -214,6 +214,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   number_of_pickedUp_items: 4
+  is_redMush: 0
+  is_blueFlower: 0
+  is_whiteFlower: 0
+  is_redFlower: 0
+  is_purpleFlower: 1
 --- !u!1 &1919797728650288896
 GameObject:
   m_ObjectHideFlags: 0

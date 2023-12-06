@@ -13,8 +13,16 @@ public class Inventory : MonoBehaviour
     public GameObject bookClose;
 
     private bool isInventoryOpened = false;
+    //amount of items in inventory
     public static int amount_of_redMushrooms = 0;
     public static int amount_of_blueFlowers = 0;
+    public static int amount_of_whiteFlowers = 0;
+    public static int amount_of_purpleFlowers = 0;
+    public static int amount_of_redFlowers = 0;
+    
+
+
+
 
     public Image[] empty_slots;
     public Sprite[] sprite_icons;
@@ -37,6 +45,11 @@ public class Inventory : MonoBehaviour
         //Temp
         amount_of_redMushrooms = 0;
         amount_of_blueFlowers = 0;
+        amount_of_whiteFlowers = 0;
+        amount_of_purpleFlowers = 0;
+        amount_of_redFlowers = 0;
+        
+
 
     }
 
@@ -51,6 +64,7 @@ public class Inventory : MonoBehaviour
                 {
                     max = i;
                     empty_slots[i].sprite = sprite_icons[newIcon];
+                    empty_slots[i].transform.gameObject.GetComponent<ItemMessage>().objectType = newIcon;
                 }
             }
             StartCoroutine(Reset());
