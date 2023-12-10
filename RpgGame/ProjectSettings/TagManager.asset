@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Additional Camera
+  - chest
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - HealthMeter
   - UIicons
   - PostProcessing
-  - 
+  - RoofLayer
   - 
   - 
   - 

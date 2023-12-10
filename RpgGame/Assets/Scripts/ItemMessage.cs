@@ -88,6 +88,66 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             message.text = Inventory.amount_of_redFlowers.ToString() + " - amount of red flowers";
         }
-        
+
+        if (objectType == 6)
+        {
+            message.text = Inventory.amount_of_roots.ToString() + " - amount of roots";
+        }
+        if (objectType == 7)
+        {
+            message.text = Inventory.amount_of_leaf.ToString() + " - amount of leaves";
+        }
+        if (objectType == 8)
+        {
+            message.text = Inventory.amount_of_keySimp.ToString() + " - amount of simple Keys";
+        }
+        if (objectType == 9)
+        {
+            message.text = Inventory.amount_of_keyGold.ToString() + " - amount of golden Keys";
+        }
+        if (objectType == 10)
+        {
+            message.text = Inventory.amount_of_monsterEye.ToString() + " - amount of monster eyes";
+        }
+
+        if (objectType == 11)
+        {
+            message.text = Inventory.amount_of_bluePotion.ToString() + " - amount of blue potion";
+        }
+        if (objectType == 12)
+        {
+            message.text = Inventory.amount_of_greenPotion.ToString() + " - amount of green Potion";
+        }
+        if (objectType == 13)
+        {
+            message.text = Inventory.amount_of_lazurePotion.ToString() + " - amount of lazure Potion";
+        }
+        if (objectType == 14)
+        {
+            message.text = Inventory.amount_of_redPotion.ToString() + " - amount of red potion";
+        }
+
+        if (objectType == 15)
+        {
+            message.text = Inventory.amount_of_bread.ToString() + " - bread for health";
+        }
+        if (objectType == 16)
+        {
+            message.text = Inventory.amount_of_cheese.ToString() + " - cheese for health";
+        }
+        if (objectType == 17)
+        {
+            message.text = Inventory.amount_of_meat.ToString() + " - meat for health";
+        }
+
+        if (objectType == 18)
+        {
+            message.text = Inventory.amount_of_purpleMushroom.ToString() + " - amount of purple mushrooms";
+        }
+        if (objectType == 19)
+        {
+            message.text = Inventory.amount_of_orangeMushroom.ToString() + " - amount of orange mushrooms";
+        }
+
     } 
 }

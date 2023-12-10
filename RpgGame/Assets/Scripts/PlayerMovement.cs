@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Для движения персонажа {1}
     private UnityEngine.AI.NavMeshAgent nav;
-    private Animator anim;
+    private Animator anim; 
     private Ray ray;
     private RaycastHit hit;
 
@@ -31,7 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isPlayerSelectScene;
     public static bool canMove = true;
 
-
+    //for roof box colider
+    public LayerMask boxLayer;
 
 
     void Start()
@@ -76,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         RaycastHit hit;
 
-                        if (Physics.Raycast(ray, out hit))
+                        if (Physics.Raycast(ray, out hit, 300, boxLayer))
                         {
                             averageHitPoint += hit.point;
                         }
@@ -101,6 +102,8 @@ public class PlayerMovement : MonoBehaviour
         {
 
         }
+    
+    
     }
 
 }

@@ -19,7 +19,30 @@ public class Inventory : MonoBehaviour
     public static int amount_of_whiteFlowers = 0;
     public static int amount_of_purpleFlowers = 0;
     public static int amount_of_redFlowers = 0;
-    
+
+    public static int amount_of_roots = 0;
+    public static int amount_of_leaf = 0;
+    public static int amount_of_keySimp = 0;
+    public static int amount_of_keyGold = 0;
+    public static int amount_of_monsterEye = 0;
+
+    public static int amount_of_bluePotion = 0;
+    public static int amount_of_greenPotion = 0;
+    public static int amount_of_lazurePotion = 0;
+    public static int amount_of_redPotion = 0;
+
+    public static int amount_of_bread = 0;
+    public static int amount_of_cheese = 0;
+    public static int amount_of_meat = 0;
+
+    public static int amount_of_purpleMushroom = 0;
+    public static int amount_of_orangeMushroom = 0;
+    //
+
+    public static bool player_has_a_common_key = false;
+    public static bool player_has_a_gold_key = false;
+    public static int gold = 0;
+
 
 
 
@@ -31,6 +54,8 @@ public class Inventory : MonoBehaviour
     public static int newIcon = 0;
     public static bool iconUpdated = false;
     private int max;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,14 +73,34 @@ public class Inventory : MonoBehaviour
         amount_of_whiteFlowers = 0;
         amount_of_purpleFlowers = 0;
         amount_of_redFlowers = 0;
-        
+
+        amount_of_roots = 0;
+        amount_of_leaf = 0;
+        amount_of_keySimp = 0;
+        amount_of_keyGold = 0;
+        amount_of_monsterEye = 0;
+
+        amount_of_bluePotion = 0;
+        amount_of_greenPotion = 0;
+        amount_of_lazurePotion = 0;
+        amount_of_redPotion = 0;
+
+        amount_of_bread = 0;
+        amount_of_cheese = 0;
+        amount_of_meat = 0;
+
+        amount_of_purpleMushroom = 0;
+        amount_of_orangeMushroom = 0;
+        //
 
 
-    }
+
+}
 
     // Update is called once per frame
     void Update()
     {
+        
         if (iconUpdated == true)
         {
             for (int i = 0; i < max; i++)

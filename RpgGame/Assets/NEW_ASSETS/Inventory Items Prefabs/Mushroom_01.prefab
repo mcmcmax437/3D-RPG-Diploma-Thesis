@@ -73,11 +73,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   number_of_pickedUp_items: 1
-  is_redMush: 1
+  is_redMushroom: 1
   is_blueFlower: 0
   is_whiteFlower: 0
-  is_redFlower: 0
   is_purpleFlower: 0
+  is_redFlower: 0
+  is_roots: 0
+  is_leaf: 0
+  is_keySimp: 0
+  is_keyGold: 0
+  is_monsterEye: 0
+  is_bluePotion: 0
+  is_greenPotion: 0
+  is_lazurePotion: 0
+  is_redPotion: 0
+  is_bread: 0
+  is_cheese: 0
+  is_meat: 0
+  purpleMushroom: 0
+  orangeMushroom: 0
 --- !u!54 &1911936169
 Rigidbody:
   m_ObjectHideFlags: 0
