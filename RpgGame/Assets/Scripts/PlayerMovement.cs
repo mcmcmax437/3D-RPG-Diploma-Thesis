@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isPlayerSelectScene;
     public static bool canMove = true;
+    public static bool isPlayerMoving = false;
 
     //for roof box colider
     public LayerMask boxLayer;
@@ -91,6 +92,15 @@ public class PlayerMovement : MonoBehaviour
 
             // Check if the character is moving (forward or backward)
             anim.SetBool("sprinting", velocitySpeed > 0.1f);
+            if(velocitySpeed != 0)
+            {
+                isPlayerMoving = true;
+            } 
+            if (velocitySpeed == 0)
+            {
+                isPlayerMoving = false;
+            }
+
 
             if (Input.GetKeyDown(KeyCode.S))
             {

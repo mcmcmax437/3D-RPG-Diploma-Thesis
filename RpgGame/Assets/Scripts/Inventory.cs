@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public GameObject bookClose;
 
     private bool isInventoryOpened = false;
+
     //amount of items in inventory
     public static int amount_of_redMushrooms = 0;
     public static int amount_of_blueFlowers = 0;
@@ -37,11 +38,12 @@ public class Inventory : MonoBehaviour
 
     public static int amount_of_purpleMushroom = 0;
     public static int amount_of_orangeMushroom = 0;
-    //
 
     public static bool player_has_a_common_key = false;
     public static bool player_has_a_gold_key = false;
-    public static int gold = 0;
+
+    public static int gold = 500;
+    public static int diamond = 10;
 
 
 
@@ -50,6 +52,9 @@ public class Inventory : MonoBehaviour
     public Image[] empty_slots;
     public Sprite[] sprite_icons;
     public Sprite empty_icon_exm;
+
+    public GameObject chatBox;
+    public GameObject shop;
 
     public static int newIcon = 0;
     public static bool iconUpdated = false;
@@ -119,6 +124,9 @@ public class Inventory : MonoBehaviour
 
     public void OpenInventory()
     {
+
+        shop.SetActive(false);               
+        chatBox.SetActive(false);
 
         inventoryMenu.SetActive(true);
         bookOpen.SetActive(true);
