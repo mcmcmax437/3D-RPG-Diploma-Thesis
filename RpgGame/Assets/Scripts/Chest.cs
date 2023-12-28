@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Chest : MonoBehaviour
 {
@@ -27,14 +28,14 @@ public class Chest : MonoBehaviour
             if (Inventory.player_has_a_common_key == true && commonChest == true && chest_is_opened == false)
             {
                 animator.SetTrigger("openChest");
-                Inventory.gold = Inventory.gold + goldInChest;
+                Inventory.gold = Inventory.gold + goldInChest;            
                 goldInChest = 0;
                 chest_is_opened = true;
                 Inventory.amount_of_keySimp--;
                 if (Inventory.amount_of_keySimp == 0)
                 {
                     ItemPickUp.is_keySimp_exist = false;
-                    // ItemPickUp.DestroyIcon();
+                   // ItemPickUp.DestroyIcon();
 
                 }
                 Debug.Log("Gold = " + Inventory.gold);

@@ -58,10 +58,19 @@ public class Buying : MonoBehaviour
                     max = i;
                     if (amount_of_stuff_in_shop[i] > 0)
                     {
+                        
                         if (isPub == true)
                         {
-                            UpdateShopAmount();
+                            RefreshShopAmount();
+                        }else if(isWizzardShop == true)
+                        {
+                            RefreshWizardShopAmount();
                         }
+                        else if(isCraftsmenWorkshop == true)
+                        {
+                            RefreshCraftsMenShopAmount();
+                        }
+
                         if (Inventory.gold >= cost_of_stuff_in_shop[i])
                         {
                             if (inventory_items[i] == 0)
@@ -74,6 +83,14 @@ public class Buying : MonoBehaviour
                             {
                                 SetShopAmount(i);
                             }
+                            else if (isWizzardShop == true)
+                            {
+                                SetWizzardShopAmount(i);
+                            }
+                            else if (isCraftsmenWorkshop == true)
+                            {
+                                SetCraftsMenShopAmount(i);
+                            }
                         }
                     }
                 }
@@ -81,11 +98,27 @@ public class Buying : MonoBehaviour
         }
     }
 
-    void UpdateShopAmount()
+    void RefreshShopAmount()
     {
         inventory_items[0] = Inventory.amount_of_bread;
         inventory_items[1] = Inventory.amount_of_cheese;
         inventory_items[2] = Inventory.amount_of_meat;
+    }
+    void RefreshWizardShopAmount()
+    {
+        inventory_items[0] = Inventory.amount_of_redPotion;
+        inventory_items[1] = Inventory.amount_of_bluePotion;
+        inventory_items[2] = Inventory.amount_of_lazurePotion;
+        inventory_items[3] = Inventory.amount_of_greenPotion;
+
+        inventory_items[4] = Inventory.amount_of_monsterEye;
+        inventory_items[5] = Inventory.amount_of_roots;
+        inventory_items[6] = Inventory.amount_of_leaf;
+       
+    }
+    void RefreshCraftsMenShopAmount()
+    {
+
     }
 
     public void UpdateFinance()
@@ -96,24 +129,96 @@ public class Buying : MonoBehaviour
 
     void SetShopAmount(int item)
     {
-        if(item == 0)
+        
+        switch (item)
         {
-            Inventory.amount_of_bread++;
+            case 0:
+                Inventory.amount_of_bread++;
+                break;
+            case 1:
+                Inventory.amount_of_cheese++;
+                break;
+            case 2:
+                Inventory.amount_of_meat++;
+                break;
+
+            default:
+                break;
         }
-        if (item == 1)
-        {
-            Inventory.amount_of_cheese++;
-        }
-        if (item == 2)
-        {
-            Inventory.amount_of_meat++;
-        }
+
         amount_of_stuff_in_shop[item]--;
         text_amount_of_stuff_in_shop[item].text = amount_of_stuff_in_shop[item].ToString();
         UpdateFinance();
         max = amount_of_stuff_in_shop.Length;
     }
+    void SetWizzardShopAmount(int item)
+    {
+        switch (item)
+        {
+            case 0:
+                Inventory.amount_of_redPotion++;
+                break;
+            case 1:
+                Inventory.amount_of_bluePotion++;
+                break;
+            case 2:
+                Inventory.amount_of_lazurePotion++;
+                break;
+            case 3:
+                Inventory.amount_of_greenPotion++;
+                break;
+            case 4:
+                Inventory.amount_of_monsterEye++;
+                break;
+            case 5:
+                Inventory.amount_of_roots++;
+                break;
+            case 6:
+                Inventory.amount_of_leaf++;
+                break;
 
+
+            default:
+                break;
+        }
+          
+        amount_of_stuff_in_shop[item]--;
+        text_amount_of_stuff_in_shop[item].text = amount_of_stuff_in_shop[item].ToString();
+        UpdateFinance();
+        max = amount_of_stuff_in_shop.Length;
+    }
+    void SetCraftsMenShopAmount(int item)
+    {
+        
+    }
+
+
+    void CheckAmount(int items_number_general)
+    {
+        if (amount_of_stuff_in_shop[items_number_general] > 0)
+        {
+            canClick = true;
+        }
+        else
+        {
+            canClick = false;
+        }
+
+    }
+    void CheckAmount_for_WizzardShop(int items_number_general_v2)
+    {
+        if (amount_of_stuff_in_shop[items_number_general_v2] > 0)
+        {
+            canClick = true;
+        }
+        else
+        {
+            canClick = false;
+        }
+
+    }
+
+    //for Shop basic
     public void bread()
     {
         compare = text_amount_of_stuff_in_shop[0];
@@ -130,16 +235,41 @@ public class Buying : MonoBehaviour
         CheckAmount(2);
     }
 
-    void CheckAmount(int items_number_general)
+    //for Wizzard Shop
+    public void red_Potion()
     {
-        if (amount_of_stuff_in_shop[items_number_general] > 0)
-        {
-            canClick = true;
-        }
-        else
-        {
-            canClick = false;
-        }
+        compare = text_amount_of_stuff_in_shop[0];
+        CheckAmount_for_WizzardShop(0);
+    }
+    public void blue_Potion()
+    {
+        compare = text_amount_of_stuff_in_shop[1];
+        CheckAmount_for_WizzardShop(1);
+    }
+    public void lazure_Potion()
+    {
+        compare = text_amount_of_stuff_in_shop[2];
+        CheckAmount_for_WizzardShop(2);
+    }
 
+    public void green_Potion()
+    {
+        compare = text_amount_of_stuff_in_shop[3];
+        CheckAmount_for_WizzardShop(3);
+    }
+    public void monster_Eye()
+    {
+        compare = text_amount_of_stuff_in_shop[4];
+        CheckAmount_for_WizzardShop(4);
+    }
+    public void roots()
+    {
+        compare = text_amount_of_stuff_in_shop[5];
+        CheckAmount_for_WizzardShop(5);
+    }
+    public void leaf()
+    {
+        compare = text_amount_of_stuff_in_shop[6];
+        CheckAmount_for_WizzardShop(6);
     }
 }

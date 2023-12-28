@@ -14,7 +14,12 @@ public class ChatScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Color32 buttonText_on;
 
     public Text salesman_message;
-    public GameObject shopUI;
+    public GameObject[] shopUI;
+
+    [HideInInspector]
+    public int shop_number;
+
+
     public void OnPointerEnter(PointerEventData eventData)
     {
        buttonText.color = buttonText_on;
@@ -41,7 +46,7 @@ public class ChatScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             if (shopUI != null)
             {
-                shopUI.SetActive(false);
+                shopUI[shop_number].SetActive(false);
             }
         }
     }
@@ -53,8 +58,8 @@ public class ChatScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void Message2()
     {
         salesman_message.text = "Buy everything what you want...";
-        shopUI.SetActive(true);
-        shopUI.GetComponent<Buying>().UpdateFinance();
+        shopUI[shop_number].SetActive(true);
+        shopUI[shop_number].GetComponent<Buying>().UpdateFinance();
 
     }
 }

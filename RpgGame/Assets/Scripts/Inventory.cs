@@ -42,8 +42,8 @@ public class Inventory : MonoBehaviour
     public static bool player_has_a_common_key = false;
     public static bool player_has_a_gold_key = false;
 
-    public static int gold = 500;
-    public static int diamond = 10;
+    public static int gold = 5000;
+    public static int diamond = 0;
 
 
 
