@@ -32,14 +32,23 @@ public class PlayerMovement : MonoBehaviour
     public static bool canMove = true;
     public static bool isPlayerMoving = false;
 
+    public GameObject camera_1_free;
+    public GameObject camera_2_static;
+    private bool is_camera1_active = true;
+
+
     //for roof box colider
     public LayerMask boxLayer;
+
 
 
     void Start()
     {
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        camera_1_free.SetActive(true);
+        camera_2_static.SetActive(false);
 
         //cinemachineTransposer = playerCamera.GetCinemachineComponent<CinemachineTransposer>();
         //current_pos = cinemachineTransposer.m_FollowOffset;
@@ -63,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
             Ray[] rays = new Ray[ray_numbers];
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0)) 
             {
                 if (canMove == true)
                 {
@@ -108,12 +117,27 @@ public class PlayerMovement : MonoBehaviour
                 nav.destination = transform.position;
             }
         }
-        else
-        {
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if(is_camera1_active == true)
+            {
+                camera_1_free.SetActive(false);
+                camera_2_static.SetActive(true);
+
+                is_camera1_active = false;
+            }
+            else if (is_camera1_active == false)
+            {
+                camera_1_free.SetActive(true);
+                camera_2_static.SetActive(false);
+
+                is_camera1_active = true;
+            }
         }
     
-    
+
+
     }
 
 }
