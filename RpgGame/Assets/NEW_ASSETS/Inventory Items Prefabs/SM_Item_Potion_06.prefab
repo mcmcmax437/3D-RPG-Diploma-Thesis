@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 450952}
   - component: {fileID: 3389830}
   - component: {fileID: 2322344}
-  - component: {fileID: 64098211028231184}
   - component: {fileID: 1462550842}
   - component: {fileID: 1462550843}
   - component: {fileID: 1462550848}
@@ -31,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 186258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -87,20 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64098211028231184
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186258}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43752459945276722, guid: 28e96418b5a8497469e852ef59933318, type: 2}
 --- !u!54 &1462550842
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -160,5 +145,5 @@ MonoBehaviour:
   is_bread: 0
   is_cheese: 0
   is_meat: 0
-  purpleMushroom: 0
-  orangeMushroom: 0
+  is_purpleMushroom: 0
+  is_orangeMushroom: 0

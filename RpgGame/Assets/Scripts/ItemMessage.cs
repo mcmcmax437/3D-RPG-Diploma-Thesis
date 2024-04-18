@@ -6,37 +6,45 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public GameObject textBox;
     public Text message;
     private bool displaying = true;
     private bool overIcon = false;
     private Vector3 screenPoint;
-    public GameObject theCanvas;
+
+    //public GameObject theCanvas;
+    public GameObject Spell_Canvas;
+
+    public Sprite CursorBasic;
+    public Sprite CursorHand;
+    public Image CursorImage;
+
     public int objectType = 0; //0 = empty slots in inventory
 
     public bool left = true;
 
     public object CursorObject;
-
+     
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (displaying == true)
         {
+            CursorImage.sprite = CursorHand;
             textBox.SetActive(true);
             //screenPoint.x = Input.mousePosition.x + 400;
             // screenPoint.y = Input.mousePosition.y;
             //screenPoint.z = 1f;
             // textBox.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
             MessageDisplay();
-            Debug.Log(screenPoint);
+           // Debug.Log(screenPoint);
         }
         
-    }
+    } 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+        CursorImage.sprite = CursorBasic;
         overIcon = false;
         textBox.SetActive(false);
     }
@@ -111,7 +119,7 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
 
         if (objectType == 11)
-        {
+        { 
             message.text = Inventory.amount_of_bluePotion.ToString() + " - amount of blue potion";
         }
         if (objectType == 12)
@@ -149,5 +157,11 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             message.text = Inventory.amount_of_orangeMushroom.ToString() + " - amount of orange mushrooms";
         }
 
-    } 
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Spell_Canvas.GetComponent<Spell_Creation>().value_of_1_ingr = objectType;
+        Spell_Canvas.GetComponent<Spell_Creation>().UpdateValues();
+    }
 }

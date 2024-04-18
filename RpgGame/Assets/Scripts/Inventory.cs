@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
     public GameObject inventoryMenu;
     public GameObject bookOpen;
     public GameObject bookClose;
+    public GameObject spell_Book;
 
     private bool isInventoryOpened = false;
 
@@ -42,12 +43,12 @@ public class Inventory : MonoBehaviour
     public static bool player_has_a_common_key = false;
     public static bool player_has_a_gold_key = false;
 
-    public static int gold = 5000;
+    public static int gold = 50000;
     public static int diamond = 0;
 
 
 
-
+    public GameObject Spell_Canvas;
 
     public Image[] empty_slots;
     public Sprite[] sprite_icons;
@@ -68,9 +69,12 @@ public class Inventory : MonoBehaviour
         inventoryMenu.SetActive(false);
         bookOpen.SetActive(false);
         bookClose.SetActive(true);
+        spell_Book.SetActive(false);
+
         Time.timeScale = 1;
 
         max = empty_slots.Length;
+
 
         //Temp
         amount_of_redMushrooms = 0;
@@ -138,11 +142,25 @@ public class Inventory : MonoBehaviour
 
     public void CloseInventory()
     {
-
+        
         inventoryMenu.SetActive(false);
         bookOpen.SetActive(false);
         bookClose.SetActive(true);
         Time.timeScale = 1;
+    }
+
+    public void OpenSpellBook()
+    {
+   
+        spell_Book.SetActive(true);
+    }
+
+    public void CloseSpellBook()
+    {
+        Spell_Canvas.GetComponent<Spell_Creation>().curr_value_of_ingr = 0;
+        Spell_Canvas.GetComponent<Spell_Creation>().value_of_1_ingr = 0; 
+        spell_Book.SetActive(false);
+        
     }
 
     IEnumerator Reset()
