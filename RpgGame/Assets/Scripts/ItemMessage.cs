@@ -26,17 +26,23 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public bool left = true;
 
     public object CursorObject;
+
+    public GameObject Inventory_Canvas;
+    public bool spell = false;
+    public bool magic = false;
+
      
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (displaying == true)
-        {
+        {  
             CursorImage.sprite = CursorHand;
             textBox.SetActive(true);
+            overIcon = true;
             //screenPoint.x = Input.mousePosition.x + 400;
             // screenPoint.y = Input.mousePosition.y;
             //screenPoint.z = 1f;
-            // textBox.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+            // textBox.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);           
             MessageDisplay();
            // Debug.Log(screenPoint);
         }
@@ -56,12 +62,38 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     // Update is called once per frame
     void Update()
     {
+        
         if (overIcon == true)
         {
+           // Debug.Log(overIcon + "= overIcon");
+
             if (Input.GetMouseButtonDown(0))
             {             
                 displaying = false;
-                textBox.SetActive(false);           
+                textBox.SetActive(false); 
+                if(spell == true)
+                {
+                    if(objectType != 0)
+                    {
+                        //  Debug.Log(objectType + "objectType BEFORE");
+
+                        Inventory_Canvas.GetComponent<Inventory>().selected_slot = objectType - 26;
+                        Inventory_Canvas.GetComponent<Inventory>().set_key = true;
+                        // Debug.Log(Inventory_Canvas.GetComponent<Inventory>().selected_slot + "selected_slot AFTER");
+                    }
+                }
+
+                if (magic == true)
+                {
+                    if (objectType != 0)
+                    {
+                        //  Debug.Log(objectType + "objectType BEFORE");
+
+                        Inventory_Canvas.GetComponent<Inventory>().selected_slot = objectType - 32;
+                        Inventory_Canvas.GetComponent<Inventory>().set_key2 = true;
+                        // Debug.Log(Inventory_Canvas.GetComponent<Inventory>().selected_slot + "selected_slot AFTER");
+                    }
+                }
             }
         }
         if (Input.GetMouseButtonUp(0))
@@ -75,6 +107,7 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             message.text = "Empty";
 
+            //Message for ITEMS
         }
         if (objectType == 1)
         {
@@ -156,6 +189,82 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             message.text = Inventory.amount_of_orangeMushroom.ToString() + " - amount of orange mushrooms";
         }
+        /*
+         FUTURE EXTRA ITEMS 
+        AND
+        IT`s
+        ID
+         */
+    
+
+
+
+
+        //Message for SPELLS
+        if (objectType == 26)
+        {
+            message.text = "Double strength until you have mana";
+        }
+        if (objectType == 27)
+        {
+            message.text = "Explosive fire attack";
+        }
+        if (objectType == 28)
+        {
+            message.text = "Receive less damage until you have mana";
+        }
+        if (objectType == 29)
+        {
+            message.text = "Powerfull healt recover";
+        }
+        if (objectType == 30)
+        {
+            message.text = "You become invisiable and move faster until you have mana";
+        }
+        if (objectType == 31)
+        {
+            message.text = "Strong wind attack";
+        }
+
+        //Message for MAGIC
+
+        if (objectType == 32)
+        {
+            message.text = "Uknown MAGIC 1";
+        }
+        if (objectType == 33)
+        {
+            message.text = "Uknown MAGIC 2";
+        }
+        if (objectType == 34)
+        {
+            message.text = "Uknown MAGIC 3";
+        }
+        if (objectType == 35)
+        {
+            message.text = "Uknown MAGIC 4";
+        }
+        if (objectType == 36)
+        {
+            message.text = "Uknown MAGIC 5";
+        }
+        if (objectType == 37)
+        {
+            message.text = "Uknown MAGIC 6";
+        }
+        if (objectType == 38)
+        {
+            message.text = "Uknown MAGIC 7";
+        }
+        if (objectType == 39)
+        {
+            message.text = "Uknown MAGIC 8";
+        }
+        if (objectType == 40)
+        {
+            message.text = "Uknown MAGIC 9";
+        }
+
 
     }
 

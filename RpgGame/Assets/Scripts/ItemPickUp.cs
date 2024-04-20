@@ -86,6 +86,7 @@ public class ItemPickUp : MonoBehaviour
                     DisplayIcons();
                 }
                 Inventory.amount_of_redFlowers++;
+                Destroy(gameObject);
             }
 
             else if (is_roots == true)
@@ -126,6 +127,7 @@ public class ItemPickUp : MonoBehaviour
                 }
                 Inventory.amount_of_keyGold++;
                 Inventory.player_has_a_gold_key = true;
+                Destroy(gameObject);
             }
             else if (is_monsterEye == true)
             {
@@ -134,6 +136,7 @@ public class ItemPickUp : MonoBehaviour
                     DisplayIcons();
                 }
                 Inventory.amount_of_monsterEye++;
+                Destroy(gameObject);
             }
 
             else if (is_bluePotion == true)
@@ -161,6 +164,7 @@ public class ItemPickUp : MonoBehaviour
                     DisplayIcons();
                 }
                 Inventory.amount_of_lazurePotion++;
+                Destroy(gameObject);
             }
             else if (is_redPotion == true)
             {
@@ -169,6 +173,7 @@ public class ItemPickUp : MonoBehaviour
                     DisplayIcons();
                 }
                 Inventory.amount_of_redPotion++;
+                Destroy(gameObject);
             }
 
             else if (is_bread == true)
@@ -187,6 +192,7 @@ public class ItemPickUp : MonoBehaviour
                     DisplayIcons();
                 }
                 Inventory.amount_of_cheese++;
+                Destroy(gameObject);
             }
             else if (is_meat == true)
             {
@@ -195,6 +201,7 @@ public class ItemPickUp : MonoBehaviour
                     DisplayIcons();
                 }
                 Inventory.amount_of_meat++;
+                Destroy(gameObject);
             }
 
             else if (is_purpleMushroom == true)
@@ -204,6 +211,7 @@ public class ItemPickUp : MonoBehaviour
                     DisplayIcons();
                 }
                 Inventory.amount_of_purpleMushroom++;
+                Destroy(gameObject);
             }
             else if (is_orangeMushroom == true)
             {
@@ -212,6 +220,7 @@ public class ItemPickUp : MonoBehaviour
                     DisplayIcons();
                 }
                 Inventory.amount_of_orangeMushroom++;
+                Destroy(gameObject);
             }
 
             else
@@ -220,7 +229,7 @@ public class ItemPickUp : MonoBehaviour
                 Destroy(gameObject);
             }
 
-            Destroy(gameObject);
+           // Destroy(gameObject);
         }
     }
 

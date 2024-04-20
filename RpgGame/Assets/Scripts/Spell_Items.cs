@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class Spell_Items : MonoBehaviour
 {
-    public GameObject Spell_Canvas; //theCanvas
-    public int item_id;  //objID
+    public GameObject Spell_Canvas;
+    public GameObject Inventory_Canvas;  
+    public int item_id;
+    private bool is_need_to_be_checked = true;  
 
     [HideInInspector]
     public Image item_image;
@@ -14,6 +16,8 @@ public class Spell_Items : MonoBehaviour
     public Color32 basic_transperancy_color = new Color32(255, 255, 255, 160);
     [HideInInspector]
     public Color32 selected_transperancy_color = new Color32(255, 255, 255, 255);
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +31,17 @@ public class Spell_Items : MonoBehaviour
         if (Spell_Canvas.GetComponent<Spell_Creation>().value_of_1_ingr == item_id)
         {
             item_image.color = selected_transperancy_color;
+            if(is_need_to_be_checked == true)
+            {
+                is_need_to_be_checked = false;
+                Inventory_Canvas.GetComponent<Inventory>().curr_item_id = item_id;
+                Inventory_Canvas.GetComponent<Inventory>().DataOfItemsCheck();
+            }
         }
         if (Spell_Canvas.GetComponent<Spell_Creation>().value_of_1_ingr == 0)
         {
+            is_need_to_be_checked = true;
             item_image.color = basic_transperancy_color;
         }
-    }
+    } 
 }
