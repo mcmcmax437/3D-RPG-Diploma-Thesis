@@ -23,7 +23,10 @@ public class Spell_Creation : MonoBehaviour
     private int max;
     [HideInInspector]
     public int value_of_1_ingr; 
-    private int maximum_second; 
+    private int maximum_second;
+
+    public GameObject Inventory_Canvas;
+    public AudioSource audio_Player;
 
 
     void Start()
@@ -34,6 +37,7 @@ public class Spell_Creation : MonoBehaviour
         necessary_value_for_creation_spells = sum_of_necessary_ingr[0];
         max = emptySlots.Length;
         maximum_second = emptySlots.Length;
+        audio_Player = Inventory_Canvas.GetComponent<AudioSource>();
 
         Create();   //because there its bugs with creation, only on second time
     }
@@ -49,7 +53,8 @@ public class Spell_Creation : MonoBehaviour
                     max = i;
                     emptySlots[i].sprite = icons[itemID];
                     emptySlots[i].transform.gameObject.GetComponent<ItemMessage>().objectType = itemID + 26;
-
+                    audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().create_SFX;
+                    audio_Player.Play();
                     curr_value_of_ingr = 0;
                     value_of_1_ingr = 0;
                       

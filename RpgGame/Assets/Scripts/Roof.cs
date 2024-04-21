@@ -7,6 +7,8 @@ public class Roof : MonoBehaviour
 
     public GameObject roof;
     public GameObject props;
+    public GameObject main_camera;
+    public bool pub = true;
     void Start()
     {
         roof.SetActive(true);
@@ -20,6 +22,11 @@ public class Roof : MonoBehaviour
         {
             roof.SetActive(false);
             props.SetActive(true);
+            if (pub == true)
+            {
+                main_camera.GetComponent<Music>().music_status = 2;
+                main_camera.GetComponent<Music>().should_play = true;
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -28,6 +35,11 @@ public class Roof : MonoBehaviour
         {
             roof.SetActive(true);
             props.SetActive(false);
+            if (pub == true)
+            {
+                main_camera.GetComponent<Music>().music_status = 1;
+                main_camera.GetComponent<Music>().should_play = true;
+            }         
         }
     }
 }

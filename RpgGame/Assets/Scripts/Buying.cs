@@ -5,9 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Buying : MonoBehaviour
-{
+{ 
 
     public GameObject shop;
+    public GameObject Inventory_Canvas;
+
+    public AudioSource audio_Player;
 
     public int[] amount_of_stuff_in_shop;
     public int[] cost_of_stuff_in_shop;
@@ -17,7 +20,7 @@ public class Buying : MonoBehaviour
 
     public Text[] text_amount_of_stuff_in_shop;
     public Text[] text_finance;
-
+     
     private Text compare;
 
     public bool isPub;
@@ -38,6 +41,9 @@ public class Buying : MonoBehaviour
         {
             text_amount_of_stuff_in_shop[i].text = amount_of_stuff_in_shop[i].ToString();
         }
+
+        audio_Player = Inventory_Canvas.GetComponent<AudioSource>();
+
     }
 
      
@@ -79,6 +85,22 @@ public class Buying : MonoBehaviour
                                 Inventory.iconUpdated = true;
                             }
                             Inventory.gold -= cost_of_stuff_in_shop[i];
+
+                            //RANDOM SFX COIN
+                            int randomNumber = UnityEngine.Random.Range(1, 101);
+                            if (randomNumber > 0 && randomNumber < 33)
+                            {
+                                audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().coin_buy_SFX;
+                            }else if (randomNumber >= 33 && randomNumber < 66)                        
+                            {
+                                audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().coin2_buy_SFX;
+                            } else if (randomNumber >= 66 && randomNumber < 101)
+                            {
+                                audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().coin3_buy_SFX;
+                            } 
+                                audio_Player.Play();
+                            //RANDOM SFX COIN
+
                             if (isPub == true)
                             {
                                 SetShopAmount(i);

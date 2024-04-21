@@ -35,14 +35,27 @@ public class ItemPickUp : MonoBehaviour
     public static bool is_keySimp_exist = false;
     public static bool is_keyGold_exist = false;
 
+    public GameObject Inventory_Canvas;
+    public AudioSource audio_Player;
+
+
+    private void Start()
+    {
+        Inventory_Canvas = GameObject.Find("Inventory");
+        audio_Player = Inventory_Canvas.GetComponent<AudioSource>();
+
+    }
 
 
 
 
     private void OnTriggerEnter(Collider other)
     {
+      
         if (other.CompareTag("Player"))
         {
+            audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().pick_UP_SFX;
+            audio_Player.Play();
             if (is_redMushroom == true)
             {
                 if (Inventory.amount_of_redMushrooms == 0)

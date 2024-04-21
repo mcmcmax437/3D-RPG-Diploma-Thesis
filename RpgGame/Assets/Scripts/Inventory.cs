@@ -13,6 +13,19 @@ public class Inventory : MonoBehaviour
     public GameObject bookClose;
     public GameObject spell_Book;
 
+    private AudioSource audio_Player;
+    public AudioClip openning_book_SFX;
+
+    public AudioClip click1_SFX;
+    public AudioClip click2_SFX;
+
+    public AudioClip coin_buy_SFX;
+    public AudioClip coin2_buy_SFX;
+    public AudioClip coin3_buy_SFX;
+
+    public AudioClip create_SFX;
+    public AudioClip pick_UP_SFX;
+
     private bool isInventoryOpened = false;
 
     //amount of items in inventory
@@ -94,7 +107,7 @@ public class Inventory : MonoBehaviour
         bookOpen.SetActive(false);
         bookClose.SetActive(true);
         spell_Book.SetActive(false);
-
+        audio_Player = GetComponent<AudioSource>();
         Time.timeScale = 1;
 
         max = empty_slots.Length;
@@ -223,6 +236,8 @@ public class Inventory : MonoBehaviour
 
         shop.SetActive(false);               
         chatBox.SetActive(false);
+        audio_Player.clip = openning_book_SFX;
+        audio_Player.Play();
 
         inventoryMenu.SetActive(true);
         bookOpen.SetActive(true);
@@ -238,6 +253,8 @@ public class Inventory : MonoBehaviour
         inventoryMenu.SetActive(false);
         bookOpen.SetActive(false);
         bookClose.SetActive(true);
+        audio_Player.clip = openning_book_SFX;
+        audio_Player.Play();
         Time.timeScale = 1;
     }
 

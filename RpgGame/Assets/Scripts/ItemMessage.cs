@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    public AudioSource audio_Player;
     public GameObject textBox;
     public Text message;
     private bool displaying = true;
@@ -58,6 +59,7 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     void Start()
     {
         textBox.SetActive(false);
+        audio_Player = Inventory_Canvas.GetComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update()
@@ -68,7 +70,18 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
            // Debug.Log(overIcon + "= overIcon");
 
             if (Input.GetMouseButtonDown(0))
-            {             
+            {
+                int randomNumber = UnityEngine.Random.Range(1, 101);           
+                if (randomNumber % 2 == 0)
+                {
+                    audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().click1_SFX;
+                }
+                else
+                {
+                    audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().click2_SFX;
+                }     
+                audio_Player.Play();
+               
                 displaying = false;
                 textBox.SetActive(false); 
                 if(spell == true)
