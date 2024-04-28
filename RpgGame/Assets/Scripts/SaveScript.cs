@@ -6,7 +6,9 @@ public class SaveScript : MonoBehaviour
 {
     public static int player_index_character = 0;
     public static string player_name = "player";
+    public static GameObject vfx_spawn_point;
 
+    public static GameObject spell_target;
 
     void Start()
     {

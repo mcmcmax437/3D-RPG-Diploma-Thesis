@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Additional Camera
   - chest
+  - enemy
   layers:
   - Default
   - TransparentFX

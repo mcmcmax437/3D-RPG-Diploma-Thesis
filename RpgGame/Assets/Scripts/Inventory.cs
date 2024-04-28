@@ -98,7 +98,7 @@ public class Inventory : MonoBehaviour
     public int selected_slot = 0;
     public int[] spell_slots_assosiations;
 
-
+    public GameObject spell_Particle;       //for Spell Test
 
 
     void Start()
@@ -192,6 +192,11 @@ public class Inventory : MonoBehaviour
 
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))  //temporary
+        {
+            Instantiate(spell_Particle, SaveScript.vfx_spawn_point.transform.position, SaveScript.vfx_spawn_point.transform.rotation); //spawn spell
         }
     }
 

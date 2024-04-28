@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     //for roof box colider
     public LayerMask boxLayer;
 
+    public GameObject vfx_spawm_point;
+    private WaitForSeconds nearEnemy = new WaitForSeconds(0.22f);
 
 
     void Start()
@@ -49,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
         camera_1_free.SetActive(true);
         camera_2_static.SetActive(false);
-
+        SaveScript.vfx_spawn_point = vfx_spawm_point;
         //cinemachineTransposer = playerCamera.GetCinemachineComponent<CinemachineTransposer>();
         //current_pos = cinemachineTransposer.m_FollowOffset;
 
@@ -89,7 +91,20 @@ public class PlayerMovement : MonoBehaviour
 
                         if (Physics.Raycast(ray, out hit, 300, boxLayer))
                         {
-                            averageHitPoint += hit.point;
+                            if (hit.transform.gameObject.CompareTag("enemy"))
+                            {
+                                nav.isStopped = false;
+                                SaveScript.spell_target = hit.transform.gameObject;
+                                averageHitPoint += hit.point;
+                                StartCoroutine(MoveTo()); //wait 3 sec and than isStopped == true
+
+                            }
+                            else
+                            {
+                                SaveScript.spell_target = null;
+                                averageHitPoint += hit.point;
+                                nav.isStopped = false;
+                            }                          
                         }
                     }
                     averageHitPoint /= rays.Length;
@@ -140,4 +155,10 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+
+    IEnumerator MoveTo()
+    {
+        yield return nearEnemy;
+        nav.isStopped = true;
+    }
 }
