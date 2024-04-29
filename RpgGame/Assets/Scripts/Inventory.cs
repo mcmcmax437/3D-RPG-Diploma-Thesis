@@ -96,9 +96,9 @@ public class Inventory : MonoBehaviour
     public bool set_key2 = false; 
     [HideInInspector]
     public int selected_slot = 0;
-    public int[] spell_slots_assosiations;
+    public int[] spell_slots_assosiations;  
 
-    public GameObject spell_Particle;       //for Spell Test
+    public GameObject[] spells_vfx_particles;       //for Spell Test    
 
 
     void Start()
@@ -186,7 +186,7 @@ public class Inventory : MonoBehaviour
                 if (Input.GetKeyDown(key_buttons[i]))
                 {
                     set_key2 = false;
-                     Debug.Log(selected_slot);
+                    // Debug.Log(selected_slot);
                     UI_Slots_1_to_8[i].sprite = Magic_icons[selected_slot];
                     spell_slots_assosiations[i] = selected_slot += 6;                   
 
@@ -194,10 +194,19 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.M))  //temporary
+        if(Input.anyKey && Time.timeScale == 1)  //listen to keys  (not in Inventory)
         {
-            Instantiate(spell_Particle, SaveScript.vfx_spawn_point.transform.position, SaveScript.vfx_spawn_point.transform.rotation); //spawn spell
-        }
+            for(int i =0;  i < UI_Slots_1_to_8.Length; i++)
+            {
+                if (Input.GetKeyDown(key_buttons[i]))
+                {
+                    if(UI_Slots_1_to_8[i].sprite != empty_icon_exm)
+                    {
+                    Instantiate(spells_vfx_particles[spell_slots_assosiations[i]], SaveScript.vfx_spawn_point.transform.position, SaveScript.vfx_spawn_point.transform.rotation); //go throug the buttons 1-8, look what number of spells stores and cast this spell
+                    }
+                }
+            }
+        }    
     }
 
     public void DataOfItemsCheck()     //reda/write into   static data
