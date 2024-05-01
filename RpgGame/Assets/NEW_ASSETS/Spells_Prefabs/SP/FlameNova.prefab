@@ -14631,6 +14631,11 @@ MonoBehaviour:
   vfx_object_container: {fileID: 5663259561636252993}
   speed: 9
   duration_of_life: 4
+  spell_mana_cost: 0.008
+  player: {fileID: 0}
+  enemy_search: 0
+  non_moving: 0
+  support_spell_follow_player: 0
 --- !u!1 &5663259561636252993
 GameObject:
   m_ObjectHideFlags: 0
@@ -19597,6 +19602,11 @@ MonoBehaviour:
   vfx_object_container: {fileID: 5663259561636252993}
   speed: 9
   duration_of_life: 4
+  spell_mana_cost: 0.008
+  player: {fileID: 0}
+  enemy_search: 0
+  non_moving: 0
+  support_spell_follow_player: 0
 --- !u!1 &7654528395481208297
 GameObject:
   m_ObjectHideFlags: 0
@@ -44074,6 +44084,11 @@ MonoBehaviour:
   vfx_object_container: {fileID: 5663259561636252993}
   speed: 9
   duration_of_life: 4
+  spell_mana_cost: 0.008
+  player: {fileID: 0}
+  enemy_search: 0
+  non_moving: 0
+  support_spell_follow_player: 0
 --- !u!1 &7654528396549914986
 GameObject:
   m_ObjectHideFlags: 0
@@ -53782,6 +53797,11 @@ MonoBehaviour:
   vfx_object_container: {fileID: 5663259561636252993}
   speed: 9
   duration_of_life: 4
+  spell_mana_cost: 0.008
+  player: {fileID: 0}
+  enemy_search: 0
+  non_moving: 0
+  support_spell_follow_player: 0
 --- !u!1 &7654528396805204670
 GameObject:
   m_ObjectHideFlags: 0

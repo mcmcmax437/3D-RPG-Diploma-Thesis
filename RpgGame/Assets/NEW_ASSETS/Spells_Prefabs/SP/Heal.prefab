@@ -207,6 +207,7 @@ MonoBehaviour:
   vfx_object_container: {fileID: 102537790550122303}
   speed: 5
   duration_of_life: 5
+  spell_mana_cost: 0.04
   player: {fileID: 0}
   enemy_search: 0
   non_moving: 0
@@ -286,6 +287,14 @@ PrefabInstance:
     - target: {fileID: 434892, guid: ee4ab9d15eef80a44a748be2d628bbfa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19835280, guid: ee4ab9d15eef80a44a748be2d628bbfa, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19835280, guid: ee4ab9d15eef80a44a748be2d628bbfa, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 19927804, guid: ee4ab9d15eef80a44a748be2d628bbfa, type: 3}
       propertyPath: m_Materials.Array.size
@@ -379,6 +388,7 @@ MonoBehaviour:
   vfx_object_container: {fileID: 102537790550122303}
   speed: 5
   duration_of_life: 5
+  spell_mana_cost: 0.04
   player: {fileID: 0}
   enemy_search: 0
   non_moving: 0

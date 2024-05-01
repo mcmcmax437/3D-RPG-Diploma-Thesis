@@ -43,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject vfx_spawm_point;
     private WaitForSeconds nearEnemy = new WaitForSeconds(0.22f);
 
+    public GameObject[] player_mesh_parts;
+
 
     void Start()
     {
@@ -150,7 +152,29 @@ public class PlayerMovement : MonoBehaviour
                 is_camera1_active = true;
             }
         }
-    
+
+        //make player invisible 
+        if (player_mesh_parts[0].activeSelf == true)
+        {
+            if(SaveScript.is_invisible == true)
+            {
+                for(int i = 0; i < player_mesh_parts.Length; i++)
+                {
+                    player_mesh_parts[i].SetActive(false);
+                }
+            }
+        }
+        //make player visible 
+        if (player_mesh_parts[0].activeSelf == false)
+        {
+            if (SaveScript.is_invisible == false)
+            {
+                for (int i = 0; i < player_mesh_parts.Length; i++)
+                {
+                    player_mesh_parts[i].SetActive(true);
+                }
+            }
+        }
 
 
     }

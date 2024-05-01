@@ -84,6 +84,7 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                
                 displaying = false;
                 textBox.SetActive(false); 
+
                 if(spell == true)
                 {
                     if(objectType != 0)

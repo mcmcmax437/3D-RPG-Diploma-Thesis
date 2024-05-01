@@ -101,9 +101,12 @@ MonoBehaviour:
   target_point: {fileID: 0}
   vfx_object_container: {fileID: 391039056401607366}
   speed: 5
-  duration_of_life: 9
+  duration_of_life: 8
+  spell_mana_cost: 0.025
+  player: {fileID: 0}
   enemy_search: 1
   non_moving: 0
+  support_spell_follow_player: 0
 --- !u!1 &4848699490128178898
 GameObject:
   m_ObjectHideFlags: 0

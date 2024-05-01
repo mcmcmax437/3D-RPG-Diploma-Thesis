@@ -9745,13 +9745,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target_point: {fileID: 0}
-  vfx_object_container: {fileID: 0}
+  vfx_object_container: {fileID: 6777911944043167118}
   speed: 5
   duration_of_life: 10
+  spell_mana_cost: 0.1
   player: {fileID: 0}
   enemy_search: 0
   non_moving: 0
   support_spell_follow_player: 1
+  invisibility_spell_is_active: 1
 --- !u!1 &5536810793642010391
 GameObject:
   m_ObjectHideFlags: 0
@@ -24389,13 +24391,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target_point: {fileID: 0}
-  vfx_object_container: {fileID: 0}
+  vfx_object_container: {fileID: 6777911944043167118}
   speed: 5
   duration_of_life: 10
+  spell_mana_cost: 0.1
   player: {fileID: 0}
   enemy_search: 0
   non_moving: 0
   support_spell_follow_player: 1
+  invisibility_spell_is_active: 1
 --- !u!1 &6873533801272177327
 GameObject:
   m_ObjectHideFlags: 0

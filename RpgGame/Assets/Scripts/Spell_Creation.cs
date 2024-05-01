@@ -68,7 +68,7 @@ public class Spell_Creation : MonoBehaviour
     {
         for(int i =0; i < maximum_second; i++)
         {
-             if(emptySlots[i].sprite = icons[index])
+             if(emptySlots[i].sprite == icons[index]) 
             {
                 maximum_second = i;
 

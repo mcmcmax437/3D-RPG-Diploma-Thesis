@@ -100,6 +100,7 @@ public class Inventory : MonoBehaviour
 
     public GameObject[] spells_vfx_particles;       //for Spell Test    
 
+    public Image mana_bar; // to talk to fill amount from mana
 
     void Start()
     {
@@ -170,7 +171,7 @@ public class Inventory : MonoBehaviour
                 if (Input.GetKeyDown(key_buttons[i]))
                 {
                     set_key = false;
-                    // Debug.Log(selected_slot);
+                    Debug.Log(selected_slot);
                     UI_Slots_1_to_8[i].sprite = Spell_icons[selected_slot];
                     spell_slots_assosiations[i] = selected_slot;
                     Spell_Canvas.GetComponent<Spell_Creation>().Cleare(selected_slot);
@@ -186,7 +187,7 @@ public class Inventory : MonoBehaviour
                 if (Input.GetKeyDown(key_buttons[i]))
                 {
                     set_key2 = false;
-                    // Debug.Log(selected_slot);
+                    Debug.Log(selected_slot);
                     UI_Slots_1_to_8[i].sprite = Magic_icons[selected_slot];
                     spell_slots_assosiations[i] = selected_slot += 6;                   
 
@@ -194,19 +195,28 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        if(Input.anyKey && Time.timeScale == 1)  //listen to keys  (not in Inventory)
+        if (Input.anyKey && Time.timeScale == 1)  //listen to keys  (not in Inventory)
         {
-            for(int i =0;  i < UI_Slots_1_to_8.Length; i++)
+            for (int i = 0; i < UI_Slots_1_to_8.Length; i++)
             {
                 if (Input.GetKeyDown(key_buttons[i]))
                 {
-                    if(UI_Slots_1_to_8[i].sprite != empty_icon_exm)
+                    if (UI_Slots_1_to_8[i].sprite != empty_icon_exm)
                     {
-                    Instantiate(spells_vfx_particles[spell_slots_assosiations[i]], SaveScript.vfx_spawn_point.transform.position, SaveScript.vfx_spawn_point.transform.rotation); //go throug the buttons 1-8, look what number of spells stores and cast this spell
+                        if (SaveScript.mana > 0.01f)
+                        {
+                            Instantiate(spells_vfx_particles[spell_slots_assosiations[i]], SaveScript.vfx_spawn_point.transform.position, SaveScript.vfx_spawn_point.transform.rotation); //go throug the buttons 1-8, look what number of spells stores and cast this spell
+                        }
+                        if(spell_slots_assosiations[i] < 6 && SaveScript.mana > 0.1)
+                        {
+                            UI_Slots_1_to_8[i].sprite = empty_icon_exm;
+                        }
                     }
                 }
             }
-        }    
+        }
+
+        mana_bar.fillAmount = SaveScript.mana;
     }
 
     public void DataOfItemsCheck()     //reda/write into   static data
@@ -247,7 +257,7 @@ public class Inventory : MonoBehaviour
 
     public void OpenInventory()
     {
-
+        SaveScript.spell_target = null;
         shop.SetActive(false);               
         chatBox.SetActive(false);
         audio_Player.clip = openning_book_SFX;

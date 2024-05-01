@@ -249,9 +249,12 @@ MonoBehaviour:
   target_point: {fileID: 0}
   vfx_object_container: {fileID: 8135512693440423835}
   speed: 5
-  duration_of_life: 4
+  duration_of_life: 2.5
+  spell_mana_cost: 0.08
+  player: {fileID: 0}
   enemy_search: 0
   non_moving: 1
+  support_spell_follow_player: 0
 --- !u!4 &3972473889215520508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 462442, guid: 03ae7ce3c7c64ec42a63747fbf8cd5f6, type: 3}

@@ -4940,8 +4940,11 @@ MonoBehaviour:
   vfx_object_container: {fileID: 2902672676451058010}
   speed: 5
   duration_of_life: 4
+  spell_mana_cost: 0.125
+  player: {fileID: 0}
   enemy_search: 0
   non_moving: 1
+  support_spell_follow_player: 0
 --- !u!1 &5204113383353765505
 GameObject:
   m_ObjectHideFlags: 0
