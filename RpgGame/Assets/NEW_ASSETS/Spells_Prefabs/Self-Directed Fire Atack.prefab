@@ -14531,12 +14531,13 @@ MonoBehaviour:
   target_point: {fileID: 0}
   vfx_object_container: {fileID: 5937754241505686571}
   speed: 9
-  duration_of_life: 3
-  spell_mana_cost: 0.033
+  duration_of_life: 4
+  spell_mana_cost: 0.022
   player: {fileID: 0}
   enemy_search: 1
   non_moving: 0
   support_spell_follow_player: 0
+  invisibility_spell_is_active: 0
 --- !u!1 &5937754241505686571
 GameObject:
   m_ObjectHideFlags: 0
@@ -14673,12 +14674,13 @@ MonoBehaviour:
   target_point: {fileID: 0}
   vfx_object_container: {fileID: 5937754241505686571}
   speed: 9
-  duration_of_life: 3
-  spell_mana_cost: 0.033
+  duration_of_life: 4
+  spell_mana_cost: 0.022
   player: {fileID: 0}
   enemy_search: 1
   non_moving: 0
   support_spell_follow_player: 0
+  invisibility_spell_is_active: 0
 --- !u!1 &7373939824139850111
 GameObject:
   m_ObjectHideFlags: 0
@@ -24386,12 +24388,13 @@ MonoBehaviour:
   target_point: {fileID: 0}
   vfx_object_container: {fileID: 5937754241505686571}
   speed: 9
-  duration_of_life: 3
-  spell_mana_cost: 0.033
+  duration_of_life: 4
+  spell_mana_cost: 0.022
   player: {fileID: 0}
   enemy_search: 1
   non_moving: 0
   support_spell_follow_player: 0
+  invisibility_spell_is_active: 0
 --- !u!1 &7373939825430110058
 GameObject:
   m_ObjectHideFlags: 0

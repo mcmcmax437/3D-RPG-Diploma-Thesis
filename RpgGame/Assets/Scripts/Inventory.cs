@@ -26,6 +26,14 @@ public class Inventory : MonoBehaviour
     public AudioClip create_SFX;
     public AudioClip pick_UP_SFX;
 
+    //for character cast spell animation 
+    private GameObject player_mesh;
+    private Animator player_animation;
+    private float weight_of_animation_layer = 1.0f;
+    private bool change_weight = false;
+    private AnimatorStateInfo player_information;
+    
+
     private bool isInventoryOpened = false;
 
     //amount of items in inventory
@@ -41,7 +49,7 @@ public class Inventory : MonoBehaviour
     public static int amount_of_keySimp = 0;
     public static int amount_of_keyGold = 0;
     public static int amount_of_monsterEye = 0;
-
+     
     public static int amount_of_bluePotion = 0;
     public static int amount_of_greenPotion = 0;
     public static int amount_of_lazurePotion = 0;
@@ -99,6 +107,8 @@ public class Inventory : MonoBehaviour
     public int[] spell_slots_assosiations;  
 
     public GameObject[] spells_vfx_particles;       //for Spell Test    
+    public AudioClip[] Spell_SFX;           // should be in the same order as spell_vfx_particles
+
 
     public Image mana_bar; // to talk to fill amount from mana
 
@@ -110,6 +120,9 @@ public class Inventory : MonoBehaviour
         spell_Book.SetActive(false);
         audio_Player = GetComponent<AudioSource>();
         Time.timeScale = 1;
+
+        player_mesh = GameObject.FindGameObjectWithTag("Player");
+        player_animation = player_mesh.GetComponent<Animator>();
 
         max = empty_slots.Length;
         maximum_second = array_of_items.Length;
@@ -148,6 +161,8 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
+        player_information = player_animation.GetCurrentAnimatorStateInfo(1); //listen to Animator
+
         //Debug.Log("iconUpdated = " + iconUpdated);
         if (iconUpdated == true)
         {
@@ -163,7 +178,7 @@ public class Inventory : MonoBehaviour
             StartCoroutine(Reset());
         }
         
-       
+       //Set spell icons into main bar
         if(set_key == true)                                  
         {   
             for(int i = 0; i < UI_Slots_1_to_8.Length; i++)
@@ -180,6 +195,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
+        //Set magic icons into main bar
         if (set_key2 == true)
         {
             for (int i = 0; i < UI_Slots_1_to_8.Length; i++)
@@ -206,6 +222,11 @@ public class Inventory : MonoBehaviour
                         if (SaveScript.mana > 0.01f)
                         {
                             Instantiate(spells_vfx_particles[spell_slots_assosiations[i]], SaveScript.vfx_spawn_point.transform.position, SaveScript.vfx_spawn_point.transform.rotation); //go throug the buttons 1-8, look what number of spells stores and cast this spell
+                            audio_Player.clip = Spell_SFX[spell_slots_assosiations[i]];
+                            audio_Player.Play();
+                            player_animation.SetTrigger("spellAttack"); 
+                            player_animation.SetLayerWeight(1, 1);
+                            weight_of_animation_layer = 1;
                         }
                         if(spell_slots_assosiations[i] < 6 && SaveScript.mana > 0.1)
                         {
@@ -217,6 +238,23 @@ public class Inventory : MonoBehaviour
         }
 
         mana_bar.fillAmount = SaveScript.mana;
+
+        //for player animation magic attack
+        if (player_information.IsTag("spell_attack_tag"))
+        {
+            change_weight = true;
+        }
+        if(change_weight == true)
+        {
+            weight_of_animation_layer -= 0.6f * Time.deltaTime;
+            player_animation.SetLayerWeight(1, weight_of_animation_layer);
+            if(weight_of_animation_layer <= 0)
+            {
+                change_weight = false;
+            }
+        }
+        //
+        
     }
 
     public void DataOfItemsCheck()     //reda/write into   static data
