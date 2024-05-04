@@ -22,18 +22,21 @@ public class PlayerMovement : MonoBehaviour
     private float velocitySpeed;
     public static int ray_numbers = 6;
 
-    // Для камеры
+    //For Camera
     CinemachineTransposer cinemachineTransposer;
-    public CinemachineVirtualCamera playerCamera;
+    //public CinemachineVirtualCamera playerCamera;  //free 
+    CinemachineOrbitalTransposer cinemachine_orbital_Transposer;
+ 
     private Vector3 mouse_pos;
     private Vector3 current_pos;
+    private string axis_named = "Mouse X";
 
     private bool isPlayerSelectScene;
     public static bool canMove = true;
     public static bool isPlayerMoving = false;
 
-    public GameObject camera_1_free;
-    public GameObject camera_2_static;
+    public GameObject camera_1_static;
+    public GameObject camera_2_free;
     private bool is_camera1_active = true;
 
 
@@ -51,11 +54,14 @@ public class PlayerMovement : MonoBehaviour
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
         anim = GetComponent<Animator>();
 
-        camera_1_free.SetActive(true);
-        camera_2_static.SetActive(false);
+
+        camera_1_static.SetActive(false);
+        camera_2_free.SetActive(true);
         SaveScript.vfx_spawn_point = vfx_spawm_point;
         //cinemachineTransposer = playerCamera.GetCinemachineComponent<CinemachineTransposer>();
         //current_pos = cinemachineTransposer.m_FollowOffset;
+        cinemachineTransposer = camera_1_static.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
+        cinemachine_orbital_Transposer = camera_2_free.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
 
         if (SceneManager.GetActiveScene().name == "PlayerSelect")
         {
@@ -115,6 +121,17 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
+            if (Input.GetMouseButton(1))
+            {
+                cinemachine_orbital_Transposer.m_XAxis.m_InputAxisName = axis_named;   //we put "Mouse X" into field of orbital camera to be able to rotate it
+            }
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                cinemachine_orbital_Transposer.m_XAxis.m_InputAxisName = null;
+                cinemachine_orbital_Transposer.m_XAxis.m_InputAxisValue = 0;
+            }
+
 
             // Check if the character is moving (forward or backward)
             anim.SetBool("sprinting", velocitySpeed > 0.1f);
@@ -139,15 +156,15 @@ public class PlayerMovement : MonoBehaviour
         {
             if(is_camera1_active == true)
             {
-                camera_1_free.SetActive(false);
-                camera_2_static.SetActive(true);
+                camera_1_static.SetActive(false);
+                camera_2_free.SetActive(true);
 
                 is_camera1_active = false;
             }
             else if (is_camera1_active == false)
             {
-                camera_1_free.SetActive(true);
-                camera_2_static.SetActive(false);
+                camera_1_static.SetActive(true);
+                camera_2_free.SetActive(false);
 
                 is_camera1_active = true;
             }

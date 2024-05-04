@@ -257,7 +257,7 @@ public class Inventory : MonoBehaviour
         
     }
 
-    public void DataOfItemsCheck()     //reda/write into   static data
+    public void DataOfItemsCheck()     //read/write into   static data
     {
         for (int i = 0; i < maximum_second; i++)
         {

@@ -16,8 +16,16 @@ public class Unlock_Book_Magic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UI_Spells.SetActive(false);
-        UI_Magic.SetActive(false);
+        if(is_pintogram_Magic == true)
+        {
+            UI_Magic.SetActive(false);
+        }
+        if(is_book_Spels == true)
+        {
+            UI_Spells.SetActive(false);
+        }
+       
+      
 
     }
 
@@ -26,13 +34,13 @@ public class Unlock_Book_Magic : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (is_pintogram_Magic == true)
+            if (is_pintogram_Magic == true) 
             {
                 if(is_magic_Unlock == false)
                 {
                     UI_Magic.SetActive(true);
                     is_magic_Unlock = true;
-
+                    Destroy(gameObject);
                 }
             }
         }
@@ -45,6 +53,7 @@ public class Unlock_Book_Magic : MonoBehaviour
                 {
                     UI_Spells.SetActive(true);
                     is_spells_Unlock = true;
+                    Destroy(gameObject);
 
                 }
             }
