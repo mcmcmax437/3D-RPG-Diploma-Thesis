@@ -13,8 +13,15 @@ public class SaveScript : MonoBehaviour
     public static float mana_regeneration = 0.04f; // make it 0.02 (but now it is 0.04 for test in game)
     public static bool is_invisible = false;
 
- 
+    public static float strength_basic = 0.1f;
+    public static float intelligence_basic = 0.1f;
+    public static float stamina_basic = 0.1f;
 
+    public static int killed_enemy = 0;
+
+    public static int weapon_index = 4;
+    public static bool should_change_weapon = false; //true - to test, false at finish
+    public static bool is_character_equip_a_weapon = false;
     void Start()
     {
         DontDestroyOnLoad(this);

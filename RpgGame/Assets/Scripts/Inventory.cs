@@ -7,11 +7,17 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-
+    public GameObject D_Characters_container;
     public GameObject inventoryMenu;
     public GameObject bookOpen;
     public GameObject bookClose;
     public GameObject spell_Book;
+
+    //public GameObject Deeds_Page_Canvas;
+    public GameObject Stats_Page_Canvas;
+    public GameObject Inventory_Page_Canvas;
+    //public GameObject Map_Page_Canvas;
+
 
     private AudioSource audio_Player;
     public AudioClip openning_book_SFX;
@@ -72,6 +78,7 @@ public class Inventory : MonoBehaviour
 
 
     public GameObject Spell_Canvas;
+    public GameObject Stats_Canvas;
 
     public Image[] empty_slots;
     public Sprite[] sprite_icons;
@@ -114,6 +121,9 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+        D_Characters_container.SetActive(false);
+        Stats_Canvas.GetComponent<Stats_Info>().OnLoadUpdateOnce();
+
         inventoryMenu.SetActive(false);
         bookOpen.SetActive(false);
         bookClose.SetActive(true);
@@ -162,6 +172,7 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         player_information = player_animation.GetCurrentAnimatorStateInfo(1); //listen to Animator
+
 
         //Debug.Log("iconUpdated = " + iconUpdated);
         if (iconUpdated == true)
@@ -296,6 +307,7 @@ public class Inventory : MonoBehaviour
     public void OpenInventory()
     {
         SaveScript.spell_target = null;
+        Open_Section_Inventory();
         shop.SetActive(false);               
         chatBox.SetActive(false);
         audio_Player.clip = openning_book_SFX;
@@ -315,6 +327,7 @@ public class Inventory : MonoBehaviour
         inventoryMenu.SetActive(false);
         bookOpen.SetActive(false);
         bookClose.SetActive(true);
+        D_Characters_container.SetActive(false);
         audio_Player.clip = openning_book_SFX;
         audio_Player.Play();
         Time.timeScale = 1;
@@ -339,6 +352,30 @@ public class Inventory : MonoBehaviour
         yield return new WaitForSeconds(0);
         iconUpdated = false;
         max = empty_slots.Length;
+    }
+
+    public void Open_Section_Inventory()
+    {
+        Stats_Page_Canvas.SetActive(false);
+        D_Characters_container.SetActive(false);
+        Inventory_Page_Canvas.SetActive(true);
+    }
+
+    public void Open_Section_Stats()
+    {
+        Inventory_Page_Canvas.SetActive(false);
+        Stats_Page_Canvas.SetActive(true);
+        D_Characters_container.SetActive(true);      
+    }
+
+    public void Open_Section_Deeds()
+    {
+      
+    }
+
+    public void Open_Section_Map()
+    {
+        
     }
 
 }

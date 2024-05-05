@@ -5,9 +5,6 @@ using Cinemachine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-
-
-
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -47,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     private WaitForSeconds nearEnemy = new WaitForSeconds(0.22f);
 
     public GameObject[] player_mesh_parts;
+    public GameObject[] weapons_props;
 
 
     void Start()
@@ -63,6 +61,11 @@ public class PlayerMovement : MonoBehaviour
         cinemachineTransposer = camera_1_static.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
         cinemachine_orbital_Transposer = camera_2_free.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
 
+        for (int i = 0; i < weapons_props.Length; i++)
+        {
+            weapons_props[i].SetActive(false);
+        }
+
         if (SceneManager.GetActiveScene().name == "PlayerSelect")
         {
             isPlayerSelectScene = true;
@@ -73,6 +76,18 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
+        //change correct weapon
+        if(SaveScript.should_change_weapon == true)
+        {
+            SaveScript.should_change_weapon = false;
+            for (int i = 0; i < weapons_props.Length; i++)
+            {
+                weapons_props[i].SetActive(false);
+            }
+            weapons_props[SaveScript.weapon_index].SetActive(true);
+        }
+
 
         if (isPlayerSelectScene == false)
         {
@@ -137,13 +152,24 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("sprinting", velocitySpeed > 0.1f);
             if(velocitySpeed != 0)
             {
+                if(SaveScript.is_character_equip_a_weapon == false)
+                {
+                    anim.SetBool("sprinting", true);
+                    anim.SetBool("equip_a_weapon", false);
+                }
+                if (SaveScript.is_character_equip_a_weapon == true)
+                {
+                    anim.SetBool("sprinting", true);
+                    anim.SetBool("equip_a_weapon", true);
+                }
                 isPlayerMoving = true;
             } 
             if (velocitySpeed == 0)
             {
+                anim.SetBool("sprinting", false);
                 isPlayerMoving = false;
             }
-
+             
 
             if (Input.GetKeyDown(KeyCode.S))
             {

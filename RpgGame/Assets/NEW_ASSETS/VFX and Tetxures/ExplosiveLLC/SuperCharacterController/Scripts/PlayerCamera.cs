@@ -1,40 +1,39 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class PlayerCamera : MonoBehaviour {
+public class PlayerCamera:MonoBehaviour
+{
+	public float Distance = 5.0f;
+	public float Height = 2.0f;
 
-    public float Distance = 5.0f;
-    public float Height = 2.0f;
+	public GameObject PlayerTarget;
 
-    public GameObject PlayerTarget;    
+	private PlayerInputController input;
+	private Transform target;
+	private PlayerMachine machine;
+	private float yRotation;
 
-    private PlayerInputController input;
-    private Transform target;
-    private PlayerMachine machine;
-    private float yRotation;
+	private SuperCharacterController controller;
 
-    private SuperCharacterController controller;
-
-	// Use this for initialization
-	void Start () {
-        input = PlayerTarget.GetComponent<PlayerInputController>();
-        machine = PlayerTarget.GetComponent<PlayerMachine>();
-        controller = PlayerTarget.GetComponent<SuperCharacterController>();
-        target = PlayerTarget.transform;
+	private void Start()
+	{
+		input = PlayerTarget.GetComponent<PlayerInputController>();
+		machine = PlayerTarget.GetComponent<PlayerMachine>();
+		controller = PlayerTarget.GetComponent<SuperCharacterController>();
+		target = PlayerTarget.transform;
 	}
-	
-	// Update is called once per frame
-	void LateUpdate () {
-        transform.position = target.position;
 
-        yRotation += input.Current.MouseInput.y;
+	private void LateUpdate()
+	{
+		transform.position = target.position;
 
-        Vector3 left = Vector3.Cross(machine.lookDirection, controller.up);
+		yRotation += input.Current.MouseInput.y;
 
-        transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
-        transform.rotation = Quaternion.AngleAxis(yRotation, left) * transform.rotation;
+		Vector3 left = Vector3.Cross(machine.lookDirection, controller.up);
 
-        transform.position -= transform.forward * Distance;
-        transform.position += controller.up * Height;
+		transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
+		transform.rotation = Quaternion.AngleAxis(yRotation, left) * transform.rotation;
+
+		transform.position -= transform.forward * Distance;
+		transform.position += controller.up * Height;
 	}
 }
