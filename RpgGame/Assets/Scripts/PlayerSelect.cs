@@ -48,6 +48,8 @@ public class PlayerSelect : MonoBehaviour
         SaveScript.player_index_character = player_index;
         SaveScript.player_name = player_name.text;
 
+        Debug.Log(player_index +" INDEX");
+
         SceneManager.LoadScene(1); //Load Terrain1
     }
 }

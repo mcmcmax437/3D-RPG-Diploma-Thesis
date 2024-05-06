@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour
 
 
     public GameObject Spell_Canvas;
-    public GameObject Stats_Canvas;
+  //public GameObject Stats_Canvas;
 
     public Image[] empty_slots;
     public Sprite[] sprite_icons;
@@ -116,13 +116,14 @@ public class Inventory : MonoBehaviour
     public GameObject[] spells_vfx_particles;       //for Spell Test    
     public AudioClip[] Spell_SFX;           // should be in the same order as spell_vfx_particles
 
+    public bool[] weapons;
 
     public Image mana_bar; // to talk to fill amount from mana
 
     void Start()
     {
         D_Characters_container.SetActive(false);
-        Stats_Canvas.GetComponent<Stats_Info>().OnLoadUpdateOnce();
+        Stats_Page_Canvas.GetComponent<Stats_Info>().OnLoadUpdateOnce();
 
         inventoryMenu.SetActive(false);
         bookOpen.SetActive(false);
@@ -306,6 +307,7 @@ public class Inventory : MonoBehaviour
 
     public void OpenInventory()
     {
+        Stats_Page_Canvas.GetComponent<Stats_Info>().OnLoadUpdateOnce();
         SaveScript.spell_target = null;
         Open_Section_Inventory();
         shop.SetActive(false);               
@@ -365,7 +367,8 @@ public class Inventory : MonoBehaviour
     {
         Inventory_Page_Canvas.SetActive(false);
         Stats_Page_Canvas.SetActive(true);
-        D_Characters_container.SetActive(true);      
+        D_Characters_container.SetActive(true);
+        Stats_Page_Canvas.GetComponent<Stats_Info>().should_be_updated_weapons = true;
     }
 
     public void Open_Section_Deeds()
