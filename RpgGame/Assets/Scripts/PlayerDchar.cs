@@ -15,5 +15,9 @@ public class PlayerDchar : MonoBehaviour
         D_Char_array[SaveScript.player_index_character].SetActive(true);
     }
 
+    public void ChangeArmorForDisplay()
+    {
+        D_Char_array[SaveScript.player_index_character].GetComponent<D_Player_ArmorDisplay>().DisplayArmor();
+    }
 }
   

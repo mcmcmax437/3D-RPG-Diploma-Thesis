@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject[] player_mesh_parts;
     public GameObject[] weapons_props;
+    public GameObject[] armor_parts_Torso;
+    public GameObject[] armor_parts_Legs;
 
 
     void Start()
@@ -207,18 +209,32 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        //make player visible 
-        if (player_mesh_parts[0].activeSelf == false)
+        //make player visible  
+        if (SaveScript.mana <= 0.05)
         {
             if (SaveScript.is_invisible == false)
             {
                 for (int i = 0; i < player_mesh_parts.Length; i++)
                 {
                     player_mesh_parts[i].SetActive(true);
+                   
                 }
+                SaveScript.should_change_armor = true;
             }
         }
 
+
+        if(SaveScript.should_change_armor == true)
+        {
+            for(int i = 0; i < armor_parts_Torso.Length; i++)
+            {
+                armor_parts_Torso[i].SetActive(false);
+                armor_parts_Legs[i].SetActive(false);
+            }
+            armor_parts_Torso[SaveScript.index_of_equiped_armor].SetActive(true);
+            armor_parts_Legs[SaveScript.index_of_equiped_armor].SetActive(true);
+            SaveScript.should_change_armor = false;
+        }
 
     }
 

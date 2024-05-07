@@ -22,6 +22,11 @@ public class SaveScript : MonoBehaviour
     public static int weapon_index = 4;
     public static bool should_change_weapon = false; //true - to test, false at finish
     public static bool is_character_equip_a_weapon = false;
+
+    public static int index_of_equiped_armor = 0;  //7 - bassic, 8 - light, 9 - heave
+    public static bool should_change_armor = false;
+
+
     void Start()
     {
         DontDestroyOnLoad(this);

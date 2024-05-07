@@ -368,7 +368,9 @@ public class Inventory : MonoBehaviour
         Inventory_Page_Canvas.SetActive(false);
         Stats_Page_Canvas.SetActive(true);
         D_Characters_container.SetActive(true);
+        D_Characters_container.GetComponent<PlayerDchar>().ChangeArmorForDisplay();
         Stats_Page_Canvas.GetComponent<Stats_Info>().should_be_updated_weapons = true;
+
     }
 
     public void Open_Section_Deeds()
