@@ -47,7 +47,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] weapons_props;
     public GameObject[] armor_parts_Torso;
     public GameObject[] armor_parts_Legs;
+    public string[] attacks_tags;
+    public AudioClip[] weapon_SFX;
+    public AudioSource audio_Player;
 
+    private AnimatorStateInfo player_information;
 
     void Start()
     {
@@ -78,9 +82,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log("can mpve " + canMove);
+        player_information = anim.GetCurrentAnimatorStateInfo(0); //listen to Animator
 
         //change correct weapon
-        if(SaveScript.should_change_weapon == true)
+        if (SaveScript.should_change_weapon == true)
         {
             SaveScript.should_change_weapon = false;
             for (int i = 0; i < weapons_props.Length; i++)
@@ -99,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
             Ray[] rays = new Ray[ray_numbers];
 
-            if (Input.GetMouseButtonDown(0)) 
+            if (Input.GetMouseButtonDown(0) && player_information.IsTag("nonAttack") && !anim.IsInTransition(0))
             {
                 if (canMove == true)
                 {
@@ -236,12 +242,45 @@ public class PlayerMovement : MonoBehaviour
             SaveScript.should_change_armor = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (SaveScript.is_character_equip_a_weapon == true)
+            {
+                Basic_or_Critical_Attack();
+            }
+        }
+
     }
 
+    public void Basic_or_Critical_Attack()
+    {         
+            float randomNumber = Random.value;            
+            if (randomNumber <= SaveScript.critical_hit_chance)
+            {
+            anim.SetTrigger(attacks_tags[6]);
+            audio_Player.clip = weapon_SFX[6];
+            audio_Player.Play();
+
+        }
+            else
+            {
+            anim.SetTrigger(attacks_tags[SaveScript.weapon_index]);
+            audio_Player.clip = weapon_SFX[SaveScript.weapon_index];
+            //audio_Player.Play();
+        }    
+    }
+
+    public void Weapon_SFX_Play()
+    { 
+        
+        audio_Player.Play();
+    }
 
     IEnumerator MoveTo()
     {
         yield return nearEnemy;
         nav.isStopped = true;
     }
+
+
 }

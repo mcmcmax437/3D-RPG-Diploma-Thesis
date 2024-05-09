@@ -46,7 +46,9 @@ public class Buying_Weapons : MonoBehaviour
             Inventory.gold -= price;
             SaveScript.index_of_equiped_armor = armor__index;
             SaveScript.should_change_armor = true;
+            //RANDOM SFX COIN
             RandomAudio();
+            //
             finance_text_diamond.text = Inventory.diamond.ToString();
             finance_text_gold.text = Inventory.gold.ToString();
         } 

@@ -14,6 +14,7 @@ public class CursorOver : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }     
     }
 
+
     public void OnPointerExit(PointerEventData eventData)
     {
         if (Time.timeScale == 1)
