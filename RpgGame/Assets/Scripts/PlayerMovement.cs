@@ -53,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
 
     private AnimatorStateInfo player_information;
 
+    private GameObject trail_mesh;
+    private WaitForSeconds traill_time = new WaitForSeconds(0.1f);
+
     void Start()
     {
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -94,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
                 weapons_props[i].SetActive(false);
             }
             weapons_props[SaveScript.weapon_index].SetActive(true);
+            StartCoroutine(WaitForTrail());
         }
 
 
@@ -101,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         {
             x = nav.velocity.x;
             z = nav.velocity.z;
-            velocitySpeed = new Vector2(x, z).magnitude;
+            velocitySpeed = new Vector2(x, z).magnitude; 
 
             Ray[] rays = new Ray[ray_numbers];
 
@@ -262,7 +266,7 @@ public class PlayerMovement : MonoBehaviour
             audio_Player.Play();
 
         }
-            else
+        else
             {
             anim.SetTrigger(attacks_tags[SaveScript.weapon_index]);
             audio_Player.clip = weapon_SFX[SaveScript.weapon_index];
@@ -276,11 +280,27 @@ public class PlayerMovement : MonoBehaviour
         audio_Player.Play();
     }
 
-    IEnumerator MoveTo()
+    public void TurnOn_Trail()
     {
+        trail_mesh.GetComponent<Renderer>().enabled = true;
+    }
+
+    public void TurnOff_Trail()
+    {
+        trail_mesh.GetComponent<Renderer>().enabled = false;
+    }
+    IEnumerator MoveTo()
+    { 
         yield return nearEnemy;
         nav.isStopped = true;
     }
 
+    IEnumerator WaitForTrail()
+    {
+        yield return traill_time;
+        trail_mesh = GameObject.Find("Trail");
+        trail_mesh.GetComponent<Renderer>().enabled = false;
+    }
 
 }
+

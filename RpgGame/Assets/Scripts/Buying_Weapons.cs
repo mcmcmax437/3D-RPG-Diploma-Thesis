@@ -15,6 +15,8 @@ public class Buying_Weapons : MonoBehaviour
     public GameObject Inventory_Canvas;
     public AudioSource audio_Player;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +55,9 @@ public class Buying_Weapons : MonoBehaviour
             finance_text_gold.text = Inventory.gold.ToString();
         } 
     }
+
+   
+
 
     public void RandomAudio()
     {
