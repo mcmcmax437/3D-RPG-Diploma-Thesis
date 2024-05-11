@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject trail_mesh;
     private WaitForSeconds traill_time = new WaitForSeconds(0.1f);
 
+    public float[] stamina_cost_for_weapon;
     void Start()
     {
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -248,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (SaveScript.is_character_equip_a_weapon == true)
+            if (SaveScript.is_character_equip_a_weapon == true && SaveScript.stamina > 0.2f)
             {
                 Basic_or_Critical_Attack();
             }
@@ -261,13 +262,16 @@ public class PlayerMovement : MonoBehaviour
             float randomNumber = Random.value;            
             if (randomNumber <= SaveScript.critical_hit_chance)
             {
+            SaveScript.stamina -= stamina_cost_for_weapon[6];
             anim.SetTrigger(attacks_tags[6]);
             audio_Player.clip = weapon_SFX[6];
             audio_Player.Play();
+           
 
         }
         else
             {
+            SaveScript.stamina -= stamina_cost_for_weapon[SaveScript.weapon_index];
             anim.SetTrigger(attacks_tags[SaveScript.weapon_index]);
             audio_Player.clip = weapon_SFX[SaveScript.weapon_index];
             //audio_Player.Play();

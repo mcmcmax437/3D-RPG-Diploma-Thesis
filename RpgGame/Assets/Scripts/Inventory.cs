@@ -119,6 +119,7 @@ public class Inventory : MonoBehaviour
     public bool[] weapons;
 
     public Image mana_bar; // to talk to fill amount from mana
+    public Image stamina_bar;
 
     void Start()
     {
@@ -250,6 +251,14 @@ public class Inventory : MonoBehaviour
         }
 
         mana_bar.fillAmount = SaveScript.mana;
+
+
+        if(SaveScript.stamina != stamina_bar.fillAmount)
+        {
+              stamina_bar.fillAmount = Mathf.Lerp(stamina_bar.fillAmount, SaveScript.stamina, 2*Time.deltaTime);
+         }
+        //stamina_bar.fillAmount = SaveScript.stamina;
+
 
         //for player animation magic attack
         if (player_information.IsTag("spell_attack_tag"))

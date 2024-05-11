@@ -7,6 +7,7 @@ TagManager:
   - Additional Camera
   - chest
   - enemy
+  - Crate
   layers:
   - Default
   - TransparentFX

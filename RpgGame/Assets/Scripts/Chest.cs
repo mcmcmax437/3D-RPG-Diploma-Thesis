@@ -15,6 +15,7 @@ public class Chest : MonoBehaviour
      
     public bool commonChest = false;
     public bool legendaryChest = false;
+    public bool crate = false;
 
     public GameObject vfx_particle;
     public GameObject spawn_point;
@@ -30,10 +31,16 @@ public class Chest : MonoBehaviour
     public AudioClip chest_openning_SFX;
     public AudioClip key_twist_SFX;
 
+    //public GameObject Crate_Container;
+    //public GameObject Crate_Mesh;
+
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        if(crate == false)
+        {
+            animator = GetComponent<Animator>();          
+        }
         chest_Canvas.SetActive(false);
         display_money = goldInChest;
     }
@@ -51,89 +58,96 @@ public class Chest : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") )
+
+        if(crate == false) 
         {
-
-            //For Common Chest
-            if (Inventory.player_has_a_common_key == true && commonChest == true && chest_is_opened == false)
+            if (other.CompareTag("Player"))
             {
-                animator.SetTrigger("openChest");
-                Inventory.gold = Inventory.gold + goldInChest;            
-                goldInChest = 0;
 
-                //audio SFX for chest
-                inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;     //too low
-                inventory_Canvas.GetComponent<AudioSource>().Play();            // too low
-
-                inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;
-                inventory_Canvas.GetComponent<AudioSource>().PlayDelayed(1 * Time.deltaTime);
-
-                chest_is_opened = true;
-                Inventory.amount_of_keySimp--;
-                if (Inventory.amount_of_keySimp == 0)
+                //For Common Chest
+                if (Inventory.player_has_a_common_key == true && commonChest == true && chest_is_opened == false)
                 {
-                    ItemPickUp.is_keySimp_exist = false;
-                   // ItemPickUp.DestroyIcon();
+                    animator.SetTrigger("openChest");
+                    Inventory.gold = Inventory.gold + goldInChest;
+                    goldInChest = 0;
+
+                    //audio SFX for chest
+                    inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;     //too low
+                    inventory_Canvas.GetComponent<AudioSource>().Play();            // too low
+
+                    inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;
+                    inventory_Canvas.GetComponent<AudioSource>().PlayDelayed(1 * Time.deltaTime);
+
+                    chest_is_opened = true;
+                    Inventory.amount_of_keySimp--;
+                    if (Inventory.amount_of_keySimp == 0)
+                    {
+                        ItemPickUp.is_keySimp_exist = false;
+                        // ItemPickUp.DestroyIcon();
+
+                    }
+                    Debug.Log("Gold = " + Inventory.gold);
 
                 }
-                Debug.Log("Gold = " + Inventory.gold);
-
-            }
-            else
-            {
-                Debug.Log("You Don`t have a common Key");
-            }
-
-
-            //For Legendary Chest
-            if (Inventory.player_has_a_gold_key == true && legendaryChest == true && chest_is_opened == false)
-            {
-                animator.SetTrigger("openChest");
-                Inventory.gold = Inventory.gold + goldInChest;
-                goldInChest = 0;
-
-                //audio SFX for chest
-                inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;          //to low
-                inventory_Canvas.GetComponent<AudioSource>().Play();            //to low
-               
-                inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;
-                inventory_Canvas.GetComponent<AudioSource>().PlayDelayed(1 * Time.deltaTime);
-
-
-                chest_is_opened = true;
-                Inventory.amount_of_keyGold--;
-                if(Inventory.amount_of_keyGold == 0)
+                else
                 {
-                    ItemPickUp.is_keyGold_exist = false;  
-                   // ItemPickUp.DestroyIcon(); 
-                  
+                    Debug.Log("You Don`t have a common Key");
                 }
 
 
-                Debug.Log("Gold = " + Inventory.gold);
-            }
-            else
-            {
-                Debug.Log("You Don`t have a golden Key");
-            } 
+                //For Legendary Chest
+                if (Inventory.player_has_a_gold_key == true && legendaryChest == true && chest_is_opened == false)
+                {
+                    animator.SetTrigger("openChest");
+                    Inventory.gold = Inventory.gold + goldInChest;
+                    goldInChest = 0;
 
+                    //audio SFX for chest
+                    inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;          //to low
+                    inventory_Canvas.GetComponent<AudioSource>().Play();            //to low
+
+                    inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;
+                    inventory_Canvas.GetComponent<AudioSource>().PlayDelayed(1 * Time.deltaTime);
+
+
+                    chest_is_opened = true;
+                    Inventory.amount_of_keyGold--;
+                    if (Inventory.amount_of_keyGold == 0)
+                    {
+                        ItemPickUp.is_keyGold_exist = false;
+                        // ItemPickUp.DestroyIcon(); 
+
+                    }
+
+
+                    Debug.Log("Gold = " + Inventory.gold);
+                }
+                else
+                {
+                    Debug.Log("You Don`t have a golden Key");
+                }
+            }
 
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (crate == false)
         {
-            if (Inventory.player_has_a_common_key == true && commonChest == true && chest_is_opened == true)
+            if (other.CompareTag("Player"))
             {
-                animator.SetTrigger("closeChest");
-            }else if (Inventory.player_has_a_gold_key == true && legendaryChest == true && chest_is_opened == true)
-            {
-                animator.SetTrigger("closeChest");
+                if (Inventory.player_has_a_common_key == true && commonChest == true && chest_is_opened == true)
+                {
+                    animator.SetTrigger("closeChest");
+                }
+                else if (Inventory.player_has_a_gold_key == true && legendaryChest == true && chest_is_opened == true)
+                {
+                    animator.SetTrigger("closeChest");
+                }
+
+
             }
-               
-            
         }
     }
 
@@ -145,8 +159,47 @@ public class Chest : MonoBehaviour
 
     public void VFX_chest_text()
     {
-        Debug.Log("Spawn VFX");
+        //Debug.Log("Spawn VFX");
         Instantiate(vfx_particle, spawn_point.transform.position, spawn_point.transform.rotation);
         chest_Canvas.SetActive(true);
     }
+
+
+    public void VFX_crate_text()
+    {
+        //Debug.Log("Spawn VFX");
+        Instantiate(vfx_particle, spawn_point.transform.position, spawn_point.transform.rotation);
+        chest_Canvas.SetActive(true);
+
+        if (crate == true)
+        {
+            Inventory.gold = Inventory.gold + goldInChest;
+            goldInChest = 0;
+            RandomAudio_Crate();
+            chest_is_opened = true;
+        }
+    }
+    public void RandomAudio_Crate()
+    {
+        int randomNumber = UnityEngine.Random.Range(1, 101);
+        if (randomNumber > 0 && randomNumber < 50)
+        {
+            inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;    // Crack1_Wood - sfx
+        }
+        else if (randomNumber >= 50 && randomNumber <= 101)
+        {
+           inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;   // Crack3_Wood - sfx
+        }
+        inventory_Canvas.GetComponent<AudioSource>().Play();
+    }
+
+    /*public void Destroy_CrateMesh()
+    {
+        Destroy(Crate_Mesh);
+    }
+
+    public void Destroy_CrateContainer()
+    {
+        Destroy(Crate_Container);
+    }*/
 }

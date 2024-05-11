@@ -11,6 +11,8 @@ public class SaveScript : MonoBehaviour
 
     public static float mana = 1.0f;
     public static float mana_regeneration = 0.04f; // make it 0.02 (but now it is 0.04 for test in game)
+    public static float stamina = 1.0f;
+    public static float stamina_regeneration = 0.05f;
     public static bool is_invisible = false;
 
     public static float strength_basic = 0.1f;
@@ -51,6 +53,24 @@ public class SaveScript : MonoBehaviour
         {
             is_invisible = false;
         }
+
+        if (stamina < 1.0)
+        {
+            stamina += stamina_regeneration * Time.deltaTime;
+        }
+        if (stamina <= 0)
+        {
+            stamina = 0;
+           // StartCoroutine(WaitBeforeRegeneration());
+        }
+       
+
+    }
+
+    IEnumerator WaitBeforeRegeneration()
+    {
+        yield return new WaitForSeconds(3);
+        stamina += (stamina_regeneration*2) * Time.deltaTime;
     }
 }
  

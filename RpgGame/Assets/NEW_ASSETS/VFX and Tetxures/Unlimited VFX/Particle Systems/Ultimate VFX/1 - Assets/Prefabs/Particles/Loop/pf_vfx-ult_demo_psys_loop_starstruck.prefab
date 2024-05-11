@@ -407,7 +407,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 0
       maxCurve:
@@ -460,7 +460,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 0
       maxCurve:
@@ -9616,7 +9616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae15b9cb2b066dd4eab4cbe6432d6985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life_time: 2
+  life_time_for_chest: 2
 --- !u!1 &122904
 GameObject:
   m_ObjectHideFlags: 0
