@@ -54,11 +54,13 @@ public class SaveScript : MonoBehaviour
             is_invisible = false;
         }
 
+
         if (stamina < 1.0)
         {
             stamina += stamina_regeneration * Time.deltaTime;
+            Debug.Log(stamina); 
         }
-        if (stamina <= 0)
+        if (stamina < 0)
         {
             stamina = 0;
            // StartCoroutine(WaitBeforeRegeneration());

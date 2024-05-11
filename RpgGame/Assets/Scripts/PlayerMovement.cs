@@ -247,9 +247,11 @@ public class PlayerMovement : MonoBehaviour
             SaveScript.should_change_armor = false;
         }
 
+
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (SaveScript.is_character_equip_a_weapon == true && SaveScript.stamina > 0.2f)
+            if (SaveScript.is_character_equip_a_weapon == true && SaveScript.stamina > 0.2)
             {
                 Basic_or_Critical_Attack();
             }
@@ -262,19 +264,20 @@ public class PlayerMovement : MonoBehaviour
             float randomNumber = Random.value;            
             if (randomNumber <= SaveScript.critical_hit_chance)
             {
-            SaveScript.stamina -= stamina_cost_for_weapon[6];
+            
             anim.SetTrigger(attacks_tags[6]);
             audio_Player.clip = weapon_SFX[6];
             audio_Player.Play();
-           
+            SaveScript.stamina -= stamina_cost_for_weapon[6];
 
         }
         else
             {
-            SaveScript.stamina -= stamina_cost_for_weapon[SaveScript.weapon_index];
+            
             anim.SetTrigger(attacks_tags[SaveScript.weapon_index]);
             audio_Player.clip = weapon_SFX[SaveScript.weapon_index];
             //audio_Player.Play();
+            SaveScript.stamina -= stamina_cost_for_weapon[SaveScript.weapon_index];
         }    
     }
 
