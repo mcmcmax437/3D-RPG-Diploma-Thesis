@@ -59,7 +59,9 @@ public class ChatScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         salesman_message.text = "Buy everything what you want...";
         shopUI[shop_number].SetActive(true);
-        shopUI[shop_number].GetComponent<Buying>().UpdateFinance();
-
+        if(shop_number < 3)
+        {
+            shopUI[shop_number].GetComponent<Buying>().UpdateFinance();
+        }       
     }
 }

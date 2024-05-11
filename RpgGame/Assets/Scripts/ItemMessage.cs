@@ -35,19 +35,37 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
      
     public void OnPointerEnter(PointerEventData eventData)
     {
+        overIcon = true;
         if (displaying == true)
         {  
             CursorImage.sprite = CursorHand;
             textBox.SetActive(true);
             overIcon = true;
-            //screenPoint.x = Input.mousePosition.x + 400;
-            // screenPoint.y = Input.mousePosition.y;
-            //screenPoint.z = 1f;
-            // textBox.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);           
+
+            if (left == true)
+            {
+                screenPoint.x = Input.mousePosition.x + Screen.width / 4.5f;
+               // screenPoint.x = Input.mousePosition.x;
+            }
+            if (left == false)
+            {
+                screenPoint.x = Input.mousePosition.x - Screen.width / 4.5f;
+            }
+            screenPoint.y = Input.mousePosition.y;
+            screenPoint.z = 1f;           //z axis displayes incorrect - need to be fixed
+            Vector3 necessery_position = new Vector3(screenPoint.x, screenPoint.y, screenPoint.z+4.3f);
+             //Debug.Log(screenPoint.z);
+              textBox.transform.position = Camera.main.ScreenToWorldPoint(necessery_position);
+          //  textBox.position.x = screenPoint.x;
+          //  textBox.transform.position.y = screenPoint.y;
+           // textBox.transform.position.z = screenPoint.z;
+
+           
             MessageDisplay();
-           // Debug.Log(screenPoint);
+            // Debug.Log(screenPoint);
+
         }
-        
+
     } 
     public void OnPointerExit(PointerEventData eventData)
     {

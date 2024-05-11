@@ -299,7 +299,9 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return traill_time;
         trail_mesh = GameObject.Find("Trail");
+        
         trail_mesh.GetComponent<Renderer>().enabled = false;
+        
     }
 
 }

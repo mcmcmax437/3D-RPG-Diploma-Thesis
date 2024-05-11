@@ -9,6 +9,8 @@ public class Roof : MonoBehaviour
     public GameObject props;
     public GameObject main_camera;
     public bool pub = true;
+    public bool craftsMan = false;
+    public bool wizard = false;
     void Start()
     {
         roof.SetActive(true);
@@ -27,6 +29,16 @@ public class Roof : MonoBehaviour
                 main_camera.GetComponent<Music>().music_status = 2;
                 main_camera.GetComponent<Music>().should_play = true;
             }
+            if (craftsMan == true)
+            {
+                main_camera.GetComponent<Music>().music_status = 4;
+                main_camera.GetComponent<Music>().should_play = true;
+            }
+            if (wizard == true)
+            {
+                main_camera.GetComponent<Music>().music_status = 5;
+                main_camera.GetComponent<Music>().should_play = true;
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -34,12 +46,9 @@ public class Roof : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             roof.SetActive(true);
-            props.SetActive(false);
-            if (pub == true)
-            {
-                main_camera.GetComponent<Music>().music_status = 1;
-                main_camera.GetComponent<Music>().should_play = true;
-            }         
+            props.SetActive(false);          
+            main_camera.GetComponent<Music>().music_status = 1;
+            main_camera.GetComponent<Music>().should_play = true;      
         }
     }
 }

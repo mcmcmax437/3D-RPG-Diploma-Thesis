@@ -12,7 +12,8 @@ public class Music : MonoBehaviour
 
     public AudioClip shop_thema;
     public AudioClip battle_mode_thema;
-
+    public AudioClip craftsMan_thema;
+    public AudioClip wizzard_thema;
 
     public int music_status = 1;  //1 = main thema
     [HideInInspector]
@@ -44,6 +45,16 @@ public class Music : MonoBehaviour
             if (music_status == 3)
             {
                 audio_Player.clip = battle_mode_thema;
+                audio_Player.Play();
+            }
+            if (music_status == 4)
+            {
+                audio_Player.clip = craftsMan_thema;
+                audio_Player.Play();
+            }
+            if (music_status == 5)
+            {
+                audio_Player.clip = wizzard_thema;
                 audio_Player.Play();
             }
         }  
