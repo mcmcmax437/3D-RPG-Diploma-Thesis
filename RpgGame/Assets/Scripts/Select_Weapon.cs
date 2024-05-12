@@ -11,11 +11,14 @@ public class Select_Weapon : MonoBehaviour
          
     public void Choose_Weapon()
     {
-        SaveScript.weapon_index = weapon_index;
-        SaveScript.should_change_weapon = true;
-        SaveScript.is_character_equip_a_weapon = true;
+        if (SaveScript.weapon_index != weapon_index)
+        {
+            SaveScript.weapon_index = weapon_index;
+            SaveScript.should_change_weapon = true;
+            SaveScript.is_character_equip_a_weapon = true;
 
-        Inventory_Canvas.clip = selection;
-        Inventory_Canvas.Play();
+            Inventory_Canvas.clip = selection;
+            Inventory_Canvas.Play();
+        }
     }
 }

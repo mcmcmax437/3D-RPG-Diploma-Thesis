@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask boxLayer;
 
     public GameObject vfx_spawm_point;
-    private WaitForSeconds nearEnemy = new WaitForSeconds(0.22f);
+    private WaitForSeconds nearEnemy = new WaitForSeconds(0.4f);
 
     public GameObject[] player_mesh_parts;
     public GameObject[] weapons_props;
@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private GameObject trail_mesh;
     private WaitForSeconds traill_time = new WaitForSeconds(0.1f);
+    public bool critical_attack_is_active = false;
 
     public float[] stamina_cost_for_weapon;
     void Start()
@@ -132,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
                                 nav.isStopped = false;
                                 SaveScript.spell_target = hit.transform.gameObject;
                                 averageHitPoint += hit.point;
+                                transform.LookAt(SaveScript.spell_target.transform);
                                 StartCoroutine(MoveTo()); //wait 3 sec and than isStopped == true
 
                             }
@@ -264,7 +266,8 @@ public class PlayerMovement : MonoBehaviour
             float randomNumber = Random.value;            
             if (randomNumber <= SaveScript.critical_hit_chance)
             {
-            
+
+            critical_attack_is_active = true;
             anim.SetTrigger(attacks_tags[6]);
             audio_Player.clip = weapon_SFX[6];
             audio_Player.Play();
@@ -273,7 +276,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             {
-            
+            critical_attack_is_active = false;
             anim.SetTrigger(attacks_tags[SaveScript.weapon_index]);
             audio_Player.clip = weapon_SFX[SaveScript.weapon_index];
             //audio_Player.Play();

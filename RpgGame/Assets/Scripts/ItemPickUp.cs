@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ItemPickUp : MonoBehaviour
 {
+    private bool can_pick_up = true;
+    private WaitForSeconds pickUp_Pause = new WaitForSeconds(0.0001f);
 
     public int number_of_pickedUp_items;
 
@@ -52,8 +54,10 @@ public class ItemPickUp : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
       
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && can_pick_up == true)
         {
+            can_pick_up = false;
+
             audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().pick_UP_SFX;
             audio_Player.Play();
             if (is_redMushroom == true)
@@ -242,7 +246,8 @@ public class ItemPickUp : MonoBehaviour
                 Destroy(gameObject);
             }
 
-           // Destroy(gameObject);
+            // Destroy(gameObject);
+            StartCoroutine(Reset_PickUp());
         }
     }
 
@@ -258,5 +263,11 @@ public class ItemPickUp : MonoBehaviour
     {
         Inventory.newIcon = 0;
         Inventory.iconUpdated = true;
+    }
+
+    IEnumerator Reset_PickUp()
+    {
+        yield return pickUp_Pause;
+        can_pick_up = true;
     }
 }

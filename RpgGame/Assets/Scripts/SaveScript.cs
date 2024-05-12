@@ -27,7 +27,8 @@ public class SaveScript : MonoBehaviour
 
     public static int index_of_equiped_armor = 0;  //7 - bassic, 8 - light, 9 - heave
     public static bool should_change_armor = false;
-    public static float critical_hit_chance = 0.3f;
+    public static float critical_hit_chance = 0.2f;
+    public static int critical_dmg_multiply = 2;
 
 
     void Start()
@@ -58,7 +59,7 @@ public class SaveScript : MonoBehaviour
         if (stamina < 1.0)
         {
             stamina += stamina_regeneration * Time.deltaTime;
-            Debug.Log(stamina); 
+           // Debug.Log(stamina); 
         }
         if (stamina < 0)
         {

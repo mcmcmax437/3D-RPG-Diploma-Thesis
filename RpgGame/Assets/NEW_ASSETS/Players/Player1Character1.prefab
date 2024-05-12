@@ -302,7 +302,7 @@ BoxCollider:
   m_GameObject: {fileID: 1875137478}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 5.21, y: 33.8, z: 5.62}
   m_Center: {x: 0, y: -8.3, z: 0}
@@ -6418,8 +6418,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5702970398079465854}
-  m_LocalRotation: {x: 0.1533434, y: -0.78120786, z: 0.21124703, w: 0.5670757}
-  m_LocalPosition: {x: 16.14679, y: 10.559029, z: 5.2615356}
+  m_LocalRotation: {x: 0.15334332, y: -0.78120834, z: 0.21124732, w: 0.567075}
+  m_LocalPosition: {x: 16.146667, y: 10.55899, z: 5.261444}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7827,7 +7827,7 @@ NavMeshAgent:
   m_Radius: 0.1
   m_Speed: 8
   m_Acceleration: 25
-  avoidancePriority: 50
+  avoidancePriority: 1
   m_AngularSpeed: 60000
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
@@ -7896,6 +7896,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e65aa3e04168a9e40b7564b335d33df7, type: 3}
   - {fileID: 8300000, guid: 339ac303af71d8f429cae81a1f951adb, type: 3}
   audio_Player: {fileID: 1104468059}
+  critical_attack_is_active: 0
   stamina_cost_for_weapon:
   - 0.1
   - 0.2
@@ -8116,7 +8117,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6715594184205884889}
-  m_LocalRotation: {x: 0.3380431, y: -0.12119402, z: 0.043945707, w: 0.93225944}
+  m_LocalRotation: {x: 0.33804306, y: -0.121194065, z: 0.043945722, w: 0.9322595}
   m_LocalPosition: {x: 2.5567932, y: 9, z: -9.667603}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

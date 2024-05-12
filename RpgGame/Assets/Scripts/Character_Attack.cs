@@ -6,14 +6,22 @@ public class Character_Attack : MonoBehaviour
 {
     private GameObject mesh_to_Destroy;
     public int basic_weapon_damage;
+
+    private GameObject player;
+
+    private bool can_deal_dmg = true;
+    private WaitForSeconds dmg_Pause = new WaitForSeconds(0.5f);
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() 
     {
         
     }
@@ -31,7 +39,23 @@ public class Character_Attack : MonoBehaviour
             StartCoroutine(Wait_before_Destroy());
         }
 
-        
+        if (other.CompareTag("enemy") && can_deal_dmg == true )
+        {
+            can_deal_dmg = false;
+            int dmg_check = 0;
+            if(player.GetComponent<PlayerMovement>().critical_attack_is_active == true)
+            {
+                dmg_check = basic_weapon_damage * SaveScript.critical_dmg_multiply;
+                other.transform.gameObject.GetComponent<EnemyMovement>().full_HP -= (basic_weapon_damage*SaveScript.critical_dmg_multiply);
+            }
+            else
+            {
+                dmg_check = basic_weapon_damage;
+                other.transform.gameObject.GetComponent<EnemyMovement>().full_HP -= basic_weapon_damage;
+            }     
+            Debug.Log("HP = " + other.transform.gameObject.GetComponent<EnemyMovement>().full_HP + " DMG = " + basic_weapon_damage);
+            StartCoroutine(ResetDMG());
+        }
     }
 
     IEnumerator Wait_before_Destroy()
@@ -40,4 +64,9 @@ public class Character_Attack : MonoBehaviour
         Destroy(mesh_to_Destroy);
     }
 
+    IEnumerator ResetDMG()
+    {
+        yield return dmg_Pause;
+        can_deal_dmg = true;
+    }
 }
