@@ -269,6 +269,7 @@ public class PlayerMovement : MonoBehaviour
 
             critical_attack_is_active = true;
             anim.SetTrigger(attacks_tags[6]);
+            audio_Player.volume = 0.4f;
             audio_Player.clip = weapon_SFX[6];
             audio_Player.Play();
             SaveScript.stamina -= stamina_cost_for_weapon[6];
@@ -278,6 +279,7 @@ public class PlayerMovement : MonoBehaviour
             {
             critical_attack_is_active = false;
             anim.SetTrigger(attacks_tags[SaveScript.weapon_index]);
+            audio_Player.volume = 0.3f;
             audio_Player.clip = weapon_SFX[SaveScript.weapon_index];
             //audio_Player.Play();
             SaveScript.stamina -= stamina_cost_for_weapon[SaveScript.weapon_index];

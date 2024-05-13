@@ -184,15 +184,27 @@ public class Chest : MonoBehaviour
         int randomNumber = UnityEngine.Random.Range(1, 101);
         if (randomNumber > 0 && randomNumber < 50)
         {
+            inventory_Canvas.GetComponent<AudioSource>().volume = 0.4f;
             inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;    // Crack1_Wood - sfx
+            StartCoroutine(Reset_Audio_Volume());
+
+
         }
         else if (randomNumber >= 50 && randomNumber <= 101)
         {
-           inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;   // Crack3_Wood - sfx
+            inventory_Canvas.GetComponent<AudioSource>().volume = 0.4f;
+            inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;   // Crack3_Wood - sfx
+            StartCoroutine(Reset_Audio_Volume());
         }
         inventory_Canvas.GetComponent<AudioSource>().Play();
     }
 
+
+    IEnumerator Reset_Audio_Volume()
+    {
+        yield return new WaitForSeconds(1);
+        inventory_Canvas.GetComponent<AudioSource>().volume = 1.0f;
+    }
     /*public void Destroy_CrateMesh()
     {
         Destroy(Crate_Mesh);

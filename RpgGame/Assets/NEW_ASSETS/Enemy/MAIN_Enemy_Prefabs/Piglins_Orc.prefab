@@ -1168,6 +1168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec295e48d4bab324b8e9b5a0fb503bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Goblin_Warrior: 0
+  Piglins: 1
+  Loot_from_Enemy: {fileID: 2330371543677727352, guid: 72ee8fbd6868ff84e8923ecfec457662, type: 3}
   current_enemy: {fileID: 2245152461047023438}
   player: {fileID: 0}
   attack_Range: 2.2

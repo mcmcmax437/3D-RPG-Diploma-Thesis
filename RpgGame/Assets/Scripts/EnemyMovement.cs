@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class EnemyMovement : MonoBehaviour
 {
+    public bool Goblin_Warrior = false;
+    public bool Piglins = false;
+
+    public GameObject Loot_from_Enemy;
 
     public GameObject current_enemy;
     private bool is_outliner_active = false;
@@ -21,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
     private bool is_attacking;
     public float attack_Range = 2.0f;
     public float chasing_Range = 12.0f;   //range in which enemy will run after character
-    private WaitForSeconds lookAt_time_CD = new WaitForSeconds(2);
+    private float rotation_speed = 500.0f; //perfect
 
     public int full_HP = 100;
     private int curr_HP;
@@ -105,20 +109,27 @@ public class EnemyMovement : MonoBehaviour
             {
                 nav.isStopped = true;
 
+                if(distance_to_player < chasing_Range)
+                {
+                    //Look_At_Player_Spherical_LERP();        //can be claimed as self-directed attack
+                }
+
+
                 if (distance_to_player < attack_Range && enemy_information.IsTag("nonAttack"))
                 {
 
                     if (is_attacking == false)
                     {
 
-                        is_attacking = true;
+                        is_attacking = true;                      
                         anim.SetTrigger("attack");
-                        StartCoroutine(Look_At_Player());
+                        Look_At_Player_Spherical_LERP();   //little bit chunky
                     }
                 }
 
                 if (distance_to_player < attack_Range && enemy_information.IsTag("attack"))
                 {
+                   
                     if (is_attacking == true)
                     {
                         is_attacking = false;
@@ -150,20 +161,19 @@ public class EnemyMovement : MonoBehaviour
             current_enemy.GetComponent<Outline>().enabled = false;
             is_outliner_active = false;
             nav.avoidancePriority = 1;
-
+            StartCoroutine(Loot_Spawn());
         }
 
     }
 
-
-    IEnumerator Look_At_Player()
+    public void Look_At_Player_Spherical_LERP()
     {
-        yield return lookAt_time_CD;
-        if (enemy_is_alive == true)
-        {
-            transform.LookAt(player.transform);
-        }
+        Vector3 Pos = (player.transform.position - transform.position).normalized;
+        Quaternion PosRotation = Quaternion.LookRotation(new Vector3(Pos.x, 0, Pos.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, PosRotation, Time.deltaTime * rotation_speed);
     }
+
+   
 
     public void RandomAudio_Hit()
     {
@@ -181,5 +191,12 @@ public class EnemyMovement : MonoBehaviour
             audio_Player.clip = get_Hit_SFX[2];
         }
         audio_Player.Play();
+    }
+
+    IEnumerator Loot_Spawn()
+    {
+        yield return new WaitForSeconds(1);
+        Instantiate(Loot_from_Enemy, transform.position, transform.rotation);
+        Destroy(gameObject, 0.2f);
     }
 }

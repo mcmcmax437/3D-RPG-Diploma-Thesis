@@ -21,15 +21,17 @@ public class SaveScript : MonoBehaviour
 
     public static int killed_enemy = 0;
 
-    public static int weapon_index = 4;
+    public static int weapon_index = -1;
     public static bool should_change_weapon = false; //true - to test, false at finish
     public static bool is_character_equip_a_weapon = false;
 
     public static int index_of_equiped_armor = 0;  //7 - bassic, 8 - light, 9 - heave
     public static bool should_change_armor = false;
-    public static float critical_hit_chance = 0.2f;
+    public static float critical_hit_chance = 1.0f;
     public static int critical_dmg_multiply = 2;
 
+    public static int player_gold = 1000;
+    public static int player_diamond = 50;
 
     void Start()
     {
@@ -66,7 +68,8 @@ public class SaveScript : MonoBehaviour
             stamina = 0;
            // StartCoroutine(WaitBeforeRegeneration());
         }
-       
+
+        //Debug.Log(weapon_index);
 
     }
 

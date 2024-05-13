@@ -72,8 +72,8 @@ public class Inventory : MonoBehaviour
     public static bool player_has_a_common_key = false;
     public static bool player_has_a_gold_key = false;
 
-    public static int gold = 50000;
-    public static int diamond = 0;
+    public static int gold = SaveScript.player_gold;
+    public static int diamond = SaveScript.player_diamond;
     //
 
 

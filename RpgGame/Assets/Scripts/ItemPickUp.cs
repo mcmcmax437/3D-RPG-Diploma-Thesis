@@ -34,6 +34,8 @@ public class ItemPickUp : MonoBehaviour
     public bool is_purpleMushroom = false;
     public bool is_orangeMushroom = false;
 
+    public bool is_loot_coin = false;
+
     public static bool is_keySimp_exist = false;
     public static bool is_keyGold_exist = false;
 
@@ -45,7 +47,10 @@ public class ItemPickUp : MonoBehaviour
     {
         Inventory_Canvas = GameObject.Find("Inventory");
         audio_Player = Inventory_Canvas.GetComponent<AudioSource>();
-
+        if(is_loot_coin == true) // only 10 sec to pick up loot coins from enemy
+        {
+            Destroy(gameObject, 10);
+        }
     }
 
 
@@ -237,6 +242,11 @@ public class ItemPickUp : MonoBehaviour
                     DisplayIcons();
                 }
                 Inventory.amount_of_orangeMushroom++;
+                Destroy(gameObject);
+            }
+            else if (is_loot_coin == true)
+            {
+                Inventory.gold += Random.Range(10, 50);
                 Destroy(gameObject);
             }
 
