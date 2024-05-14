@@ -19,11 +19,19 @@ public class Stats_Info : MonoBehaviour
     public bool should_be_updated_weapons = true;
     public GameObject[] armor_in_shop;
 
+    public Text character_LVL;
+    public GameObject plus_button;
+    public Text scale_points_amt;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        character_LVL.text = SaveScript.player_lvl_Display.ToString();
         name_lable.text = SaveScript.player_name;
-        if(SaveScript.player_index_character == 1 || SaveScript.player_index_character == 2 || SaveScript.player_index_character == 0)
+        scale_points_amt.text = SaveScript.points_to_upgrade.ToString();
+        
+        if (SaveScript.player_index_character == 1 || SaveScript.player_index_character == 2 || SaveScript.player_index_character == 0)
         {
             armor_in_shop[0].SetActive(true);           
         }
@@ -45,7 +53,10 @@ public class Stats_Info : MonoBehaviour
         intelligence_bar.fillAmount = SaveScript.intelligence_basic;
         stamina_bar.fillAmount = SaveScript.stamina_basic;
 
-        if(should_be_updated_weapons == true)
+        scale_points_amt.text = SaveScript.points_to_upgrade.ToString();
+        character_LVL.text = SaveScript.player_lvl_Display.ToString();
+
+        if (should_be_updated_weapons == true)
         {
             for (int i =0; i < bought_weapons_inventory.Length; i++)
             {
@@ -59,6 +70,9 @@ public class Stats_Info : MonoBehaviour
         {
             should_be_updated_weapons = false;
         }
+
+        
+        
 
     }
 

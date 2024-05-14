@@ -259,6 +259,11 @@ MonoBehaviour:
   enemy_search: 0
   non_moving: 0
   support_spell_follow_player: 1
+  shield_spell: 1
+  power_stats_up_spell: 0
+  invisibility_spell_is_active: 0
+  object_triggered: {fileID: 0}
+  damage: 30
 --- !u!4 &604211814468613410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: d6ebb0ab3f51846fdbe1ebd88c5a39e0, type: 3}

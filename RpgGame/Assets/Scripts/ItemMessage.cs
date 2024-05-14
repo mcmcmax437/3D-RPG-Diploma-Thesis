@@ -262,31 +262,31 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         if (objectType == 32)
         {
-            message.text = "Uknown MAGIC 1";
+            message.text = "Flame Twist";
         }
         if (objectType == 33)
         {
-            message.text = "Uknown MAGIC 2";
+            message.text = "Lightning Stun";
         }
         if (objectType == 34)
         {
-            message.text = "Uknown MAGIC 3";
+            message.text = "Realistic Blast";
         }
         if (objectType == 35)
         {
-            message.text = "Uknown MAGIC 4";
+            message.text = "Red Blast";
         }
         if (objectType == 36)
         {
-            message.text = "Uknown MAGIC 5";
+            message.text = "Self-Directed Fire Atack";
         }
         if (objectType == 37)
         {
-            message.text = "Uknown MAGIC 6";
+            message.text = "Tornado";
         }
         if (objectType == 38)
         {
-            message.text = "Uknown MAGIC 7";
+            message.text = "Ultimate Explosion";
         }
         if (objectType == 39)
         {
@@ -296,8 +296,7 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             message.text = "Uknown MAGIC 9";
         }
-
-
+     
     }
 
     public void OnPointerClick(PointerEventData eventData)

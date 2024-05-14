@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Cinemachine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -259,6 +260,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if(SaveScript.health <= 0.0f)
+        {
+            SceneManager.LoadScene(0);   // 0 - Player Select  1 - Terrain1 (More can check in File -> Build Settings)
+            SaveScript.health = 1.0f;
+        }
+
+        
     }
 
     public void Basic_or_Critical_Attack()

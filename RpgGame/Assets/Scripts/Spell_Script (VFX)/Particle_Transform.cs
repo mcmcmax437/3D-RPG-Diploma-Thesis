@@ -18,8 +18,15 @@ public class Particle_Transform : MonoBehaviour
     public bool enemy_search = false ;
     public bool non_moving = false;
     public bool support_spell_follow_player = false;
+    public bool shield_spell = false;
+    public bool power_stats_up_spell = false;
+    public bool heal_magic = false;
+  
 
     public bool invisibility_spell_is_active = false;
+
+    public GameObject object_triggered;
+    public int damage = 30;
 
 
 
@@ -32,6 +39,16 @@ public class Particle_Transform : MonoBehaviour
         {
             SaveScript.is_invisible = true; 
         }
+
+        if (shield_spell == true)
+        {
+            SaveScript.is_shielf_active = true;
+        }
+        if(power_stats_up_spell == true)
+        {
+            SaveScript.strength_increase = 100;
+        }
+        
     }
     // Update is called once per frame
     void Update()
@@ -76,8 +93,23 @@ public class Particle_Transform : MonoBehaviour
             }
         }
 
+        if (heal_magic == true)
+        {
+            SaveScript.health += SaveScript.health_regeneration_skill * Time.deltaTime;
+        }
+
         SaveScript.mana -= spell_mana_cost * Time.deltaTime;
 
         Destroy(vfx_object_container, duration_of_life);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("enemy") && other.transform.gameObject != object_triggered)
+        {
+            other.transform.gameObject.GetComponent<EnemyMovement>().full_HP -= damage;
+            object_triggered = other.transform.gameObject;
+        }
+
     }
 }

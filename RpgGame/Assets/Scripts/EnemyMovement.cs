@@ -109,13 +109,13 @@ public class EnemyMovement : MonoBehaviour
             {
                 nav.isStopped = true;
 
-                if(distance_to_player < chasing_Range)
-                {
+                //if(distance_to_player < chasing_Range)
+               // {
                     //Look_At_Player_Spherical_LERP();        //can be claimed as self-directed attack
-                }
+               // }
 
 
-                if (distance_to_player < attack_Range && enemy_information.IsTag("nonAttack"))
+                if (distance_to_player < attack_Range && enemy_information.IsTag("nonAttack") && SaveScript.is_invisible != true)
                 {
 
                     if (is_attacking == false)
@@ -138,8 +138,12 @@ public class EnemyMovement : MonoBehaviour
             }
             else //if character is in the field of view  range or attack range - than enemy move towards you 
             {
-                nav.isStopped = false;
-                nav.destination = player.transform.position;
+                if(SaveScript.is_invisible == false)
+                {
+                    nav.isStopped = false;
+                    nav.destination = player.transform.position;
+                }
+                
             }
 
             if(curr_HP > full_HP)
@@ -197,6 +201,7 @@ public class EnemyMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         Instantiate(Loot_from_Enemy, transform.position, transform.rotation);
+        SaveScript.killed_enemy++;
         Destroy(gameObject, 0.2f);
     }
 }

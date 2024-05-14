@@ -120,6 +120,9 @@ public class Inventory : MonoBehaviour
 
     public Image mana_bar; // to talk to fill amount from mana
     public Image stamina_bar;
+    public Image health_bar;
+
+    public GameObject PLUS_Button;
 
     void Start()
     {
@@ -174,7 +177,7 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         player_information = player_animation.GetCurrentAnimatorStateInfo(1); //listen to Animator
-
+        health_bar.fillAmount = SaveScript.health;
 
         //Debug.Log("iconUpdated = " + iconUpdated);
         if (iconUpdated == true)
@@ -276,6 +279,10 @@ public class Inventory : MonoBehaviour
         }
         //
         
+        if(SaveScript.points_to_upgrade > 0)
+        {
+            PLUS_Button.SetActive(true);
+        }
     }
 
     public void DataOfItemsCheck()     //read/write into   static data
@@ -313,6 +320,7 @@ public class Inventory : MonoBehaviour
         }
         maximum_third = empty_slots.Length;
     }
+
 
     public void OpenInventory()
     {
@@ -376,6 +384,10 @@ public class Inventory : MonoBehaviour
     {
         Inventory_Page_Canvas.SetActive(false);
         Stats_Page_Canvas.SetActive(true);
+        if(SaveScript.points_to_upgrade <= 0)
+        {
+            PLUS_Button.SetActive(false);
+        }
         D_Characters_container.SetActive(true);
         D_Characters_container.GetComponent<PlayerDchar>().ChangeArmorForDisplay();
         Stats_Page_Canvas.GetComponent<Stats_Info>().should_be_updated_weapons = true;

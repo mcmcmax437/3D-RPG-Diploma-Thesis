@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4358066656922982707}
   - component: {fileID: 6621754575981811465}
   - component: {fileID: 3577369877030377745}
+  - component: {fileID: 2572909886419600411}
+  - component: {fileID: 6357622516486384248}
   m_Layer: 0
   m_Name: Target_Point
   m_TagString: Untagged
@@ -96,9 +98,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1186ea1e4cda8e940b250ea2da57557d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 40
   speed: 5
   should_rotate: 0
   move_to_target: 1
+  object_triggered: {fileID: 0}
+--- !u!54 &2572909886419600411
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626217076339755349}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6357622516486384248
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626217076339755349}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2981485621045971025
 GameObject:
   m_ObjectHideFlags: 0
@@ -14636,6 +14669,9 @@ MonoBehaviour:
   enemy_search: 0
   non_moving: 0
   support_spell_follow_player: 0
+  invisibility_spell_is_active: 0
+  object_triggered: {fileID: 0}
+  damage: 30
 --- !u!1 &5663259561636252993
 GameObject:
   m_ObjectHideFlags: 0
@@ -19607,6 +19643,9 @@ MonoBehaviour:
   enemy_search: 0
   non_moving: 0
   support_spell_follow_player: 0
+  invisibility_spell_is_active: 0
+  object_triggered: {fileID: 0}
+  damage: 30
 --- !u!1 &7654528395481208297
 GameObject:
   m_ObjectHideFlags: 0
@@ -29276,6 +29315,8 @@ GameObject:
   - component: {fileID: 7654528395807788702}
   - component: {fileID: 7654528395807788689}
   - component: {fileID: 7654528395807788688}
+  - component: {fileID: 2548665446402140206}
+  - component: {fileID: 4286808851617828178}
   m_Layer: 0
   m_Name: Target_Point 1
   m_TagString: Untagged
@@ -29360,9 +29401,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1186ea1e4cda8e940b250ea2da57557d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 40
   speed: 5
   should_rotate: 0
   move_to_target: 1
+  object_triggered: {fileID: 0}
+--- !u!54 &2548665446402140206
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654528395807788691}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &4286808851617828178
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654528395807788691}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7654528395919513373
 GameObject:
   m_ObjectHideFlags: 0
@@ -39023,6 +39095,8 @@ GameObject:
   - component: {fileID: 7654528396071388513}
   - component: {fileID: 7654528396071388512}
   - component: {fileID: 7654528396071388515}
+  - component: {fileID: 7805292464082870360}
+  - component: {fileID: 8200464364099072338}
   m_Layer: 0
   m_Name: Target_Point 3
   m_TagString: Untagged
@@ -39107,9 +39181,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1186ea1e4cda8e940b250ea2da57557d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 40
   speed: 5
   should_rotate: 0
   move_to_target: 1
+  object_triggered: {fileID: 0}
+--- !u!54 &7805292464082870360
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654528396071388514}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &8200464364099072338
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654528396071388514}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7654528396111709438
 GameObject:
   m_ObjectHideFlags: 0
@@ -43946,6 +44051,8 @@ GameObject:
   - component: {fileID: 7654528396379788776}
   - component: {fileID: 7654528396379788779}
   - component: {fileID: 7654528396379788778}
+  - component: {fileID: 6760720298774147511}
+  - component: {fileID: 3090932820735606216}
   m_Layer: 0
   m_Name: Target_Point 2
   m_TagString: Untagged
@@ -44030,9 +44137,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1186ea1e4cda8e940b250ea2da57557d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 40
   speed: 5
   should_rotate: 0
   move_to_target: 1
+  object_triggered: {fileID: 0}
+--- !u!54 &6760720298774147511
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654528396379788781}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &3090932820735606216
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654528396379788781}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7654528396533849524
 GameObject:
   m_ObjectHideFlags: 0
@@ -44089,6 +44227,9 @@ MonoBehaviour:
   enemy_search: 0
   non_moving: 0
   support_spell_follow_player: 0
+  invisibility_spell_is_active: 0
+  object_triggered: {fileID: 0}
+  damage: 30
 --- !u!1 &7654528396549914986
 GameObject:
   m_ObjectHideFlags: 0
@@ -53802,6 +53943,9 @@ MonoBehaviour:
   enemy_search: 0
   non_moving: 0
   support_spell_follow_player: 0
+  invisibility_spell_is_active: 0
+  object_triggered: {fileID: 0}
+  damage: 30
 --- !u!1 &7654528396805204670
 GameObject:
   m_ObjectHideFlags: 0

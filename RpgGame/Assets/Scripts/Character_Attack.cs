@@ -45,16 +45,17 @@ public class Character_Attack : MonoBehaviour
             int dmg_check = 0;
             if(player.GetComponent<PlayerMovement>().critical_attack_is_active == true)
             {
-                dmg_check = basic_weapon_damage * SaveScript.critical_dmg_multiply;
-                other.transform.gameObject.GetComponent<EnemyMovement>().full_HP -= (basic_weapon_damage*SaveScript.critical_dmg_multiply);
+                dmg_check = (basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase) * SaveScript.critical_dmg_multiply;
+                other.transform.gameObject.GetComponent<EnemyMovement>().full_HP -= ((basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase) * SaveScript.critical_dmg_multiply);
                 can_deal_dmg = false;
             }
             else
             {
-                dmg_check = basic_weapon_damage;
-                other.transform.gameObject.GetComponent<EnemyMovement>().full_HP -= basic_weapon_damage;
+                dmg_check = (basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase);
+                other.transform.gameObject.GetComponent<EnemyMovement>().full_HP -= (basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase);
                 can_deal_dmg = false;
-            }     
+            }
+            Debug.Log(basic_weapon_damage + " " + SaveScript.weapon_dmg_scaleUP + " " + SaveScript.strength_increase);
             Debug.Log("Monster = " + other.name + " HP = " + other.transform.gameObject.GetComponent<EnemyMovement>().full_HP + " DMG = " + dmg_check);
             StartCoroutine(ResetDMG());
         }

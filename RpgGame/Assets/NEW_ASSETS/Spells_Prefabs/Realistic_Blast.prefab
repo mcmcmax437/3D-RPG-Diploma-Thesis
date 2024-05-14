@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3625882101389398101}
   - component: {fileID: 3627487372102732785}
   - component: {fileID: 2322279993031410901}
+  - component: {fileID: 4771596228019090296}
+  - component: {fileID: 3004111326737983059}
   m_Layer: 0
   m_Name: pf_vfx-ult_demo_psys_oneshot_realisticExplosion5
   m_TagString: Untagged
@@ -4860,6 +4862,38 @@ MonoBehaviour:
   enemy_search: 0
   non_moving: 1
   support_spell_follow_player: 0
+  invisibility_spell_is_active: 0
+  object_triggered: {fileID: 0}
+  damage: 50
+--- !u!54 &4771596228019090296
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3499956367409239253}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &3004111326737983059
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3499956367409239253}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3500226734522468881
 GameObject:
   m_ObjectHideFlags: 0
@@ -14584,7 +14618,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
