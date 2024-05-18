@@ -178,6 +178,16 @@ public class Inventory : MonoBehaviour
     {
         player_information = player_animation.GetCurrentAnimatorStateInfo(1); //listen to Animator
         health_bar.fillAmount = SaveScript.health;
+        if (SaveScript.points_to_upgrade <= 0)
+        {
+            SaveScript.points_to_upgrade = 0;       
+            PLUS_Button.SetActive(false);
+        }
+        if (SaveScript.points_to_upgrade > 0)
+        {         
+            PLUS_Button.SetActive(true);
+        }
+
 
         //Debug.Log("iconUpdated = " + iconUpdated);
         if (iconUpdated == true)
@@ -279,10 +289,7 @@ public class Inventory : MonoBehaviour
         }
         //
         
-        if(SaveScript.points_to_upgrade > 0)
-        {
-            PLUS_Button.SetActive(true);
-        }
+      
     }
 
     public void DataOfItemsCheck()     //read/write into   static data

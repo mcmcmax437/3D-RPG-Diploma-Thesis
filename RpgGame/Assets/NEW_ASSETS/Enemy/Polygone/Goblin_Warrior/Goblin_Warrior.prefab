@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbd6bc031887864280caf626966bc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage_enemy: 0.008
+  damage_enemy: 0.007
 --- !u!1 &1360726546
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbd6bc031887864280caf626966bc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage_enemy: 0.008
+  damage_enemy: 0.007
 --- !u!1 &39657768546738073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,8 +1124,8 @@ MonoBehaviour:
   current_enemy: {fileID: 1708063308262524432}
   player: {fileID: 0}
   attack_Range: 3
-  chasing_Range: 5
-  full_HP: 150
+  chasing_Range: 12
+  full_HP: 100
   get_Hit_SFX:
   - {fileID: 8300000, guid: 0ce162a4e3303fe46a055289376ead59, type: 3}
   - {fileID: 8300000, guid: 78fe859e9788ea14cbee913806c95f96, type: 3}

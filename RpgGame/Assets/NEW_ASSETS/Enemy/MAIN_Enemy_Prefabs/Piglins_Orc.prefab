@@ -1205,8 +1205,8 @@ MonoBehaviour:
   current_enemy: {fileID: 2245152461047023438}
   player: {fileID: 0}
   attack_Range: 2.2
-  chasing_Range: 10
-  full_HP: 100
+  chasing_Range: 5
+  full_HP: 200
   get_Hit_SFX:
   - {fileID: 8300000, guid: 0ce162a4e3303fe46a055289376ead59, type: 3}
   - {fileID: 8300000, guid: 78fe859e9788ea14cbee913806c95f96, type: 3}
