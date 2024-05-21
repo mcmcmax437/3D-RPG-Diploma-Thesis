@@ -21,7 +21,7 @@ public class SaveScript : MonoBehaviour
 
     public static float time_of_last_damage_recive;
 
-    public static bool is_Immmortal_object = false;
+    public static bool is_Immmortal_object = true;
 
     public static bool is_invisible = false;
     public static bool is_shielf_active = false;

@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
 {
     public bool Goblin_Warrior = false;
     public bool Piglins = false;
+  
 
     public GameObject Loot_from_Enemy;
 
@@ -104,6 +105,8 @@ public class EnemyMovement : MonoBehaviour
 
             enemy_information = anim.GetCurrentAnimatorStateInfo(0);
             distance_to_player = Vector3.Distance(transform.position, player.transform.position);
+
+            
 
             if (distance_to_player < attack_Range || distance_to_player > chasing_Range) //if character is out of view  range or attack range - than enemy stop
             {
