@@ -26,7 +26,7 @@ public class EnemyMovement : MonoBehaviour
     private bool is_attacking;
     public float attack_Range = 2.0f;
     public float chasing_Range = 12.0f;   //range in which enemy will run after character
-    private float rotation_speed = 500.0f; //perfect
+    public float rotation_speed = 500.0f; //perfect
 
     public int full_HP = 100;
     private int curr_HP;
@@ -139,9 +139,9 @@ public class EnemyMovement : MonoBehaviour
                     }
                 }
             }
-            else //if character is in the field of view  range or attack range - than enemy move towards you 
+            else if (distance_to_player > attack_Range && enemy_information.IsTag("nonAttack") && !anim.IsInTransition(0))
             {
-                if(SaveScript.is_invisible == false)
+                if (SaveScript.is_invisible == false)
                 {
                     nav.isStopped = false;
                     nav.destination = player.transform.position;

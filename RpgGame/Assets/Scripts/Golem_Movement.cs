@@ -23,7 +23,7 @@ public class Golem_Movement : MonoBehaviour
     private bool is_attacking;
     public float attack_Range = 2.0f;
     public float chasing_Range = 9.0f;   //range in which enemy will run after character   
-    private float rotation_speed = 500.0f; //perfect
+    public float rotation_speed = 500.0f; //perfect
 
     private bool is_reset = false;
     private bool stun = false;
@@ -122,10 +122,10 @@ public class Golem_Movement : MonoBehaviour
                 anim.SetBool("player_too_far", false);
             }
 
-            if (distance_to_player < attack_Range || distance_to_player > chasing_Range) 
+            if (distance_to_player < attack_Range || distance_to_player > chasing_Range)
             {
                 nav.isStopped = true;
- 
+
 
                 if (distance_to_player < attack_Range && enemy_information.IsTag("nonAttack") && SaveScript.is_invisible != true)
                 {
@@ -143,7 +143,7 @@ public class Golem_Movement : MonoBehaviour
                                 is_attacking = true;
                                 anim.SetTrigger("player_too_close");
                             }
-                           
+
                         }
                         else
                         {
@@ -164,16 +164,17 @@ public class Golem_Movement : MonoBehaviour
                     }
                 }
             }
-            else 
+            else if (distance_to_player > attack_Range && enemy_information.IsTag("nonAttack") && !anim.IsInTransition(0))
             {
 
                 if (SaveScript.is_invisible == false)
                 {
                     nav.isStopped = false;
                     nav.destination = player.transform.position;
-                }
+                }            
+            }
 
-                if (curr_HP > full_HP)
+            if (curr_HP > full_HP)
                 {
                     anim.SetTrigger("hit");
                     curr_HP = full_HP;
@@ -182,11 +183,9 @@ public class Golem_Movement : MonoBehaviour
                     fillHealt /= 100.0f;
                     HP_bar.fillAmount = fillHealt;
                 }
-            }
 
             if (nav.isStopped == false && enemy_information.IsTag("attack"))
             {
-                is_reset = true;
                 anim.ResetTrigger("player_near");
                 anim.ResetTrigger("player_too_close");
                 anim.ResetTrigger("attack");
@@ -196,12 +195,7 @@ public class Golem_Movement : MonoBehaviour
                 }
             }
 
-            if (is_reset == true)
-            {
-                Debug.Log(is_reset);
-                is_reset = false;
-
-            }
+           
 
 
             if (full_HP < maxHP / 2 && stun == false)
