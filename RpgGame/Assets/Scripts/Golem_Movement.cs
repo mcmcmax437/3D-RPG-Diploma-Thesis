@@ -22,12 +22,17 @@ public class Golem_Movement : MonoBehaviour
     private float distance_to_player;
     private bool is_attacking;
     public float attack_Range = 2.0f;
-    public float chasing_Range = 9.0f;   //range in which enemy will run after character   
+    public float chasing_Range;   //range in which enemy will run after character   
     public float rotation_speed = 500.0f; //perfect
+    public float dmg_block_probability = 0.15f;
 
     private bool is_reset = false;
     private bool stun = false;
     private int maxHP;
+
+    public float golem_stamina_MAX = 1.0f;
+    public float golem_stamina;
+    public float golem_stamina_regeneration = 0.05f;
 
     public int full_HP = 100;
     private int curr_HP;
@@ -35,8 +40,12 @@ public class Golem_Movement : MonoBehaviour
     private int fear_lvl_curr;
     private bool enemy_is_alive = true;
 
-    private AudioSource audio_Player;
+    private bool skill_was_used = false;
+
+    public AudioSource audio_Player;
     public AudioClip[] get_Hit_SFX;
+
+    public AudioClip block_SFX;
 
     public GameObject bar_Container;
     public Image HP_bar;
@@ -53,6 +62,7 @@ public class Golem_Movement : MonoBehaviour
         nav.avoidancePriority = Random.Range(1, 1);
         curr_HP = full_HP;
         maxHP = full_HP;
+        golem_stamina = golem_stamina_MAX;
 
 
     }
@@ -64,7 +74,7 @@ public class Golem_Movement : MonoBehaviour
         //HP_bar.transform.LookAt(main_camera.transform.position);
 
 
-
+        
         if (enemy_is_alive == true)
         {
             //outline
@@ -86,13 +96,15 @@ public class Golem_Movement : MonoBehaviour
             }
             //
 
+            Golem_Stamina_Regeneration();
+
             if (player == null)
             {
                 player = GameObject.FindGameObjectWithTag("Player");
             }
             x = nav.velocity.x;
             z = nav.velocity.z;
-            velocitySpeed = new Vector2(x, z).magnitude;      
+            velocitySpeed = new Vector2(x, z).magnitude;
             if (velocitySpeed == 0)
             {
                 anim.SetBool("running", false);
@@ -100,7 +112,7 @@ public class Golem_Movement : MonoBehaviour
             else if (velocitySpeed != 0)
             {
 
-                anim.SetBool("running", true);;
+                anim.SetBool("running", true); ;
                 is_attacking = false;
 
             }
@@ -110,9 +122,21 @@ public class Golem_Movement : MonoBehaviour
             enemy_information = anim.GetCurrentAnimatorStateInfo(0);
             distance_to_player = Vector3.Distance(transform.position, player.transform.position);
 
-            Debug.Log(distance_to_player);
+            //Debug.Log(distance_to_player);
 
-            if (distance_to_player >= 10.0f)
+            if (enemy_information.IsName("atk_dash") == true && skill_was_used == false)
+            {
+                //golem_stamina -= 0.6f;
+                skill_was_used = true;
+            }
+
+            if (skill_was_used == true)
+            {
+                StartCoroutine(Reset_Dash());
+            }
+
+
+            if (distance_to_player >= 10.0f )//&& golem_stamina > 0.61f)
             {
 
                 anim.SetBool("player_too_far", true);
@@ -122,69 +146,84 @@ public class Golem_Movement : MonoBehaviour
                 anim.SetBool("player_too_far", false);
             }
 
-            if (distance_to_player < attack_Range || distance_to_player > chasing_Range)
+
+
+
+
+
+            if (golem_stamina > 0.01f)
             {
-                nav.isStopped = true;
 
-
-                if (distance_to_player < attack_Range && enemy_information.IsTag("nonAttack") && SaveScript.is_invisible != true)
+                if (distance_to_player < attack_Range || distance_to_player > chasing_Range)
                 {
+                    nav.isStopped = true;
 
 
-                    if (is_attacking == false)
+                    if (distance_to_player < attack_Range && enemy_information.IsTag("nonAttack") && SaveScript.is_invisible != true)  //&& golem_stamina > 0.1f)
                     {
-                        Look_At_Player_Spherical_LERP();
 
-                        int randomNumber = UnityEngine.Random.Range(1, 101);
-                        if (randomNumber > 0 && randomNumber < 51)
+
+                        if (is_attacking == false)
                         {
-                            if (distance_to_player <= 2.0f)
+                            Look_At_Player_Spherical_LERP();
+
+                            int randomNumber = UnityEngine.Random.Range(1, 101);
+                            if (randomNumber > 0 && randomNumber < 51)
                             {
+                                if (distance_to_player <= 2.0f)
+                                {
+                                    is_attacking = true;
+                                    //golem_stamina -= 0.1f;
+                                    anim.SetTrigger("player_too_close");
+
+                                }
+
+                            }
+                            else
+                            {
+                                int randomNumber2 = UnityEngine.Random.Range(1, 101);
                                 is_attacking = true;
-                                anim.SetTrigger("player_too_close");
+                                //golem_stamina -= 0.1f;
+                                anim.SetInteger("random", randomNumber2);
+                                anim.SetTrigger("attack");
+
                             }
 
                         }
-                        else
-                        {
-                            int randomNumber2 = UnityEngine.Random.Range(1, 101);
-                            is_attacking = true;
-                            anim.SetInteger("random", randomNumber2);
-                            anim.SetTrigger("attack");
-                        }
-
                     }
-                }
 
-                if (distance_to_player < attack_Range && enemy_information.IsTag("attack"))
-                {
-                    if (is_attacking == true)
+                    if (distance_to_player < attack_Range && enemy_information.IsTag("attack"))
                     {
-                        is_attacking = false;
+                        if (is_attacking == true)
+                        {
+                            is_attacking = false;
+                        }
+                    }
+                }
+                else if (distance_to_player > attack_Range && enemy_information.IsTag("nonAttack") && !anim.IsInTransition(0))
+                {
+
+                    if (SaveScript.is_invisible == false)
+                    {
+                        nav.isStopped = false;
+                        nav.destination = player.transform.position;
                     }
                 }
             }
-            else if (distance_to_player > attack_Range && enemy_information.IsTag("nonAttack") && !anim.IsInTransition(0))
-            {
 
-                if (SaveScript.is_invisible == false)
-                {
-                    nav.isStopped = false;
-                    nav.destination = player.transform.position;
-                }            
-            }
 
             if (curr_HP > full_HP)
-                {
-                    anim.SetTrigger("hit");
-                    curr_HP = full_HP;
-                    RandomAudio_Hit();
-                    fillHealt = full_HP;
-                    fillHealt /= 100.0f;
-                    HP_bar.fillAmount = fillHealt;
-                }
+            {
+                golem_stamina -= 0.05f;
+                anim.SetTrigger("hit");
+                curr_HP = full_HP;
+                RandomAudio_Hit();
+                fillHealt = full_HP;
+                fillHealt /= 100.0f;
+                HP_bar.fillAmount = fillHealt;
+            }
 
-            if (nav.isStopped == false && enemy_information.IsTag("attack"))
+            if (nav.isStopped == false || distance_to_player > 6.0f && enemy_information.IsTag("attack"))
             {
                 anim.ResetTrigger("player_near");
                 anim.ResetTrigger("player_too_close");
@@ -195,14 +234,12 @@ public class Golem_Movement : MonoBehaviour
                 }
             }
 
-           
-
 
             if (full_HP < maxHP / 2 && stun == false)
             {
                 stun = true;
                 StartCoroutine(Stun_Duration());
-                
+
             }
 
 
@@ -216,6 +253,7 @@ public class Golem_Movement : MonoBehaviour
                 nav.avoidancePriority = 1;
                 StartCoroutine(Loot_Spawn());
             }
+
 
         }
     }
@@ -247,7 +285,12 @@ public class Golem_Movement : MonoBehaviour
         audio_Player.Play();
     }
 
-
+    public void Golem_Stamina_Regeneration()
+    {     
+        golem_stamina += golem_stamina_regeneration * Time.deltaTime;
+        golem_stamina = Mathf.Clamp(golem_stamina, 0, golem_stamina_MAX);
+        
+    }
 
     IEnumerator Loot_Spawn()
     {
@@ -264,5 +307,11 @@ public class Golem_Movement : MonoBehaviour
         yield return new WaitForSeconds(5);
         anim.SetTrigger("stun_end");
         nav.isStopped = false;
+    }
+
+    IEnumerator Reset_Dash()
+    {
+        yield return new WaitForSeconds(5);
+        skill_was_used = false;
     }
 }

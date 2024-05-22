@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbd6bc031887864280caf626966bc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage_enemy: 0.01
+  damage_enemy: 0.1
 --- !u!54 &367206745
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbd6bc031887864280caf626966bc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage_enemy: 0.01
+  damage_enemy: 0.1
 --- !u!54 &1119309658
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -943,6 +943,7 @@ MonoBehaviour:
   player: {fileID: 0}
   attack_Range: 3
   chasing_Range: 15
+  rotation_speed: 500
   full_HP: 350
   get_Hit_SFX:
   - {fileID: 8300000, guid: 0ce162a4e3303fe46a055289376ead59, type: 3}

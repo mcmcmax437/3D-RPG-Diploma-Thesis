@@ -107,8 +107,20 @@ public class Particle_Transform : MonoBehaviour
     {
         if (other.CompareTag("enemy") && other.transform.gameObject != object_triggered)
         {
-            other.transform.gameObject.GetComponent<EnemyMovement>().full_HP -= damage;
-            object_triggered = other.transform.gameObject;
+            if(SaveScript.class_Mage == true)
+            {
+                damage = damage * 6 / 5;
+            }
+            if(other.GetComponent<Golem_Movement>().Golem == true)
+            {
+                other.transform.gameObject.GetComponent<Golem_Movement>().full_HP -= (damage * 4) / 5;  // 20 peer cent magic decrease
+                object_triggered = other.transform.gameObject;
+            }
+            else
+            {
+                other.transform.gameObject.GetComponent<EnemyMovement>().full_HP -= damage;
+                object_triggered = other.transform.gameObject;
+            }       
         }
 
     }

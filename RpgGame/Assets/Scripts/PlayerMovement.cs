@@ -84,6 +84,9 @@ public class PlayerMovement : MonoBehaviour
       
         }
 
+        Check_Class_Info();
+
+
     }
 
     void Update()
@@ -261,10 +264,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(SaveScript.health <= 0.0f)
-        {
-            SceneManager.LoadScene(0);   // 0 - Player Select  1 - Terrain1 (More can check in File -> Build Settings)
-            SaveScript.health = 1.0f;
+        {   
+                if (SaveScript.uniqe_features_index == 3 && Time.time - SaveScript.time_of_uniqe_feature_activasion > SaveScript.uniqe_features_index_CD)
+            {
+                SaveScript.time_of_uniqe_feature_activasion = Time.time;
+                SaveScript.health = 0.5f;
+            }
+            else
+            {
+                SceneManager.LoadScene(0);   // 0 - Player Select  1 - Terrain1 (More can check in File -> Build Settings)
+                SaveScript.health = 1.0f;
+            }
+   
         }
+
+       
 
         
     }
@@ -322,6 +336,31 @@ public class PlayerMovement : MonoBehaviour
         
         trail_mesh.GetComponent<Renderer>().enabled = false;
         
+    }
+
+    public void Check_Class_Info()
+    {
+        if (SaveScript.uniqe_features_index == 0)
+        {
+            Debug.Log(SaveScript.class_Avarage + "" + SaveScript.class_Mage + "" + SaveScript.class_Seller + "" + SaveScript.class_Warrior);
+            Debug.Log("None");
+        }
+        else if (SaveScript.uniqe_features_index == 1)
+        {
+            Debug.Log(SaveScript.class_Avarage + "" + SaveScript.class_Mage + "" + SaveScript.class_Seller + "" + SaveScript.class_Warrior);
+            Debug.Log("More Mana Regeneration and +20% spell/magic damage");
+        }
+        else if (SaveScript.uniqe_features_index == 2)
+        {
+            Debug.Log(SaveScript.class_Avarage + "" + SaveScript.class_Mage + "" + SaveScript.class_Seller + "" + SaveScript.class_Warrior);
+            Debug.Log("Price in shop is -20% lower");
+        }
+        else if (SaveScript.uniqe_features_index == 3)
+        {
+            Debug.Log(SaveScript.class_Avarage + "" + SaveScript.class_Mage + "" + SaveScript.class_Seller + "" + SaveScript.class_Warrior);
+            Debug.Log("You can survive lethal damage and regain 50% HP (500 sec CD)");
+        }
+
     }
 
 }

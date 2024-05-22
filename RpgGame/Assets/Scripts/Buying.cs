@@ -30,6 +30,8 @@ public class Buying : MonoBehaviour
     private int max = 0;
     private bool canClick;
 
+    public Text[] price_per_obj;
+
     void Start()
     {
         shop.SetActive(false);
@@ -44,9 +46,15 @@ public class Buying : MonoBehaviour
 
         audio_Player = Inventory_Canvas.GetComponent<AudioSource>();
 
+        if(SaveScript.class_Seller == true)
+        {
+            SellerClassFeature();
+        }     
     }
 
-     
+   
+
+
     public void Close()
     {
         shop.SetActive(false);
@@ -293,5 +301,14 @@ public class Buying : MonoBehaviour
     {
         compare = text_amount_of_stuff_in_shop[6];
         CheckAmount_for_WizzardShop(6);
+    }
+
+    public void SellerClassFeature()
+    {
+        for(int i =0; i < cost_of_stuff_in_shop.Length; i++)
+        {
+            cost_of_stuff_in_shop[i] = (cost_of_stuff_in_shop[i] * 4) / 5; // 20 per cent lower price
+            price_per_obj[i].text = cost_of_stuff_in_shop[i] + " coins";
+        }
     }
 }

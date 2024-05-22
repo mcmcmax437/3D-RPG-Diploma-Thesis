@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class SaveScript : MonoBehaviour
 {
+    public static bool class_Avarage = false; // 0
+    public static bool class_Mage = false; // 1
+    public static bool class_Seller = true; // 2
+    public static bool class_Warrior = false; // 3
+
+    public static int uniqe_features_index = 2;
+    public static float time_of_uniqe_feature_activasion = -Mathf.Infinity;
+    public static float uniqe_features_index_CD = 500f; // 500 sec couldown
+
+
     public static float player_lvl_character = 0.05f;
     public static int player_lvl_Display  = 1;
     public static int player_index_character = 0;
@@ -17,11 +27,11 @@ public class SaveScript : MonoBehaviour
     public static float stamina_regeneration = 0.05f;
     public static float health = 1.0f;
     public static float health_regeneration_skill = 0.04f;
-    public static float health_regeneration_passive = 0.1f;
+    public static float health_regeneration_passive = 0.01f;
 
     public static float time_of_last_damage_recive;
 
-    public static bool is_Immmortal_object = true;
+    public static bool is_Immmortal_object = false;
 
     public static bool is_invisible = false;
     public static bool is_shielf_active = false;
@@ -67,7 +77,16 @@ public class SaveScript : MonoBehaviour
 
         if(mana < 1.0)
         {
-            mana += (intelligence_basic/10 + mana_regeneration) * Time.deltaTime;
+            if(class_Mage == true)
+            {
+                
+                mana += ((intelligence_basic / 10 + mana_regeneration)*1.2f) * Time.deltaTime;
+            }
+            else
+            {
+                mana += (intelligence_basic / 10 + mana_regeneration) * Time.deltaTime;
+            }
+          
         }
         if (mana <= 0)
         {
@@ -96,7 +115,7 @@ public class SaveScript : MonoBehaviour
 
         float newTime = Time.time - time_of_last_damage_recive;
         //Debug.Log(Time.time + " - " + time_of_last_damage_recive + " = " + newTime);
-        if (health < 0.7  && newTime >= 3f)
+        if (health < 0.7  && newTime >= 10f)
         {
             Health_Regeneration();
         }

@@ -493,7 +493,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -1160231272559112498}
-    m_Position: {x: 360, y: -160, z: 0}
+    m_Position: {x: 340, y: -160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -850148907681103954}
     m_Position: {x: 910, y: -340, z: 0}
@@ -782,6 +782,12 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   - m_Name: random
     m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: stamina_SM
+    m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0

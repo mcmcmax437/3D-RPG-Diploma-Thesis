@@ -15,6 +15,7 @@ public class Enemy_Attack : MonoBehaviour
     { 
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Attack = true");
             float dmg_check;
             if (enemy_can_attack == true && SaveScript.is_Immmortal_object != true)
             {

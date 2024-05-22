@@ -14,6 +14,7 @@ public class Buying_Weapons : MonoBehaviour
     public int price;
     public GameObject Inventory_Canvas;
     public AudioSource audio_Player;
+    public Text text_price;
 
     
 
@@ -23,6 +24,13 @@ public class Buying_Weapons : MonoBehaviour
         finance_text_diamond.text = Inventory.diamond.ToString();
         finance_text_gold.text = Inventory.gold.ToString(); 
         audio_Player = Inventory_Canvas.GetComponent<AudioSource>();
+
+        text_price.text = price.ToString() +" coins";
+
+        if (SaveScript.class_Seller == true)
+        {
+            SellerClassFeature();
+        }
     }
 
     public void BuyButton_Weapon()
@@ -75,5 +83,11 @@ public class Buying_Weapons : MonoBehaviour
             audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().coin3_buy_SFX;
         }
         audio_Player.Play();
+    }
+
+    public void SellerClassFeature()
+    {
+        price = price * 4 / 5;
+        text_price.text = price.ToString() + " coins";
     }
 }

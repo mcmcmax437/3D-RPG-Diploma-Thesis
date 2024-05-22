@@ -48,7 +48,15 @@ public class Character_Attack : MonoBehaviour
                 dmg_check = (basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase) * SaveScript.critical_dmg_multiply;
                 if (other.GetComponent<Golem_Movement>().Golem == true)
                 {
-                    other.transform.gameObject.GetComponent<Golem_Movement>().full_HP -= ((basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase) * SaveScript.critical_dmg_multiply);
+                    if (Random.Range(0f, 1f) >= other.GetComponent<Golem_Movement>().dmg_block_probability) //15 per cent to block dmg
+                    {
+                        other.transform.gameObject.GetComponent<Golem_Movement>().full_HP -= ((basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase) * SaveScript.critical_dmg_multiply);
+                    }
+                    else
+                    {
+                        other.GetComponent<Golem_Movement>().audio_Player.clip = other.GetComponent<Golem_Movement>().block_SFX;
+                        other.GetComponent<Golem_Movement>().audio_Player.Play();
+                    }
                 }
                 else
                 {
@@ -62,7 +70,15 @@ public class Character_Attack : MonoBehaviour
                 dmg_check = (basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase);
                 if(other.GetComponent<Golem_Movement>().Golem == true)
                 {
-                    other.transform.gameObject.GetComponent<Golem_Movement>().full_HP -= (basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase);
+                    if (Random.Range(0f, 1f) >= other.GetComponent<Golem_Movement>().dmg_block_probability) //15 per cent to block dmg
+                    {
+                        other.transform.gameObject.GetComponent<Golem_Movement>().full_HP -= (basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase);
+                    }
+                    else
+                    {
+                        other.GetComponent<Golem_Movement>().audio_Player.clip = other.GetComponent<Golem_Movement>().block_SFX;
+                        other.GetComponent<Golem_Movement>().audio_Player.Play();
+                    }
                 }
                 else
                 {
@@ -72,6 +88,19 @@ public class Character_Attack : MonoBehaviour
                 
                 can_deal_dmg = false;
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             Debug.Log(basic_weapon_damage + " " + SaveScript.weapon_dmg_scaleUP + " " + SaveScript.strength_increase);
             if (other.GetComponent<Golem_Movement>().Golem == true)
@@ -100,4 +129,5 @@ public class Character_Attack : MonoBehaviour
         yield return dmg_Pause;
         can_deal_dmg = true;
     }
+
 }
