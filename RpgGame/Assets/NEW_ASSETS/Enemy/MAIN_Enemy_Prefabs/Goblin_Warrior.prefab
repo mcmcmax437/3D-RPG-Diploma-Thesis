@@ -2735,6 +2735,9 @@ MonoBehaviour:
   attack_Range: 3
   chasing_Range: 12
   rotation_speed: 500
+  patrol_main_obj: {fileID: 0}
+  patrol_radius: 15
+  wait_time_at_point: 2
   full_HP: 100
   get_Hit_SFX:
   - {fileID: 8300000, guid: 0ce162a4e3303fe46a055289376ead59, type: 3}

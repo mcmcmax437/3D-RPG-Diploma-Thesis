@@ -289,7 +289,28 @@ public class Inventory : MonoBehaviour
         }
         //
         
-      
+
+        if(amount_of_bread == 0)
+        {
+            DestroyIcon(15);
+;        }
+        if (amount_of_keyGold == 0)
+        {
+            DestroyIcon(9);
+        }
+        if (amount_of_cheese == 0)
+        {
+            DestroyIcon(16);
+        }
+        if (amount_of_keySimp == 0)
+        {
+            DestroyIcon(8);
+        }
+        if (amount_of_meat == 0)
+        {
+            DestroyIcon(17);
+        }
+
     }
 
     public void DataOfItemsCheck()     //read/write into   static data

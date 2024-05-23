@@ -92,14 +92,17 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 int randomNumber = UnityEngine.Random.Range(1, 101);           
                 if (randomNumber % 2 == 0)
                 {
+                    Inventory_Canvas.GetComponent<AudioSource>().volume = 0.3f;
                     audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().click1_SFX;
                 }
                 else
                 {
+                    Inventory_Canvas.GetComponent<AudioSource>().volume = 0.3f;
                     audio_Player.clip = Inventory_Canvas.GetComponent<Inventory>().click2_SFX;
                 }     
                 audio_Player.Play();
-               
+
+                //audio_Player.volume = 1f;
                 displaying = false;
                 textBox.SetActive(false); 
 
@@ -126,12 +129,29 @@ public class ItemMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                         // Debug.Log(Inventory_Canvas.GetComponent<Inventory>().selected_slot + "selected_slot AFTER");
                     }
                 }
+
+                if(objectType == 15)
+                {
+                    SaveScript.health += 0.05f;
+                    Inventory.amount_of_bread--;               
+                }
+                if (objectType == 16)
+                {
+                    SaveScript.health += 0.07f;
+                    Inventory.amount_of_cheese--;
+                }
+                if (objectType == 17)
+                {
+                    SaveScript.health += 0.09f;
+                    Inventory.amount_of_meat--;
+                }
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
             displaying = true;
         }
+
     }
     void MessageDisplay()
     {

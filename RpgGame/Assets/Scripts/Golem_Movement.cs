@@ -38,7 +38,7 @@ public class Golem_Movement : MonoBehaviour
     private int curr_HP;
     private int fear_lvl = 100;
     private int fear_lvl_curr;
-    private bool enemy_is_alive = true;
+    public bool enemy_is_alive = true;
 
     private bool skill_was_used = false;
 

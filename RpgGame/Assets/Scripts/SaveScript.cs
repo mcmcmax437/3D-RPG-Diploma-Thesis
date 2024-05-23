@@ -53,7 +53,7 @@ public class SaveScript : MonoBehaviour
 
     public static int index_of_equiped_armor = 0;  //7 - bassic, 8 - light, 9 - heave  //1 - light 2 - heavy
     public static bool should_change_armor = false;
-    public static float critical_hit_chance = 0.0f;
+    public static float critical_hit_chance = 0.2f;
     public static int critical_dmg_multiply = 2;
 
     public static int player_gold = 10000;

@@ -72,6 +72,7 @@ public class Chest : MonoBehaviour
                     goldInChest = 0;
 
                     //audio SFX for chest
+                    inventory_Canvas.GetComponent<AudioSource>().volume = 0.4f;
                     inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;     //too low
                     inventory_Canvas.GetComponent<AudioSource>().Play();            // too low
 
