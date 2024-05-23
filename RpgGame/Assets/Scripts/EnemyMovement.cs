@@ -28,6 +28,8 @@ public class EnemyMovement : MonoBehaviour
     public float chasing_Range = 12.0f;   //range in which enemy will run after character
     public float rotation_speed = 500.0f; //perfect
 
+    private int maxHP;
+
     public int full_HP = 100;
     private int curr_HP;
     private int fear_lvl = 100;
@@ -42,6 +44,11 @@ public class EnemyMovement : MonoBehaviour
     private float fillHealt;
     public GameObject main_camera;
 
+    private bool destination_run = false;
+
+    private Vector3 escape_point;
+    public Transform[] escape_target_point;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +58,7 @@ public class EnemyMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         nav.avoidancePriority = Random.Range(5, 75);
         curr_HP = full_HP;
+        maxHP = full_HP;
     } 
 
     // Update is called once per frame
@@ -108,9 +116,12 @@ public class EnemyMovement : MonoBehaviour
 
             
 
-            if (distance_to_player < attack_Range || distance_to_player > chasing_Range) //if character is out of view  range or attack range - than enemy stop
+            if (distance_to_player < attack_Range || distance_to_player > chasing_Range && destination_run != true) //if character is out of view  range or attack range - than enemy stop
             {
-                nav.isStopped = true;
+                if(destination_run != true)
+                {
+                    nav.isStopped = true;
+                }
 
                 //if(distance_to_player < chasing_Range)
                // {
@@ -118,7 +129,7 @@ public class EnemyMovement : MonoBehaviour
                // }
 
 
-                if (distance_to_player < attack_Range && enemy_information.IsTag("nonAttack") && SaveScript.is_invisible != true)
+                if (distance_to_player < attack_Range && enemy_information.IsTag("nonAttack") && SaveScript.is_invisible != true && destination_run != true)
                 {
 
                     if (is_attacking == false)
@@ -141,13 +152,15 @@ public class EnemyMovement : MonoBehaviour
             }
             else if (distance_to_player > attack_Range && enemy_information.IsTag("nonAttack") && !anim.IsInTransition(0))
             {
-                if (SaveScript.is_invisible == false)
+                if (SaveScript.is_invisible == false && destination_run == false)
                 {
                     nav.isStopped = false;
                     nav.destination = player.transform.position;
                 }
                 
             }
+
+
 
             if(curr_HP > full_HP)
             {
@@ -157,10 +170,29 @@ public class EnemyMovement : MonoBehaviour
                 fillHealt = full_HP;
                 fillHealt /= 100.0f;
                 HP_bar.fillAmount = fillHealt;
+               
             }
-        }
 
-        if(full_HP <= 1 && enemy_is_alive == true)
+            if(full_HP < maxHP / 2 && Piglins == true && destination_run == false)
+            {
+                destination_run = true;
+                //Debug.Log("RUN AWAy");
+                Run_Away();
+            }
+          
+        }
+        Vector3 dest = nav.destination;
+        Vector3 curr_pos = current_enemy.transform.position.normalized;
+       
+      if(Vector3.Distance(current_enemy.transform.position, dest) <= 1.0f)
+        {
+            StartCoroutine(Reset_RunAwayTrigger());
+        }
+      
+        //Debug.Log(nav.isStopped);
+        Debug.Log(Vector3.Distance(current_enemy.transform.position, dest));
+
+        if (full_HP <= 1 && enemy_is_alive == true)
         {
             enemy_is_alive = false;
             nav.isStopped = true;
@@ -207,4 +239,54 @@ public class EnemyMovement : MonoBehaviour
         SaveScript.killed_enemy++;
         Destroy(gameObject, 0.2f);
     }
+
+    public void Run_Away()
+    {
+        anim.SetBool("running", true);
+        nav.isStopped = false;
+
+        //int pos = Random.Range(0, 3);
+        //nav.destination = escape_target_point[pos].transform.position;
+        CalculateEscapePoint();
+        nav.destination = escape_point;
+    }
+
+    IEnumerator Reset_RunAwayTrigger()
+    {
+        yield return new WaitForSeconds(5);
+        destination_run = false;
+    }
+
+
+    public void CalculateEscapePoint()
+    {
+
+        Vector3 escapeDirection = Vector3.zero;
+        float maxDistance = 0f;
+
+        for (int i = 0; i < 360; i += 45) 
+        {
+            Vector3 direction = Quaternion.Euler(0, i, 0) * transform.forward;
+            NavMeshHit hit;
+            if (NavMesh.Raycast(transform.position, transform.position + direction * 100f, out hit, NavMesh.AllAreas))
+            {
+                float distance = Vector3.Distance(transform.position, hit.position);
+                if (distance > maxDistance)
+                {
+                    maxDistance = distance;
+                    escapeDirection = direction;
+                }
+            }
+        }
+        NavMeshHit escapeHit;
+        if (NavMesh.SamplePosition(transform.position + escapeDirection * maxDistance, out escapeHit, maxDistance, NavMesh.AllAreas))
+        {
+            escape_point = escapeHit.position;
+        }
+        else
+        {
+            escape_point = transform.position;
+        }
+    }
+
 }

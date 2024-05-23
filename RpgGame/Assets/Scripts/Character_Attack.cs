@@ -41,12 +41,12 @@ public class Character_Attack : MonoBehaviour
 
         if (other.CompareTag("enemy") && can_deal_dmg == true )
         {
-            
+            Enemy_Type enemy_type = other.GetComponent<Enemy_Type>();
             int dmg_check = 0;
             if(player.GetComponent<PlayerMovement>().critical_attack_is_active == true)
             {
                 dmg_check = (basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase) * SaveScript.critical_dmg_multiply;
-                if (other.GetComponent<Golem_Movement>().Golem == true)
+                if (enemy_type.enemyType == Enemy_Type.EnemyType.Golem)
                 {
                     if (Random.Range(0f, 1f) >= other.GetComponent<Golem_Movement>().dmg_block_probability) //15 per cent to block dmg
                     {
@@ -68,7 +68,8 @@ public class Character_Attack : MonoBehaviour
             else
             {
                 dmg_check = (basic_weapon_damage + SaveScript.weapon_dmg_scaleUP + SaveScript.strength_increase);
-                if(other.GetComponent<Golem_Movement>().Golem == true)
+
+                if(enemy_type.enemyType == Enemy_Type.EnemyType.Golem)
                 {
                     if (Random.Range(0f, 1f) >= other.GetComponent<Golem_Movement>().dmg_block_probability) //15 per cent to block dmg
                     {
@@ -103,7 +104,7 @@ public class Character_Attack : MonoBehaviour
 
 
             Debug.Log(basic_weapon_damage + " " + SaveScript.weapon_dmg_scaleUP + " " + SaveScript.strength_increase);
-            if (other.GetComponent<Golem_Movement>().Golem == true)
+            if (enemy_type.enemyType == Enemy_Type.EnemyType.Golem)
             {
                 Debug.Log("Monster = " + other.name + " HP = " + other.transform.gameObject.GetComponent<Golem_Movement>().full_HP + " DMG = " + dmg_check);
             }

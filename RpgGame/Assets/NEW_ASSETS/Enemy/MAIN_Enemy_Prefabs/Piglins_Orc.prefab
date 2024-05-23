@@ -1097,6 +1097,7 @@ GameObject:
   - component: {fileID: 2245152461056476890}
   - component: {fileID: 1282328775477779047}
   - component: {fileID: 527484681770751064}
+  - component: {fileID: 8313826086174598172}
   - component: {fileID: 8652263740422273121}
   - component: {fileID: 1282328775477779050}
   - component: {fileID: 4520702782362683208}
@@ -1187,6 +1188,19 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &8313826086174598172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245152461047023438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ecb6839bffed441802949683859fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 2
 --- !u!114 &8652263740422273121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1206,6 +1220,7 @@ MonoBehaviour:
   player: {fileID: 0}
   attack_Range: 2.2
   chasing_Range: 5
+  rotation_speed: 500
   full_HP: 200
   get_Hit_SFX:
   - {fileID: 8300000, guid: 0ce162a4e3303fe46a055289376ead59, type: 3}
@@ -1214,6 +1229,11 @@ MonoBehaviour:
   bar_Container: {fileID: 55085253}
   HP_bar: {fileID: 1266084850}
   main_camera: {fileID: 0}
+  escape_target_point:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!65 &1282328775477779050
 BoxCollider:
   m_ObjectHideFlags: 0

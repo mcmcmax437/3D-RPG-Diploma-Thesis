@@ -836,6 +836,7 @@ GameObject:
   - component: {fileID: 563671252174710757}
   - component: {fileID: 6078694459922871734}
   - component: {fileID: 6537805371839223248}
+  - component: {fileID: 1450426620881982971}
   - component: {fileID: 6537805371839223246}
   - component: {fileID: 3946940871113545898}
   - component: {fileID: 6537805371839223245}
@@ -907,6 +908,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1450426620881982971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398326330034125632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ecb6839bffed441802949683859fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 1
 --- !u!114 &6537805371839223246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -942,13 +956,19 @@ MonoBehaviour:
   current_enemy: {fileID: 398326330034125632}
   player: {fileID: 0}
   attack_Range: 3
-  chasing_Range: 15
+  chasing_Range: 13
   rotation_speed: 500
+  dmg_block_probability: 0.15
+  golem_stamina_MAX: 1
+  golem_stamina: 0
+  golem_stamina_regeneration: 0.05
   full_HP: 350
+  audio_Player: {fileID: 0}
   get_Hit_SFX:
   - {fileID: 8300000, guid: 0ce162a4e3303fe46a055289376ead59, type: 3}
   - {fileID: 8300000, guid: 78fe859e9788ea14cbee913806c95f96, type: 3}
   - {fileID: 8300000, guid: 9df9b4e063c331541b09e39d8282fe0c, type: 3}
+  block_SFX: {fileID: 8300000, guid: 8b65920b01ac5f94b9b5c4c69721b074, type: 3}
   bar_Container: {fileID: 799689709}
   HP_bar: {fileID: 2024068814}
   main_camera: {fileID: 0}
