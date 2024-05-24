@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,7 +51,7 @@ public class EnemyMovement : MonoBehaviour
 
     public GameObject bar_Container;
     public Image HP_bar;
-    private float fillHealt;
+    private float fillHealth;
     public GameObject main_camera;
 
     private bool destination_run = false;
@@ -65,7 +66,7 @@ public class EnemyMovement : MonoBehaviour
         current_enemy.GetComponent<Outline>().enabled = false;
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        nav.avoidancePriority = Random.Range(5, 75);
+        nav.avoidancePriority = UnityEngine.Random.Range(5, 75);
         curr_HP = full_HP;
         maxHP = full_HP;
 
@@ -84,6 +85,10 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
 
+        if(main_camera == null)
+        {
+            main_camera = GameObject.Find("Main Camera");
+        }
         if (patrol_main_obj == null)
         {
             new WaitForSeconds(1);
@@ -217,19 +222,21 @@ public class EnemyMovement : MonoBehaviour
             {
                 is_patroling = false;
             }
-
+           
+            //curr_HP = was
+            //full_hp - are
             if (curr_HP > full_HP)
             {
                 anim.SetTrigger("hit");
                 curr_HP = full_HP;
                 RandomAudio_Hit();
-                fillHealt = full_HP;
-                fillHealt /= 100.0f;
-                HP_bar.fillAmount = fillHealt;
-               
+                fillHealth = Convert.ToSingle(full_HP)/ Convert.ToSingle(maxHP);
+                Debug.Log(fillHealth);
+                HP_bar.fillAmount = fillHealth;
+
             }
 
-            if(full_HP < maxHP / 2 && Piglins == true && destination_run == false)
+            if (full_HP < maxHP / 2 && Piglins == true && destination_run == false)
             {
                 destination_run = true;
                 //Debug.Log("RUN AWAy");
@@ -254,6 +261,7 @@ public class EnemyMovement : MonoBehaviour
             enemy_is_alive = false;
             nav.isStopped = true;
             anim.SetTrigger("death" );
+            SaveScript.amount_of_chasing_enemies--;
             current_enemy.GetComponent<Outline>().enabled = false;
             is_outliner_active = false;
             nav.avoidancePriority = 1;
@@ -291,7 +299,15 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Loot_Spawn()
     {
-        yield return new WaitForSeconds(1);
+        Enemy_Type enemy_type = GetComponent<Enemy_Type>();
+        if (enemy_type.enemyType == Enemy_Type.EnemyType.Skelet)
+        {
+            yield return new WaitForSeconds(2);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1);
+        }
         Instantiate(Loot_from_Enemy, transform.position, transform.rotation);
         SaveScript.killed_enemy++;
         Destroy(gameObject, 0.2f);
@@ -348,7 +364,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Set_Petrol_Destination()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * patrol_radius;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrol_radius;
         randomDirection += patrol_main_obj.position;
 
         NavMeshHit navHit;

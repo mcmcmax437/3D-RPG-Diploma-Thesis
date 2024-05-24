@@ -37,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject camera_2_free;
     private bool is_camera1_active = true;
 
+    private float previous_health = 1.0f;
+    public GameObject get_hit_VFX_Place;
+    private WaitForSeconds life_time_hit_effect = new WaitForSeconds(0.1f);
+
 
     //for roof box colider
     public LayerMask boxLayer;
@@ -85,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Check_Class_Info();
-
+        get_hit_VFX_Place.SetActive(false);
 
     }
 
@@ -278,6 +282,10 @@ public class PlayerMovement : MonoBehaviour
    
         }
 
+        if(previous_health > SaveScript.health)
+        {
+            CharacterGetHit();
+        }
        
 
        
@@ -310,6 +318,18 @@ public class PlayerMovement : MonoBehaviour
         }    
     }
 
+    IEnumerator TurnOff_Hit_VFX()
+    {
+        yield return life_time_hit_effect;
+        get_hit_VFX_Place.SetActive(false);
+    }
+
+    public void CharacterGetHit()
+    {
+        get_hit_VFX_Place.SetActive(true);
+        previous_health = SaveScript.health;
+        StartCoroutine(TurnOff_Hit_VFX());
+    }
     public void Weapon_SFX_Play()
     { 
         

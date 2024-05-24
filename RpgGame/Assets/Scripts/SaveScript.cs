@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SaveScript : MonoBehaviour
 {
-    public static bool class_Avarage = false; // 0
+    public static bool class_Avarage = true; // 0
     public static bool class_Mage = false; // 1
-    public static bool class_Seller = true; // 2
+    public static bool class_Seller = false; // 2
     public static bool class_Warrior = false; // 3
 
-    public static int uniqe_features_index = 2;
+    public static int uniqe_features_index = 0;
     public static float time_of_uniqe_feature_activasion = -Mathf.Infinity;
     public static float uniqe_features_index_CD = 500f; // 500 sec couldown
 
@@ -43,7 +43,7 @@ public class SaveScript : MonoBehaviour
     public static float intelligence_basic = 0.05f;
     public static float stamina_basic = 0.05f;
 
-    private int enemies_to_lvl_UP = 1;
+    private int enemies_to_lvl_UP = 5;
     public static int killed_enemy = 0;
     public static int points_to_upgrade;
 
@@ -60,8 +60,9 @@ public class SaveScript : MonoBehaviour
     public static int player_diamond = 50;
      
     public static int weapon_dmg_scaleUP;
-
     public static float armora_decrease = 0.0f;
+
+    public static int amount_of_chasing_enemies;
     
 
     void Start()
@@ -120,18 +121,11 @@ public class SaveScript : MonoBehaviour
             Health_Regeneration();
         }
 
-       
-
-
         //Debug.Log(weapon_index);
 
         if (killed_enemy == enemies_to_lvl_UP)
         {
-            player_lvl_character += 0.05f;
-            enemies_to_lvl_UP = killed_enemy + 2;
-            points_to_upgrade++;
-            player_lvl_Display++;
-            //Stats_Update_LVL_UP();
+            Character_Lvl_Up();
             Weapon_DMG_LVL_UP();     
         }
 
@@ -142,6 +136,11 @@ public class SaveScript : MonoBehaviour
         if (index_of_equiped_armor == 2)
         {
             armora_decrease = 0.4f;
+        }
+
+        if(amount_of_chasing_enemies < 0)
+        {
+            amount_of_chasing_enemies = 0;
         }
     }
 
@@ -158,17 +157,19 @@ public class SaveScript : MonoBehaviour
    
     }
 
-   /* public void Stats_Update_LVL_UP()
-    {
-        strength_basic = player_lvl_character;
-        intelligence_basic = player_lvl_character;
-        stamina_basic = player_lvl_character;
-    }*/
     
 
     public void Weapon_DMG_LVL_UP()
     {
         weapon_dmg_scaleUP = System.Convert.ToInt32(strength_basic * 100);
+    }
+
+    public void Character_Lvl_Up()
+    {
+        player_lvl_character += 0.05f;
+        enemies_to_lvl_UP = killed_enemy + 8;
+        points_to_upgrade++;
+        player_lvl_Display++;
     }
 }
  

@@ -11,7 +11,8 @@ public class Enemy_Type : MonoBehaviour
     {
         Goblin,
         Golem,
-        Piglin
+        Piglin,
+        Skelet
     }
     
 }

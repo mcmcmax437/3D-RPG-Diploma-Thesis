@@ -92,17 +92,6 @@ public class Character_Attack : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
-
             Debug.Log(basic_weapon_damage + " " + SaveScript.weapon_dmg_scaleUP + " " + SaveScript.strength_increase);
             if (enemy_type.enemyType == Enemy_Type.EnemyType.Golem)
             {

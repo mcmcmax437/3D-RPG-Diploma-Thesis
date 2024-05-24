@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,7 +50,7 @@ public class Golem_Movement : MonoBehaviour
 
     public GameObject bar_Container;
     public Image HP_bar;
-    private float fillHealt;
+    private float fillHealth;
     public GameObject main_camera;
 
     // Start is called before the first frame update
@@ -59,7 +60,7 @@ public class Golem_Movement : MonoBehaviour
         current_enemy.GetComponent<Outline>().enabled = false;
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        nav.avoidancePriority = Random.Range(1, 1);
+        nav.avoidancePriority = UnityEngine.Random.Range(1, 1);
         curr_HP = full_HP;
         maxHP = full_HP;
         golem_stamina = golem_stamina_MAX;
@@ -212,16 +213,20 @@ public class Golem_Movement : MonoBehaviour
             }
 
 
+            //curr_HP = was
+            //full_hp - are
             if (curr_HP > full_HP)
             {
                 golem_stamina -= 0.05f;
                 anim.SetTrigger("hit");
                 curr_HP = full_HP;
                 RandomAudio_Hit();
-                fillHealt = full_HP;
-                fillHealt /= 100.0f;
-                HP_bar.fillAmount = fillHealt;
+                fillHealth = Convert.ToSingle(full_HP) / Convert.ToSingle(maxHP);
+                Debug.Log(fillHealth);
+                HP_bar.fillAmount = fillHealth;
+
             }
+
 
             if (nav.isStopped == false || distance_to_player > 6.0f && enemy_information.IsTag("attack"))
             {
