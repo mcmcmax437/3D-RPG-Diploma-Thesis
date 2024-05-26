@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class ChatScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
+    public GameObject Inventory_Canvas;
+    public string Pub_task;
 
     public Text buttonText;
     public Color32 buttonText_off;
@@ -46,16 +47,24 @@ public class ChatScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             if (shopUI != null)
             {
+                salesman_message.text = "What a pleasure surprise! Hello, " + SaveScript.player_name;
                 shopUI[shop_number].SetActive(false);
             }
         }
     }
-    public void Message1()
+    public void Message_N1()
     {
-        salesman_message.text = "There is nothing special going on here";
+        salesman_message.text = Pub_task;
+        if(Inventory_Canvas != null)
+        {
+            if(Pub_task != "Relax and do your job!")
+            {
+                Inventory_Canvas.GetComponent<Inventory>().Update_text_of_the_task(Pub_task);
+            }   
+        }
     }
 
-    public void Message2()
+    public void Message_N2()
     {
         salesman_message.text = "Buy everything what you want...";
         shopUI[shop_number].SetActive(true);

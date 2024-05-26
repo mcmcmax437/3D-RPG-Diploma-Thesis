@@ -56,8 +56,8 @@ public class SaveScript : MonoBehaviour
     public static float critical_hit_chance = 0.2f;
     public static int critical_dmg_multiply = 2;
 
-    public static int player_gold = 10000;
-    public static int player_diamond = 50;
+    public static int player_gold = 200;
+    public static int player_diamond = 10;
      
     public static int weapon_dmg_scaleUP;
     public static float armora_decrease = 0.0f;

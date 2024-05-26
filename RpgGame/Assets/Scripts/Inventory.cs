@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     public GameObject bookClose;
     public GameObject spell_Book;
 
-    //public GameObject Deeds_Page_Canvas;
+    public GameObject Task_Page_Canvas;
     public GameObject Stats_Page_Canvas;
     public GameObject Inventory_Page_Canvas;
     //public GameObject Map_Page_Canvas;
@@ -100,8 +100,14 @@ public class Inventory : MonoBehaviour
     [HideInInspector]
     public int curr_amount_of_item = 0;     
     private int maximum_second;   
-    private int maximum_third;    
+    private int maximum_third;
+    private int maximum_forth;
 
+    private GameObject compas;
+    private GameObject map;
+
+    public GameObject global_map;
+    public GameObject global_map_camera;
 
     public Image[] UI_Slots_1_to_8;
     public Sprite[] Spell_icons;
@@ -111,8 +117,8 @@ public class Inventory : MonoBehaviour
     public bool set_key2 = false; 
     [HideInInspector]
     public int selected_slot = 0;
-    public int[] spell_slots_assosiations;  
-
+    public int[] spell_slots_assosiations;
+    public Text[] tasks_text;
     public GameObject[] spells_vfx_particles;       //for Spell Test    
     public AudioClip[] Spell_SFX;           // should be in the same order as spell_vfx_particles
 
@@ -128,6 +134,7 @@ public class Inventory : MonoBehaviour
     {
         D_Characters_container.SetActive(false);
         Stats_Page_Canvas.GetComponent<Stats_Info>().OnLoadUpdateOnce();
+        Task_Page_Canvas.SetActive(false);
 
         inventoryMenu.SetActive(false);
         bookOpen.SetActive(false);
@@ -142,6 +149,7 @@ public class Inventory : MonoBehaviour
         max = empty_slots.Length;
         maximum_second = array_of_items.Length;
         maximum_third = empty_slots.Length;
+        maximum_forth = tasks_text.Length;
 
         //Temp
 
@@ -169,7 +177,8 @@ public class Inventory : MonoBehaviour
         amount_of_orangeMushroom = 0;
         amount_of_redMushrooms = 0;
         //
-
+        map = GameObject.FindGameObjectWithTag("map");
+        compas = GameObject.FindGameObjectWithTag("compas");
 
 
     }
@@ -360,6 +369,9 @@ public class Inventory : MonoBehaviour
         audio_Player.clip = openning_book_SFX;
         audio_Player.Play();
 
+        TurnOff_GlobalMap();
+        TurnOff_MiniMap();
+
         inventoryMenu.SetActive(true);
         bookOpen.SetActive(true);
         bookClose.SetActive(false);
@@ -373,10 +385,12 @@ public class Inventory : MonoBehaviour
         
         inventoryMenu.SetActive(false);
         bookOpen.SetActive(false);
-        bookClose.SetActive(true);
+        bookClose.SetActive(true); 
         D_Characters_container.SetActive(false);
         audio_Player.clip = openning_book_SFX;
         audio_Player.Play();
+        TurnOn_MiniMap();
+        TurnOff_GlobalMap();
         Time.timeScale = 1;
     }
 
@@ -404,15 +418,22 @@ public class Inventory : MonoBehaviour
     public void Open_Section_Inventory()
     {
         Stats_Page_Canvas.SetActive(false);
+        Task_Page_Canvas.SetActive(false);
         D_Characters_container.SetActive(false);
         Inventory_Page_Canvas.SetActive(true);
+
+        TurnOff_GlobalMap();
     }
 
     public void Open_Section_Stats()
     {
         Inventory_Page_Canvas.SetActive(false);
         Stats_Page_Canvas.SetActive(true);
-        if(SaveScript.points_to_upgrade <= 0)
+        Task_Page_Canvas.SetActive(false);
+
+        TurnOff_GlobalMap();
+
+        if (SaveScript.points_to_upgrade <= 0)
         {
             PLUS_Button.SetActive(false);
         }
@@ -422,14 +443,61 @@ public class Inventory : MonoBehaviour
 
     }
 
-    public void Open_Section_Deeds()
+    public void Open_Section_Tasks()
     {
-      
+        Inventory_Page_Canvas.SetActive(false);
+        Stats_Page_Canvas.SetActive(false);
+        Task_Page_Canvas.SetActive(true);
+        D_Characters_container.SetActive(false);
+        Task_Page_Canvas.GetComponent<Task_Section>().can_be_Updated = true;
+
+        TurnOff_GlobalMap();
     }
 
     public void Open_Section_Map()
     {
-        
+        Task_Page_Canvas.SetActive(false);
+        Inventory_Page_Canvas.SetActive(false);
+        Stats_Page_Canvas.SetActive(false);
+        D_Characters_container.SetActive(false);
+
+        TurnOn_GlobalMap();
+
+    }
+
+    public void Update_text_of_the_task(string new_task)
+    {
+        for(int i = 0; i < maximum_forth; i++)
+        {
+            if(tasks_text[i].text == "Empty")
+            {
+                maximum_forth = i;
+                tasks_text[i].text = new_task;
+            }
+        }
+        maximum_forth = new_task.Length;
+    }
+
+    void TurnOff_MiniMap()
+    {
+        map.SetActive(false);
+        compas.SetActive(false);
+    }
+    void TurnOn_MiniMap()
+    {
+        map.SetActive(true);
+        compas.SetActive(true);
+    }
+
+    void TurnOff_GlobalMap()
+    {
+        global_map.SetActive(false);
+        global_map_camera.SetActive(false);
+    }
+    void TurnOn_GlobalMap()
+    {
+        global_map.SetActive(true);
+        global_map_camera.SetActive(true);
     }
 
 }

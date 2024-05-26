@@ -365,7 +365,7 @@ public class PlayerMovement : MonoBehaviour
         if (SaveScript.uniqe_features_index == 0)
         {
             Debug.Log(SaveScript.class_Avarage + "" + SaveScript.class_Mage + "" + SaveScript.class_Seller + "" + SaveScript.class_Warrior);
-            Debug.Log("None");
+            Debug.Log("None Ability");
         }
         else if (SaveScript.uniqe_features_index == 1)
         {
