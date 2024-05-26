@@ -88,6 +88,10 @@ public class PlayerMovement : MonoBehaviour
       
         }
 
+        if(SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            Display_Correct_ArmorInShop();
+        }
         Check_Class_Info();
         get_hit_VFX_Place.SetActive(false);
 
@@ -95,6 +99,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            Display_Correct_ArmorInShop();
+        }
         //Debug.Log("can mpve " + canMove);
         player_information = anim.GetCurrentAnimatorStateInfo(0); //listen to Animator
 
@@ -383,6 +391,23 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("You can survive lethal damage and regain 50% HP (500 sec CD)");
         }
 
+    }
+
+    public void Display_Correct_ArmorInShop()
+    {
+        if(isPlayerSelectScene == true)
+        {
+            if (SaveScript.player_index_character == 1 || SaveScript.player_index_character == 2 || SaveScript.player_index_character == 0)
+            {
+                GetComponent<Stats_Info>().armor_in_shop[0].SetActive(true);
+                GetComponent<Stats_Info>().armor_in_shop[1].SetActive(false);
+            }
+            else
+            {
+                GetComponent<Stats_Info>().armor_in_shop[0].SetActive(false);
+                GetComponent<Stats_Info>().armor_in_shop[1].SetActive(true);
+            }
+        }
     }
 
 }

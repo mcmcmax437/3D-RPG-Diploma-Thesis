@@ -33,10 +33,12 @@ public class Stats_Info : MonoBehaviour
         
         if (SaveScript.player_index_character == 1 || SaveScript.player_index_character == 2 || SaveScript.player_index_character == 0)
         {
-            armor_in_shop[0].SetActive(true);           
+            armor_in_shop[0].SetActive(true);
+            armor_in_shop[1].SetActive(false);
         }
         else
         {
+            armor_in_shop[0].SetActive(false);
             armor_in_shop[1].SetActive(true);            
         }
 

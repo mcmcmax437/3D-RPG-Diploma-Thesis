@@ -7,13 +7,14 @@ public class Unlock_Book_Magic : MonoBehaviour
     public GameObject UI_Magic;
     public GameObject UI_Spells;
 
-    private bool is_magic_Unlock = false;
-    private bool is_spells_Unlock = false;
+    public bool is_magic_Unlock = false;
+    public bool is_spells_Unlock = false;
 
     public bool is_pintogram_Magic = false;
     public bool is_book_Spels = false;
 
     public GameObject pintogram;
+    public GameObject spell_book;
  
 
 
@@ -29,7 +30,17 @@ public class Unlock_Book_Magic : MonoBehaviour
             UI_Spells.SetActive(false);
         }
       
-     
+        if(SaveScript.spell_was_unlocked == true && is_book_Spels == true)
+        {
+            is_spells_Unlock = true;
+            spell_book.SetActive(false);
+        }
+        if (SaveScript.magic_was_unlocked == true && is_pintogram_Magic == true)
+        {
+            is_magic_Unlock = true;
+            pintogram.SetActive(false);
+        }
+
     }
 
 
@@ -44,6 +55,7 @@ public class Unlock_Book_Magic : MonoBehaviour
                     UI_Magic.SetActive(true);
                     is_magic_Unlock = true;
                     Destroy(gameObject);
+                    SaveScript.magic_was_unlocked = true;
                 }
             }
         }
@@ -57,6 +69,7 @@ public class Unlock_Book_Magic : MonoBehaviour
                     UI_Spells.SetActive(true);
                     is_spells_Unlock = true;
                     Destroy(gameObject);
+                    SaveScript.spell_was_unlocked = true;
 
                 }
             }

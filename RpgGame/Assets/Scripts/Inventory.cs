@@ -75,10 +75,11 @@ public class Inventory : MonoBehaviour
     public static int gold = SaveScript.player_gold;
     public static int diamond = SaveScript.player_diamond;
     //
+    public GameObject Spell_Canvas; // Spell Creation Canvas
 
-
-    public GameObject Spell_Canvas;
-  //public GameObject Stats_Canvas;
+    public GameObject Magic_Canvas; 
+    public GameObject Spell_slots_Canvas;
+    //public GameObject Stats_Canvas;
 
     public Image[] empty_slots;
     public Sprite[] sprite_icons;
@@ -297,28 +298,8 @@ public class Inventory : MonoBehaviour
             }
         }
         //
-        
 
-        if(amount_of_bread == 0)
-        {
-            DestroyIcon(15);
-;        }
-        if (amount_of_keyGold == 0)
-        {
-            DestroyIcon(9);
-        }
-        if (amount_of_cheese == 0)
-        {
-            DestroyIcon(16);
-        }
-        if (amount_of_keySimp == 0)
-        {
-            DestroyIcon(8);
-        }
-        if (amount_of_meat == 0)
-        {
-            DestroyIcon(17);
-        }
+        Correct_Amount_of_Used_Items();
 
     }
 
@@ -371,13 +352,14 @@ public class Inventory : MonoBehaviour
 
         TurnOff_GlobalMap();
         TurnOff_MiniMap();
+        Activate_Spell_Magic_Canvas();
 
         inventoryMenu.SetActive(true);
         bookOpen.SetActive(true);
         bookClose.SetActive(false);
         Time.timeScale = 0;
 
-
+        
     }
 
     public void CloseInventory()
@@ -498,6 +480,43 @@ public class Inventory : MonoBehaviour
     {
         global_map.SetActive(true);
         global_map_camera.SetActive(true);
+    }
+
+    void Activate_Spell_Magic_Canvas()
+    {
+        if (SaveScript.spell_was_unlocked == true)
+        {
+            Spell_slots_Canvas.SetActive(true);
+        }
+        if (SaveScript.magic_was_unlocked == true)
+        {
+            Magic_Canvas.SetActive(true);
+        }
+    }
+
+    void Correct_Amount_of_Used_Items()
+    {
+        if (amount_of_bread == 0)
+        {
+            DestroyIcon(15);
+            ;
+        }
+        if (amount_of_keyGold == 0)
+        {
+            DestroyIcon(9);
+        }
+        if (amount_of_cheese == 0)
+        {
+            DestroyIcon(16);
+        }
+        if (amount_of_keySimp == 0)
+        {
+            DestroyIcon(8);
+        }
+        if (amount_of_meat == 0)
+        {
+            DestroyIcon(17);
+        }
     }
 
 }

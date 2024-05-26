@@ -99,7 +99,7 @@ public class PlayerSelect : MonoBehaviour
 
         Debug.Log(player_index +" INDEX");
 
-        SceneManager.LoadScene(1); //Load Terrain1
+        SceneManager.LoadScene(2); //Load Terrain1
     }
 
     public void select_Avarage()
