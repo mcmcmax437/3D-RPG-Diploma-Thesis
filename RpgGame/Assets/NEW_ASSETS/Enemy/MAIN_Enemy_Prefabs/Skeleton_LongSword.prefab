@@ -986,8 +986,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec295e48d4bab324b8e9b5a0fb503bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Goblin_Warrior: 1
+  Goblin_Warrior: 0
   Piglins: 0
+  Skeleton: 1
+  temp_Priority: 0
+  support_enemy: {fileID: 2983880302164395405}
   Loot_from_Enemy: {fileID: 2330371543677727352, guid: 72ee8fbd6868ff84e8923ecfec457662, type: 3}
   current_enemy: {fileID: 2983880302164395405}
   player: {fileID: 0}
@@ -1010,6 +1013,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  dodgeDistance: 5
+  aggression_lvl: 0.5
+  max_aggression: 1
+  min_aggression: 0
+  piglin_was_hit: 0
 --- !u!114 &1317721080909006466
 MonoBehaviour:
   m_ObjectHideFlags: 0

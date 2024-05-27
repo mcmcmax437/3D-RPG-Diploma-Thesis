@@ -9,7 +9,17 @@ public class EnemyMovement : MonoBehaviour
 {
     public bool Goblin_Warrior = false;
     public bool Piglins = false;
-  
+    public bool Skeleton = false;
+    public bool temp_Priority = false; // temp to check
+    private bool can_call_support = false;
+    private Vector3 buffed_Skeleton = new Vector3(15.0f, 15.0f, 15.0f);
+    private int buffed_probability = 10;
+    private bool sup_skill_used = false;
+    private bool change_position = false;
+    private float sup_skill_CD = 10f;
+    private int amount_of_reinforcment = 2;
+    public GameObject support_enemy;
+
 
     public GameObject Loot_from_Enemy;
 
@@ -42,8 +52,10 @@ public class EnemyMovement : MonoBehaviour
 
     public int full_HP = 100;
     private int curr_HP;
+
     private int fear_lvl = 100;
     private int fear_lvl_curr;
+
     private bool enemy_is_alive = true;
 
     private AudioSource audio_Player;
@@ -59,6 +71,18 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 escape_point;
     public Transform[] escape_target_point;
 
+    private bool roll_out = false;
+    private bool roll_is_active = false;
+    public float dodgeDistance = 5f;
+    public float aggression_lvl = 0.5f; // 0 (passive) to 1 (aggressive)
+    private bool playerNearby = false;
+    private float aggression_increase = 0.05f;
+    private float aggression_decrease = 0.025f;
+    public float max_aggression = 1.0f;
+    public float min_aggression = 0.0f;
+
+    public bool piglin_was_hit = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,13 +94,31 @@ public class EnemyMovement : MonoBehaviour
         curr_HP = full_HP;
         maxHP = full_HP;
 
-        if(Goblin_Warrior == true)
+        if (Goblin_Warrior == true)
         {
             Set_Petrol_Destination();
         }
         if (Goblin_Warrior == true && patrol_main_obj == null)
         {
             is_patroling = false;
+        }
+        if (GetComponent<Enemy_Type>().enemyType == Enemy_Type.EnemyType.Piglin)
+        {
+            chasing_Range = 0;
+        }
+
+        if(Skeleton == true)
+        {
+            int random = UnityEngine.Random.Range(1, 101);
+            if(random <= buffed_probability || temp_Priority == true) //10 per cent to be able to call support
+            {
+                can_call_support = true;
+                transform.localScale = buffed_Skeleton;
+            }
+            else
+            {
+                can_call_support = false;
+            }
         }
 
     } 
@@ -97,55 +139,25 @@ public class EnemyMovement : MonoBehaviour
         bar_Container.transform.LookAt(main_camera.transform.position);
         //HP_bar.transform.LookAt(main_camera.transform.position);
 
+        if (Input.GetKeyDown(KeyCode.Z) && distance_to_player < 5f && SaveScript.stamina > 0.2)
+        {
+            roll_out = true;
+        }
+
         if (enemy_is_alive == true)
         {
-            //outline
-            if (is_outliner_active == false)
-            {
-                is_outliner_active = true;
-                if (SaveScript.spell_target == current_enemy)
-                {
-                    current_enemy.GetComponent<Outline>().enabled = true;
-                }
-            }
-            if (is_outliner_active == true)
-            {
-                if (SaveScript.spell_target != current_enemy)
-                {
-                    current_enemy.GetComponent<Outline>().enabled = false;
-                    is_outliner_active = false;
-                }
-            }
-            //
-
+            Enemy_Outline();
             if (player == null)
             {
                 player = GameObject.FindGameObjectWithTag("Player");
             }
-            x = nav.velocity.x;
-            z = nav.velocity.z;
-            velocitySpeed = new Vector2(x, z).magnitude;
-            // velocitySpeed = x+z;      
-            if (velocitySpeed == 0)
-            {
-                anim.SetBool("running", false);
-                // Debug.Log("RUN = " + check);
-            }
-            else if (velocitySpeed != 0)
-            {
-
-                anim.SetBool("running", true);
-                // check = anim.GetBool("running");
-                is_attacking = false;
-                //Debug.Log("running = " + check);
-
-            }
+            Enemy_Running();
 
             enemy_information = anim.GetCurrentAnimatorStateInfo(0);
             distance_to_player = Vector3.Distance(transform.position, player.transform.position);
 
 
-            if (is_patroling == false && Goblin_Warrior == true || Piglins == true)
+            if (is_patroling == false && Goblin_Warrior == true || Piglins == true && piglin_was_hit == true || Skeleton == true && change_position == false)
             {
                 if (distance_to_player < attack_Range || distance_to_player > chasing_Range && destination_run != true) //if character is out of view  range or attack range - than enemy stop
                 {
@@ -195,34 +207,37 @@ public class EnemyMovement : MonoBehaviour
 
             if(Goblin_Warrior == true)
             {
-                is_patroling = true;
-                if (!is_waiting && nav.remainingDistance <= 2.0f)
-                {
-
-                    is_waiting = true;
-                    wait_timer = wait_time_at_point;
-                    is_patroling = false;
-                }
-                if (is_waiting)
-                {
-                    wait_timer -= Time.deltaTime;
-
-                    if (wait_timer <= 0)
-                    {
-
-                        is_waiting = false;
-                        Set_Petrol_Destination();
-                        nav.isStopped = false;
-                    }
-                }
-                
+                Patrol();
+                Correct_Aggression();
             }
            
             if(distance_to_player <= chasing_Range)
             {
                 is_patroling = false;
             }
-           
+
+            if(roll_out == true && roll_is_active == false)
+            {
+                roll_is_active = true;
+                Dodge();
+                StartCoroutine(Reset_Roll_Triger());
+            }
+
+            //Debug.Log(Skeleton + " " + can_call_support + " " + sup_skill_used);
+            if(Skeleton == true && can_call_support == true && sup_skill_used == false)
+            {
+                bool enemy_is_near_skeleton = Search_Enemy_Near_Skeleton();
+                if(enemy_is_near_skeleton == false && distance_to_player <= 9f && SaveScript.agression_lvl > 0.7f)
+                {
+                    sup_skill_used = true;
+                    SaveScript.agression_lvl -= 0.5f;
+                    anim.SetTrigger("skill");
+                    Spawn_Reinforcment();
+                    StartCoroutine(Reset_Sup_Skill());
+                    change_position = false;
+                }
+            }
+
             //curr_HP = was
             //full_hp - are
             if (curr_HP > full_HP)
@@ -233,6 +248,12 @@ public class EnemyMovement : MonoBehaviour
                 fillHealth = Convert.ToSingle(full_HP)/ Convert.ToSingle(maxHP);
                 Debug.Log(fillHealth);
                 HP_bar.fillAmount = fillHealth;
+                if (GetComponent<Enemy_Type>().enemyType == Enemy_Type.EnemyType.Piglin)
+                {
+                    piglin_was_hit = true;
+                    chasing_Range = 60f;
+                    StartCoroutine(Reset_Piglin_Renge());
+                }
 
             }
 
@@ -247,7 +268,6 @@ public class EnemyMovement : MonoBehaviour
        
         
         Vector3 dest = nav.destination;
-        Vector3 curr_pos = current_enemy.transform.position.normalized;
          if(Vector3.Distance(current_enemy.transform.position, dest) <= 1.0f)
         {
             StartCoroutine(Reset_RunAwayTrigger());
@@ -258,14 +278,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (full_HP <= 1 && enemy_is_alive == true)
         {
-            enemy_is_alive = false;
-            nav.isStopped = true;
-            anim.SetTrigger("death" );
-            SaveScript.amount_of_chasing_enemies--;
-            current_enemy.GetComponent<Outline>().enabled = false;
-            is_outliner_active = false;
-            nav.avoidancePriority = 1;
-            StartCoroutine(Loot_Spawn());
+            Enemy_is_Dead();
         }
 
     }
@@ -277,7 +290,62 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, PosRotation, Time.deltaTime * rotation_speed);
     }
      
-   
+    public void Enemy_is_Dead()
+    {
+        SaveScript.agression_lvl = SaveScript.agression_lvl + 0.2f;
+        enemy_is_alive = false;
+        nav.isStopped = true;
+        anim.SetTrigger("death");
+        SaveScript.amount_of_chasing_enemies--;
+        current_enemy.GetComponent<Outline>().enabled = false;
+        is_outliner_active = false;
+        nav.avoidancePriority = 1;
+        StartCoroutine(Loot_Spawn());
+    }
+
+    public void Enemy_Outline()
+    {
+        //outline
+        if (is_outliner_active == false)
+        {
+            is_outliner_active = true;
+            if (SaveScript.spell_target == current_enemy)
+            {
+                current_enemy.GetComponent<Outline>().enabled = true;
+            }
+        }
+        if (is_outliner_active == true)
+        {
+            if (SaveScript.spell_target != current_enemy)
+            {
+                current_enemy.GetComponent<Outline>().enabled = false;
+                is_outliner_active = false;
+            }
+        }
+        //
+    }
+
+    public void Enemy_Running()
+    {
+        x = nav.velocity.x;
+        z = nav.velocity.z;
+        velocitySpeed = new Vector2(x, z).magnitude;
+        // velocitySpeed = x+z;      
+        if (velocitySpeed == 0)
+        {
+            anim.SetBool("running", false);
+            // Debug.Log("RUN = " + check);
+        }
+        else if (velocitySpeed != 0)
+        {
+
+            anim.SetBool("running", true);
+            // check = anim.GetBool("running");
+            is_attacking = false;
+            //Debug.Log("running = " + check);
+
+        }
+    }
 
     public void RandomAudio_Hit()
     {
@@ -320,7 +388,7 @@ public class EnemyMovement : MonoBehaviour
 
         //int pos = Random.Range(0, 3);
         //nav.destination = escape_target_point[pos].transform.position;
-        CalculateEscapePoint();
+        Calculate_Escape_Point();
         nav.destination = escape_point;
     }
 
@@ -330,8 +398,27 @@ public class EnemyMovement : MonoBehaviour
         destination_run = false;
     }
 
+    IEnumerator Reset_Roll_Triger()
+    {
+        yield return new WaitForSeconds(3f);
+        roll_out = false;
+        roll_is_active = false;
+    }
 
-    public void CalculateEscapePoint()
+    IEnumerator Reset_Piglin_Renge()
+    {
+        yield return new WaitForSeconds(7f);
+        Look_At_Player_Spherical_LERP();
+        piglin_was_hit = false;
+        chasing_Range = 3f;
+    }
+    IEnumerator Reset_Sup_Skill()
+    {
+        yield return new WaitForSeconds(sup_skill_CD);
+        sup_skill_used = false;
+    }
+
+    public void Calculate_Escape_Point()
     {
 
         Vector3 escapeDirection = Vector3.zero;
@@ -362,7 +449,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    void Set_Petrol_Destination()
+    public void Set_Petrol_Destination()
     {
         Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrol_radius;
         randomDirection += patrol_main_obj.position;
@@ -373,6 +460,150 @@ public class EnemyMovement : MonoBehaviour
         anim.SetBool("running", true);
         nav.isStopped = false;
         nav.destination = navHit.position;
+    }
+
+    public void Patrol()
+    {
+        is_patroling = true;
+        if (!is_waiting && nav.remainingDistance <= 2.0f)
+        {
+
+            is_waiting = true;
+            wait_timer = wait_time_at_point;
+            is_patroling = false;
+        }
+        if (is_waiting)
+        {
+            wait_timer -= Time.deltaTime;
+
+            if (wait_timer <= 0 || SaveScript.is_invisible == true)
+            {
+
+                is_waiting = false;
+                Set_Petrol_Destination();
+                nav.isStopped = false;
+            }
+        }
+
+        if (SaveScript.is_invisible == true)
+        {
+            is_waiting = false;
+            Set_Petrol_Destination();
+            nav.isStopped = false;
+        }
+    }
+
+    public void Dodge()
+    {
+        Vector3 playerDirection = player.transform.position - transform.position;
+        playerDirection.Normalize();
+
+        Vector3[] dodgeDirections = {
+            -transform.forward,   // roll back
+            transform.forward,    // roll forward
+            -transform.right,     // roll left
+            transform.right       // roll right
+        };
+
+        string[] dodgeTriggers = {
+            "roll_B",
+            "roll_F",
+            "roll_L",
+            "roll_R"
+        };
+
+        float[] weights = new float[dodgeDirections.Length];
+        for (int i = 0; i < dodgeDirections.Length; i++)
+        {
+            Vector3 dodgePosition = transform.position + dodgeDirections[i] * dodgeDistance;
+            if (NavMesh.SamplePosition(dodgePosition, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+            {
+                // Calculate weight based on direction, distance to player, and aggression level
+                float directionWeight = Vector3.Dot(playerDirection, dodgeDirections[i]);
+                directionWeight = (1 - Mathf.Abs(directionWeight)) * (1 - aggression_lvl);
+                weights[i] = directionWeight;
+            }
+            else
+            {
+                weights[i] = -1; // Invalid direction
+            }
+        }
+
+        // Choose the direction with the highest weight
+        int bestDirection = -1;
+        float bestWeight = -1;
+        for (int i = 0; i < weights.Length; i++)
+        {
+            if (weights[i] > bestWeight)
+            {
+                bestWeight = weights[i];
+                bestDirection = i;
+            }
+        }
+
+        if (bestDirection != -1)
+        {
+            anim.SetTrigger(dodgeTriggers[bestDirection]);
+        }
+    }
+    public void Correct_Aggression()
+    {
+        if (curr_HP < 0.5f)
+        {
+            aggression_lvl += aggression_increase * Time.deltaTime;
+        }
+        else
+        {
+            aggression_lvl -= aggression_decrease * Time.deltaTime;
+        }
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        if (distanceToPlayer < 10f) // Example distance threshold
+        {
+            aggression_lvl += aggression_increase * Time.deltaTime;
+            playerNearby = true;
+        }
+        else
+        {
+            playerNearby = false;
+        }
+
+        // Clamp the aggression level between min and max values
+        aggression_lvl = Mathf.Clamp(aggression_lvl, min_aggression, max_aggression);
+
+        //Debug.Log("Aggression Level: " + aggression_lvl);
+    }
+
+    public bool Search_Enemy_Near_Skeleton()
+    {
+        Collider[] all_colliders = Physics.OverlapSphere(transform.position, 10f);
+        foreach (Collider collider in all_colliders)
+        {
+            if (collider.CompareTag("enemy") && collider.gameObject != gameObject)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void Spawn_Reinforcment()
+    {
+        for(int i = 0; i < amount_of_reinforcment; i++)
+        {
+
+            Instantiate(support_enemy, GetRandom_Point_Around(), Quaternion.identity);
+            SaveScript.amount_of_chasing_enemies++;
+        }
+    }
+
+    public Vector3 GetRandom_Point_Around()
+    {
+        float angle = UnityEngine.Random.Range(0f, Mathf.PI * 2);
+        float x = Mathf.Cos(angle) * 8f;
+        float z = Mathf.Sin(angle) * 8f;
+        Vector3 spawnPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
+        return spawnPoint;
     }
 
 }

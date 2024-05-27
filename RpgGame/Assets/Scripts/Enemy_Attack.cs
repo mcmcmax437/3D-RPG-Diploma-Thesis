@@ -45,11 +45,13 @@ public class Enemy_Attack : MonoBehaviour
         enemy_can_attack = false;
         if(SaveScript.is_shielf_active == true)
         {
+            SaveScript.agression_lvl = SaveScript.agression_lvl + 0.05f;
             correct_dmg_reduce_by_Skill = 1.0f - SaveScript.damage_reduce_by_Guardianship;
             SaveScript.health -= (damage_enemy * correct_dmg_reduce_by_armor * correct_dmg_reduce_by_Skill);
         }
         else
         {
+            SaveScript.agression_lvl = SaveScript.agression_lvl + 0.1f;
             SaveScript.health -= damage_enemy * correct_dmg_reduce_by_armor;
         }
     }

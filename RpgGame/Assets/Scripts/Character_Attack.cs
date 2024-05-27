@@ -41,6 +41,8 @@ public class Character_Attack : MonoBehaviour
 
         if (other.CompareTag("enemy") && can_deal_dmg == true )
         {
+            SaveScript.agression_lvl = SaveScript.agression_lvl + 0.2f;
+
             Enemy_Type enemy_type = other.GetComponent<Enemy_Type>();
             int dmg_check = 0;
             if(player.GetComponent<PlayerMovement>().critical_attack_is_active == true)

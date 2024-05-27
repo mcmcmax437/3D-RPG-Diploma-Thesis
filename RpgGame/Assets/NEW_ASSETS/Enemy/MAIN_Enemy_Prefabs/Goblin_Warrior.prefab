@@ -2836,6 +2836,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  dodgeDistance: 5
+  aggression_lvl: 0.5
+  max_aggression: 1
+  min_aggression: 0
 --- !u!82 &5292128349887250908
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3590,7 +3594,7 @@ BoxCollider:
   m_GameObject: {fileID: 8226378264914765081}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 4, y: 2, z: 7.64}
   m_Center: {x: -1.13, y: 0, z: -3}

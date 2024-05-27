@@ -7,11 +7,20 @@ public class Enemy_Spawn : MonoBehaviour
     public GameObject main_Camera;
     public GameObject[] enemies_for_spawn;
     public Transform[] places_for_spawn;
+    public bool support_skill = false;
 
     public bool re_useable_trigger = false;
+    public int amount_of_spawn_support_skeleton = 3;
 
     private bool was_already_spawned = false;
 
+    void Start()
+    {
+       if(support_skill == true)
+        {
+            
+        } 
+    }
     void Update()
     {
         if(SaveScript.amount_of_chasing_enemies <= 0)

@@ -70,10 +70,12 @@ public class SaveScript : MonoBehaviour
     public static bool magic_was_unlocked = false;
 
     private GameObject Inventory_Canvas;
-    public static bool take_data_to_load = false; //continueData
-    public static bool should_be_saved = false; //saving
-    private bool is_loading = false; //checkForLoad
+    public static bool take_data_to_load = false; 
+    public static bool should_be_saved = false; 
+    private bool is_loading = false; 
 
+    
+    public static float agression_lvl = 0;
 
 
     //for JSON SAVE
@@ -163,11 +165,12 @@ public class SaveScript : MonoBehaviour
 
     public int[] obj_index_SAVE = new int[20];
 
+    public float agression_lvl_SAVE;
 
 
     void Start()
     {
-        Debug.Log("Gold update");
+       // Debug.Log("Gold update");
         DontDestroyOnLoad(this);
 
         if(take_data_to_load == true)
@@ -179,6 +182,10 @@ public class SaveScript : MonoBehaviour
 
             is_loading = true;
         }
+        if(player_gold == 0)
+        {
+            player_gold = 25;
+        }
 
 
     }
@@ -187,12 +194,14 @@ public class SaveScript : MonoBehaviour
     {
         Mana();
         Stamina();
+        
 
         float newTime = Time.time - time_of_last_damage_recive;
         if (health < 0.7  && newTime >= 10f)
         {
             Health_Regeneration();
         }
+        Agression(newTime);
         //Debug.Log(weapon_index);
         if (killed_enemy == enemies_to_lvl_UP)
         {
@@ -291,6 +300,55 @@ public class SaveScript : MonoBehaviour
             // StartCoroutine(WaitBeforeStaminaRegeneration());
         }
     }
+
+    public void Agression(float time_of_hit)
+    {
+        GameObject enemy_is_near = FindClosestEnemy();
+       // Debug.Log(enemy_is_near);
+        if (agression_lvl >= 1.0)
+        {
+            agression_lvl = 1.0f;
+        }
+        if (agression_lvl <= 1.0)
+        {
+            if(enemy_is_near != null && is_invisible == false)
+            {
+                agression_lvl += 0.03f * Time.deltaTime;
+            }
+            else
+            {
+                agression_lvl -= 0.05f * Time.deltaTime;
+            }
+
+          
+        }
+        if (agression_lvl < 0)
+        {
+            agression_lvl = 0;
+        }
+
+        Debug.Log(agression_lvl);
+    }
+
+    GameObject FindClosestEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject nearest = null;
+        float SQR_Dist_to_Enemy= Mathf.Infinity;
+        foreach (GameObject teoretical_Enemy in enemies)
+        {
+            float distance_to_enemy = Vector3.Distance(player.transform.position, teoretical_Enemy.transform.position);
+            if (distance_to_enemy < SQR_Dist_to_Enemy && distance_to_enemy < 20.0f) 
+            {
+                SQR_Dist_to_Enemy = distance_to_enemy;
+                nearest = teoretical_Enemy;
+            }
+        }
+
+        return nearest;
+    }
+
     public void Weapon_DMG_LVL_UP()
     {
         weapon_dmg_scaleUP = System.Convert.ToInt32(strength_basic * 100);
@@ -407,6 +465,7 @@ public class SaveScript : MonoBehaviour
 
         Inventory_Canvas.GetComponent<Inventory>().weapons = weapons_SAVE;
 
+        agression_lvl = agression_lvl_SAVE;
 
         for (int i = 0; i < 20; i++)
         {
@@ -504,6 +563,8 @@ public class SaveScript : MonoBehaviour
 
 
         weapons_SAVE = Inventory_Canvas.GetComponent<Inventory>().weapons;
+
+        agression_lvl_SAVE = agression_lvl;
 
         for (int i = 0; i < 20; i++)
         {

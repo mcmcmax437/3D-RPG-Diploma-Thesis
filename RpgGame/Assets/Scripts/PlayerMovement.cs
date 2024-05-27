@@ -232,7 +232,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if(SaveScript.is_invisible == true)
             {
-                for(int i = 0; i < player_mesh_parts.Length; i++)
+                SaveScript.agression_lvl = SaveScript.agression_lvl - 0.15f;
+                for (int i = 0; i < player_mesh_parts.Length; i++)
                 {
                     player_mesh_parts[i].SetActive(false);
                 }
