@@ -994,7 +994,7 @@ MonoBehaviour:
   Loot_from_Enemy: {fileID: 2330371543677727352, guid: 72ee8fbd6868ff84e8923ecfec457662, type: 3}
   current_enemy: {fileID: 2983880302164395405}
   player: {fileID: 0}
-  attack_Range: 1.5
+  attack_Range: 2
   chasing_Range: 12
   rotation_speed: 500
   patrol_main_obj: {fileID: 0}
@@ -1018,6 +1018,8 @@ MonoBehaviour:
   max_aggression: 1
   min_aggression: 0
   piglin_was_hit: 0
+  distance_of_ray: 12
+  time_for_search: 3
 --- !u!114 &1317721080909006466
 MonoBehaviour:
   m_ObjectHideFlags: 0

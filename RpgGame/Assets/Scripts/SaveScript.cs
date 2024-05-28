@@ -54,7 +54,7 @@ public class SaveScript : MonoBehaviour
     public static bool is_character_equip_a_weapon = false;
 
     public static int index_of_equiped_armor = 0;  //7 - bassic, 8 - light, 9 - heave  //1 - light 2 - heavy
-    public static bool should_change_armor = false;
+    public static bool should_change_armor = false; // basic - false
     public static float critical_hit_chance = 0.2f;
     public static int critical_dmg_multiply = 2;
 
@@ -192,6 +192,8 @@ public class SaveScript : MonoBehaviour
 
     void Update()
     {
+
+        //Debug.Log("Index" + index_of_equiped_armor);
         Mana();
         Stamina();
         
@@ -327,7 +329,7 @@ public class SaveScript : MonoBehaviour
             agression_lvl = 0;
         }
 
-        Debug.Log(agression_lvl);
+        //Debug.Log(agression_lvl);
     }
 
     GameObject FindClosestEnemy()
