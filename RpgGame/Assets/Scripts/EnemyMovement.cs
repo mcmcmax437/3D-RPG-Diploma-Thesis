@@ -93,6 +93,7 @@ public class EnemyMovement : MonoBehaviour
     private float search_Timer;
     private bool player_is_inSight;
     private bool look_for_player;
+    private bool reset_piglins_chase_range = false;
 
     // Start is called before the first frame update
     void Start()
@@ -130,6 +131,10 @@ public class EnemyMovement : MonoBehaviour
             {
                 can_call_support = false;
             }
+            if (SaveScript.weapon_index == -1 && Piglins == true)
+            {
+                reset_piglins_chase_range = true;
+            }
         }
 
     }
@@ -145,6 +150,24 @@ public class EnemyMovement : MonoBehaviour
         if (patrol_main_obj == null)
         {
             new WaitForSeconds(1);
+        }
+        if(SaveScript.weapon_index != -1)
+        {
+            reset_piglins_chase_range = false;
+        }
+        else
+        {
+            reset_piglins_chase_range = true;
+            piglin_was_hit = true;
+        }
+        if(reset_piglins_chase_range == true)
+        {
+            chasing_Range = 12.0f;
+           
+        }
+        if (reset_piglins_chase_range == false && Piglins == true && chasing_Range != 60)
+        {
+            chasing_Range = 0.0f;
         }
 
         bar_Container.transform.LookAt(main_camera.transform.position);
@@ -174,7 +197,7 @@ public class EnemyMovement : MonoBehaviour
 
             if (distance_to_player <= chasing_Range && destination_run == false)
             {
-                CheckPlayerSight();
+                Check_If_Player_is_InSight();
 
                 if (player_is_inSight == true)
                 {
@@ -206,9 +229,6 @@ public class EnemyMovement : MonoBehaviour
                 }
 
             }
-
-
-
 
             if (Goblin_Warrior == true && look_for_player == false)
             {
@@ -363,16 +383,23 @@ public class EnemyMovement : MonoBehaviour
         {
             nav.isStopped = true;
         }
-        // Коригування швидкості агента, якщо він застряг
         if (nav.isStopped && nav.velocity.sqrMagnitude < 0.1f)
         {
-            nav.speed = 0; // Зупинити агента
+            nav.speed = 0; 
         }
         else
         {
-            nav.speed = 3.5f; // Відновити швидкість агента
+            nav.speed = 3.5f; 
         }
-        nav.stoppingDistance = stop_distance;
+        if(Piglins == true)
+        {
+            nav.stoppingDistance = 2f;
+        }
+        else
+        {
+            nav.stoppingDistance = stop_distance;
+        }
+        
     }
 
 
@@ -505,7 +532,15 @@ public class EnemyMovement : MonoBehaviour
         yield return new WaitForSeconds(7f);
         Look_At_Player_Spherical_LERP();
         piglin_was_hit = false;
-        chasing_Range = 3f;
+        if(SaveScript.weapon_index != -1)
+        {
+            chasing_Range = 3f;
+        }
+        else
+        {
+            chasing_Range = 12f;
+        }
+        
     }
     IEnumerator Reset_Sup_Skill()
     {
@@ -559,11 +594,11 @@ public class EnemyMovement : MonoBehaviour
 
     public void Set_Petrol_Destination()
     {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrol_radius;
-        randomDirection += patrol_main_obj.position;
+        Vector3 rand_dirrection = UnityEngine.Random.insideUnitSphere * patrol_radius;
+        rand_dirrection += patrol_main_obj.position;
 
         NavMeshHit navHit;
-        NavMesh.SamplePosition(randomDirection, out navHit, patrol_radius, -1);
+        NavMesh.SamplePosition(rand_dirrection, out navHit, patrol_radius, -1);
 
         anim.SetBool("running", true);
         nav.isStopped = false;
@@ -606,52 +641,50 @@ public class EnemyMovement : MonoBehaviour
         Vector3 playerDirection = player.transform.position - transform.position;
         playerDirection.Normalize();
 
-        Vector3[] dodgeDirections = {
+        Vector3[] roll_dirrections = {
             -transform.forward,   // roll back
             transform.forward,    // roll forward
             -transform.right,     // roll left
             transform.right       // roll right
         };
 
-        string[] dodgeTriggers = {
+        string[] anim_Roll_triggers = {
             "roll_B",
             "roll_F",
             "roll_L",
             "roll_R"
         };
-
-        float[] weights = new float[dodgeDirections.Length];
-        for (int i = 0; i < dodgeDirections.Length; i++)
+        float[] weights = new float[roll_dirrections.Length];
+        for (int i = 0; i < roll_dirrections.Length; i++)
         {
-            Vector3 dodgePosition = transform.position + dodgeDirections[i] * dodgeDistance;
+            Vector3 dodgePosition = transform.position + roll_dirrections[i] * dodgeDistance;
             if (NavMesh.SamplePosition(dodgePosition, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
                 // Calculate weight based on direction, distance to player, and aggression level
-                float directionWeight = Vector3.Dot(playerDirection, dodgeDirections[i]);
-                directionWeight = (1 - Mathf.Abs(directionWeight)) * (1 - aggression_lvl);
-                weights[i] = directionWeight;
+                float weight_of_dirrection = Vector3.Dot(playerDirection, roll_dirrections[i]);
+                weight_of_dirrection = (1 - Mathf.Abs(weight_of_dirrection)) * (1 - aggression_lvl);
+                weights[i] = weight_of_dirrection;
             }
             else
             {
                 weights[i] = -1; // Invalid direction
             }
         }
-
         // Choose the direction with the highest weight
-        int bestDirection = -1;
-        float bestWeight = -1;
+        int the_best_dirrection = -1;
+        float the_best_weight = -1;
         for (int i = 0; i < weights.Length; i++)
         {
-            if (weights[i] > bestWeight)
+            if (weights[i] > the_best_weight)
             {
-                bestWeight = weights[i];
-                bestDirection = i;
+                the_best_weight = weights[i];
+                the_best_dirrection = i;
             }
         }
 
-        if (bestDirection != -1)
+        if (the_best_dirrection != -1)
         {
-            anim.SetTrigger(dodgeTriggers[bestDirection]);
+            anim.SetTrigger(anim_Roll_triggers[the_best_dirrection]);
         }
     }
     public void Correct_Aggression()
@@ -701,6 +734,8 @@ public class EnemyMovement : MonoBehaviour
         {
 
             Instantiate(support_enemy, GetRandom_Point_Around(), Quaternion.identity);
+            support_enemy.GetComponent<EnemyMovement>().Goblin_Warrior = true;
+            support_enemy.GetComponent<EnemyMovement>().patrol_main_obj = current_enemy.transform;
             SaveScript.amount_of_chasing_enemies++;
         }
     }
@@ -710,12 +745,12 @@ public class EnemyMovement : MonoBehaviour
         float angle = UnityEngine.Random.Range(0f, Mathf.PI * 2);
         float x = Mathf.Cos(angle) * 8f;
         float z = Mathf.Sin(angle) * 8f;
-        Vector3 spawnPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
-        return spawnPoint;
+        Vector3 point_for_spawn = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
+        return point_for_spawn;
     }
 
 
-    void CheckPlayerSight()
+    void Check_If_Player_is_InSight()
     {
         Vector3 player_dir = player.transform.position - transform.position;
         float angle = Vector3.Angle(player_dir, transform.forward);

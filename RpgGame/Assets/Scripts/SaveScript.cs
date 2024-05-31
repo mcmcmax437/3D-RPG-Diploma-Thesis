@@ -33,7 +33,7 @@ public class SaveScript : MonoBehaviour
 
     public static float time_of_last_damage_recive;
 
-    public static bool is_Immmortal_object = false;
+    public static bool is_Immmortal_object = true;
 
     public static bool is_invisible = false;
     public static bool is_shielf_active = false;
@@ -45,7 +45,7 @@ public class SaveScript : MonoBehaviour
     public static float intelligence_basic = 0.05f;
     public static float stamina_basic = 0.05f;
 
-    private int enemies_to_lvl_UP = 5;
+    private int enemies_to_lvl_UP = 1;
     public static int killed_enemy = 0;
     public static int points_to_upgrade;
 
@@ -192,7 +192,7 @@ public class SaveScript : MonoBehaviour
 
     void Update()
     {
-
+        Debug.Log("Index weapon = " + weapon_index);
         //Debug.Log("Index" + index_of_equiped_armor);
         Mana();
         Stamina();
