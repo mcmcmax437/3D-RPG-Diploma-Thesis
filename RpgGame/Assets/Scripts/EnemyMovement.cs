@@ -244,7 +244,7 @@ public class EnemyMovement : MonoBehaviour
             if (roll_out == true && roll_is_active == false)
             {
                 roll_is_active = true;
-                Dodge();
+                Roll();
                 StartCoroutine(Reset_Roll_Triger());
             }
 
@@ -522,7 +522,7 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Reset_Roll_Triger()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0f);
         roll_out = false;
         roll_is_active = false;
     }
@@ -636,7 +636,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    public void Dodge()
+    public void Roll()
     {
         Vector3 playerDirection = player.transform.position - transform.position;
         playerDirection.Normalize();
@@ -649,16 +649,16 @@ public class EnemyMovement : MonoBehaviour
         };
 
         string[] anim_Roll_triggers = {
-            "roll_B",
             "roll_F",
+            "roll_B",
             "roll_L",
             "roll_R"
         };
         float[] weights = new float[roll_dirrections.Length];
         for (int i = 0; i < roll_dirrections.Length; i++)
         {
-            Vector3 dodgePosition = transform.position + roll_dirrections[i] * dodgeDistance;
-            if (NavMesh.SamplePosition(dodgePosition, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+            Vector3 roll_pos = transform.position + roll_dirrections[i] * dodgeDistance;
+            if (NavMesh.SamplePosition(roll_pos, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
                 // Calculate weight based on direction, distance to player, and aggression level
                 float weight_of_dirrection = Vector3.Dot(playerDirection, roll_dirrections[i]);
@@ -670,7 +670,6 @@ public class EnemyMovement : MonoBehaviour
                 weights[i] = -1; // Invalid direction
             }
         }
-        // Choose the direction with the highest weight
         int the_best_dirrection = -1;
         float the_best_weight = -1;
         for (int i = 0; i < weights.Length; i++)
@@ -691,15 +690,15 @@ public class EnemyMovement : MonoBehaviour
     {
         if (curr_HP < 0.5f)
         {
-            aggression_lvl += aggression_increase * Time.deltaTime;
+            aggression_lvl -= aggression_increase * Time.deltaTime;
         }
         else
         {
-            aggression_lvl -= aggression_decrease * Time.deltaTime;
+            aggression_lvl += aggression_decrease * Time.deltaTime;
         }
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        if (distanceToPlayer < 10f) // Example distance threshold
+        if (distanceToPlayer < 10f) 
         {
             aggression_lvl += aggression_increase * Time.deltaTime;
             playerNearby = true;
@@ -709,12 +708,21 @@ public class EnemyMovement : MonoBehaviour
             playerNearby = false;
         }
 
-        // Clamp the aggression level between min and max values
         aggression_lvl = Mathf.Clamp(aggression_lvl, min_aggression, max_aggression);
 
-        //Debug.Log("Aggression Level: " + aggression_lvl);
+        if(aggression_lvl == 1)
+        {
+            StartCoroutine(Reset_Aggression_Lvl());
+        }
+
+        Debug.Log("Aggression Level: " + aggression_lvl);
     }
 
+    IEnumerator Reset_Aggression_Lvl()
+    {
+        yield return new WaitForSeconds(3f);
+        aggression_lvl = 0.2f;
+    }
     public bool Search_Enemy_Near_Skeleton()
     {
         Collider[] all_colliders = Physics.OverlapSphere(transform.position, 10f);
