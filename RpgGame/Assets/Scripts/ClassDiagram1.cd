@@ -1,244 +1,300 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Buying">
-    <Position X="1.25" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>MAACOIAAACCATAogEEABIBMIAAAgAAJE0AAAADiA5AI=</HashCode>
-      <FileName>Assets\Scripts\Buying.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Buying_Weapons">
-    <Position X="2.75" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQABAAAAACAEAAAAAECAAACAAQAAAAAEAAAAAAgBBAI=</HashCode>
-      <FileName>Assets\Scripts\Buying_Weapons.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Character_Attack">
-    <Position X="16.25" Y="11" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAQAAAACAQAAAEAAAAAAIAAAAIAAABRAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Character_Attack.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ChatScript">
-    <Position X="4.25" Y="3.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>EAQAAEAEACAAAAAAAAAAAAgAAAAgAAQAAAAgAQAAgEA=</HashCode>
-      <FileName>Assets\Scripts\ChatScript.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Chest">
-    <Position X="19.25" Y="11" Width="2" />
-    <TypeIdentifier>
-      <HashCode>BAQCAAAAECAAAFCgAAEAIAAgBAAAIOAAyAEAAAAAJgA=</HashCode>
-      <FileName>Assets\Scripts\Chest.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CraftsMan_CloseButton">
-    <Position X="2.75" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAACAAAA=</HashCode>
-      <FileName>Assets\Scripts\CraftsMan_CloseButton.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CursorOver">
-    <Position X="12.25" Y="10.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>Assets\Scripts\CursorOver.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Cursors">
-    <Position X="8.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQCAAAAACAAAAIAAAAAAAAAAAAACAAAAAAEAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Cursors.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="D_Player_ArmorDisplay">
-    <Position X="24.75" Y="9.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAIAAAAAAAAAAAAAAAQAA=</HashCode>
-      <FileName>Assets\Scripts\D_Player_ArmorDisplay.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Enemy_Attack">
-    <Position X="17.75" Y="11" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAACAIAAAQAAAgAAAAgE=</HashCode>
-      <FileName>Assets\Scripts\Enemy_Attack.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="EnemyMovement">
-    <Position X="17.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>CAQAwAAUASQAAgCAAEAAAEDAAAAMAAABiaHCASAEIAg=</HashCode>
-      <FileName>Assets\Scripts\EnemyMovement.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Inventory">
-    <Position X="10" Y="0.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AwUJEVAyoiQApVACKXBRlLACgBmyGBAO5QIkEDAByBs=</HashCode>
-      <FileName>Assets\Scripts\Inventory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ItemMessage">
-    <Position X="12.25" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQCAQCAAiAgAAICAEAQABAAAAAoCAAIAACEAQAABDA=</HashCode>
-      <FileName>Assets\Scripts\ItemMessage.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="ItemPickUp">
-    <Position X="8.5" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AYAAEAAACSBACFAUAEBCFACAEAAEAAgMQAACCAIQBBA=</HashCode>
-      <FileName>Assets\Scripts\ItemPickUp.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Lvl_Up_Stats">
-    <Position X="17.75" Y="13.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAAAAAEAAAAAAAAAAAAEAAABAAAAABAA=</HashCode>
-      <FileName>Assets\Scripts\Lvl_Up_Stats.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Music">
-    <Position X="24.75" Y="11.25" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>RAQAQAAAISABAAAABEAAAAAAAAAAAAAAAAEACAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Music.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PlayerDchar">
-    <Position X="24.75" Y="7.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAgAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\PlayerDchar.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PlayerMovement">
-    <Position X="19" Y="0.5" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>EAQZgAwIACgwAggBIMQgEAEwAAQIEIAAIQBACQAJYAA=</HashCode>
-      <FileName>Assets\Scripts\PlayerMovement.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PlayerSelect">
-    <Position X="23.25" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AoQhgAQAgGAAIAAAAAAAAAIAAAABACAEAAAAAAQAAAA=</HashCode>
-      <FileName>Assets\Scripts\PlayerSelect.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PlayerSpawn">
-    <Position X="23.25" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\PlayerSpawn.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Roof">
-    <Position X="24.75" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAACAAAACAAAAAAAAAAAAgAAACAAIAAQAEAAAACAAA=</HashCode>
-      <FileName>Assets\Scripts\Roof.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="SaveScript">
-    <Position X="14.5" Y="0.5" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>EEQEkAYQZCAQESABQIUQhRAAAGAFEBACIIBAFCABQKk=</HashCode>
-      <FileName>Assets\Scripts\SaveScript.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Select_Weapon">
-    <Position X="4.25" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAABBAA=</HashCode>
-      <FileName>Assets\Scripts\Select_Weapon.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="SFX_Amb">
-    <Position X="23.25" Y="10.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAEAACAAAAAAAEAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\SFX_Amb.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Spell_Creation">
-    <Position X="4.25" Y="10.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAEAIAICCAGAAAIEAAAAAAAAAQAEoAAAAAAABABAA=</HashCode>
-      <FileName>Assets\Scripts\Spell_Creation.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Spell_Items">
-    <Position X="2.75" Y="10.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAIACAAEAgAAAAQAAAAAAAAAAAIAAgAAAAABAA=</HashCode>
-      <FileName>Assets\Scripts\Spell_Items.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Spells_Book">
-    <Position X="5.5" Y="10.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AgCAAAAAQCQAAgAAIAAQAAAAAAAAAAAAAkAAAACAAAA=</HashCode>
-      <FileName>Assets\Scripts\Spells_Book.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Stats_Info">
-    <Position X="12.25" Y="0.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>oAQIABAAASAAABAKACAAAAgAAAAAAAAAAAEAAQAQBgA=</HashCode>
-      <FileName>Assets\Scripts\Stats_Info.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TalkingTrigger">
-    <Position X="2.75" Y="7.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAIAAAAABAAAAAAAAAAAAAAAIAAQAAAAAAAgAA=</HashCode>
-      <FileName>Assets\Scripts\TalkingTrigger.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Unlock_Book_Magic">
-    <Position X="6.75" Y="10.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgAAAACAAAAIAIAgABAAAAAAACAAAQAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Unlock_Book_Magic.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Particle_Destroyer">
-    <Position X="2.75" Y="13.75" Width="1.5" />
+    <Position X="29.75" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Spell_Script (VFX)\Particle_Destroyer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Particle_Point">
-    <Position X="6.75" Y="13.5" Width="1.5" />
+    <Position X="29.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAQAAAAAgAAAAAAAAAAAAAIAgQAAQAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Spell_Script (VFX)\Particle_Point.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Particle_Transform">
-    <Position X="1.25" Y="10.75" Width="1.5" />
+    <Position X="28" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAiAwAICAQgAAAAAEDAAAAAAkAkQABQAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Spell_Script (VFX)\Particle_Transform.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Golem_Movement">
-    <Position X="21.5" Y="0.5" Width="1.5" />
+  <Class Name="BonFire" Collapsed="true">
+    <Position X="13" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAQCwAAcBSQAAgCCAEBAAECBCBAMAAABiaHAASEEJAg=</HashCode>
+      <HashCode>AAAAgAAAACAQAAAEAQAAAAAAgCAAAIAAQAIAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\BonFire.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buying" Collapsed="true">
+    <Position X="10.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAACOIAAACCATAogEEABIBMIAAAgAAJE0AAAADiA5AI=</HashCode>
+      <FileName>Assets\Scripts\Buying.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buying_Weapons" Collapsed="true">
+    <Position X="10.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABAAAAACAEAAAAAECAAACAAQAAAAAEAAAAAAgBBAI=</HashCode>
+      <FileName>Assets\Scripts\Buying_Weapons.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Character_Attack">
+    <Position X="25.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAACAQAAAEAAAAAAIAAAAIAAABRAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Character_Attack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChatScript" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAEAEACAAAAAAAAAAAAAAAAAwAAAAJAAgAQAAhEA=</HashCode>
+      <FileName>Assets\Scripts\ChatScript.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.273" Collapsed="true" />
+  </Class>
+  <Class Name="Chest" Collapsed="true">
+    <Position X="13" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQCAAAAECAAAFCgAAEAIAAgAAAAIOAAyAEAAAAAJgA=</HashCode>
+      <FileName>Assets\Scripts\Chest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CraftsMan_CloseButton" Collapsed="true">
+    <Position X="8.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\CraftsMan_CloseButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CursorOver" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\CursorOver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cursors">
+    <Position X="11" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAACAAAAIAAAAAAAAAAAAACAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Cursors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="D_Player_ArmorDisplay" Collapsed="true">
+    <Position X="9.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAIAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\D_Player_ArmorDisplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy_Attack">
+    <Position X="24" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAQAAAEAAAAAAAACAIAAAQAAAgAAAAgE=</HashCode>
+      <FileName>Assets\Scripts\Enemy_Attack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy_Spawn" Collapsed="true">
+    <Position X="23.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgEACAEAABABAAAAAIAAAAAAAAAQCEAAAAAgAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy_Spawn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy_Type">
+    <Position X="24" Y="10.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Enemy_Type.EnemyType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Enemy_Type.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy_Type.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyMovement" Collapsed="true">
+    <Position X="21" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DGwYwKAUASQYMgGBAGUICMDFBlgcCEEhiaXPW6BMogo=</HashCode>
+      <FileName>Assets\Scripts\EnemyMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Goblin_Movement" Collapsed="true">
+    <Position X="24.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAYAgAAABCC4AAAEAIAIgAAgAAAEAgAAIEIAAQAAIAg=</HashCode>
+      <FileName>Assets\Scripts\Goblin_Movement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Golem_Movement" Collapsed="true">
+    <Position X="22.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQCwAAYBSQAAgCCAEBAAECBCBAMAAABiaHAASFEJAg=</HashCode>
       <FileName>Assets\Scripts\Golem_Movement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory" Collapsed="true">
+    <Position X="10.75" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gxUZkVAyoiUApWAAKVBQlLaCgBnwGhAO5UIsEDAFzB8=</HashCode>
+      <FileName>Assets\Scripts\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemMessage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAQCAAiAgAAICAEAQABAAAAAoCAAIAACEAQAABDA=</HashCode>
+      <FileName>Assets\Scripts\ItemMessage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ItemPickUp" Collapsed="true">
+    <Position X="9.25" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYAAEAAACSBACFAUAEBCFACAEAAEAAgMQAACCAIQBBA=</HashCode>
+      <FileName>Assets\Scripts\ItemPickUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lvl_Up_Stats">
+    <Position X="11" Y="22" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAEAAAAAAAAAAAAEAAABAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Lvl_Up_Stats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main_Menu" Collapsed="true">
+    <Position X="14.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAwAACgAAAAAAAAAAAAAAAQAAAAAoAAAAAAEAAE=</HashCode>
+      <FileName>Assets\Scripts\Main_Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Map" Collapsed="true">
+    <Position X="9.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAICAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Map.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Music" Collapsed="true">
+    <Position X="9.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAQAQAAAISABAAAABEAAAAAAAAAAAAAAAAEACAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Music.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerDchar" Collapsed="true">
+    <Position X="11.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAgAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerDchar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerMovement" Collapsed="true">
+    <Position X="19.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQQZgAwIBCgwAkgBJMQgEEExAAQIEIAAIQBACQAJYAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerSelect" Collapsed="true">
+    <Position X="23.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoQhgAQAgGAAIAAAAAAAAAIAAAABACAEAAAAAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerSelect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerSpawn" Collapsed="true">
+    <Position X="25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerSpawn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Roof" Collapsed="true">
+    <Position X="11.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAACAAAAAAAAAAAAgAAACAAIAAQAEAAAACAAA=</HashCode>
+      <FileName>Assets\Scripts\Roof.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SaveScript">
+    <Position X="16" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EkamnBZ4dHo8EyyFQK8c1RIpYeBNFlOKMNJgdDIpzKk=</HashCode>
+      <FileName>Assets\Scripts\SaveScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Select_Weapon" Collapsed="true">
+    <Position X="8.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAABBAA=</HashCode>
+      <FileName>Assets\Scripts\Select_Weapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SFX_Amb" Collapsed="true">
+    <Position X="11.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAACAAAAAAAEAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SFX_Amb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spell_Creation" Collapsed="true">
+    <Position X="23.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAIAICCAGAAAIEAAAAAAAAAQAEoAAAAAAABABAA=</HashCode>
+      <FileName>Assets\Scripts\Spell_Creation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spell_Items" Collapsed="true">
+    <Position X="23.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIACAAEAgAAAAQAAAAAAAAAAAIAAgAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Spell_Items.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spells_Book" Collapsed="true">
+    <Position X="25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgCAAAAAQCQAAgAAIAAQAAAAAAAAAAAAAkAAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\Spells_Book.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Stats_Info" Collapsed="true">
+    <Position X="21.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oAQIABAAASAAABAKACAAAAgAAAAAAAAAAAEAAQAQBgA=</HashCode>
+      <FileName>Assets\Scripts\Stats_Info.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TalkingTrigger" Collapsed="true">
+    <Position X="9" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAAIACABARAAAAAAAAAAAABAAIAAQAAIAARAhAA=</HashCode>
+      <FileName>Assets\Scripts\TalkingTrigger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_Section">
+    <Position X="9.25" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAgAAAAAAAAAAAgAAAAAAAAABCA=</HashCode>
+      <FileName>Assets\Scripts\Task_Section.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Unlock_Book_Magic" Collapsed="true">
+    <Position X="25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAIAACAAAAIAIAgAJAAAAAAACAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Unlock_Book_Magic.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

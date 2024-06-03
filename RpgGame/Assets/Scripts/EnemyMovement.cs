@@ -232,7 +232,10 @@ public class EnemyMovement : MonoBehaviour
 
             if (Goblin_Warrior == true && look_for_player == false)
             {
-                Patrol();
+                if(patrol_main_obj != null)
+                {
+                    Patrol();
+                }
                 Correct_Aggression();
             }
 
@@ -522,7 +525,7 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Reset_Roll_Triger()
     {
-        yield return new WaitForSeconds(0f);
+        yield return new WaitForSeconds(3f);
         roll_out = false;
         roll_is_active = false;
     }

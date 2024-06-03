@@ -2814,6 +2814,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Goblin_Warrior: 1
   Piglins: 0
+  Skeleton: 0
+  temp_Priority: 0
+  support_enemy: {fileID: 0}
   Loot_from_Enemy: {fileID: 2330371543677727352, guid: 72ee8fbd6868ff84e8923ecfec457662, type: 3}
   current_enemy: {fileID: 7322208633480507762}
   player: {fileID: 0}
@@ -2840,6 +2843,9 @@ MonoBehaviour:
   aggression_lvl: 0.5
   max_aggression: 1
   min_aggression: 0
+  piglin_was_hit: 0
+  distance_of_ray: 12
+  time_for_search: 3
 --- !u!82 &5292128349887250908
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3444,7 +3450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbd6bc031887864280caf626966bc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage_enemy: 0.01
+  damage_enemy: 0.05
 --- !u!82 &7833745957285313533
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3626,7 +3632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbd6bc031887864280caf626966bc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage_enemy: 0.01
+  damage_enemy: 0.05
 --- !u!82 &8613825602541996554
 AudioSource:
   m_ObjectHideFlags: 0

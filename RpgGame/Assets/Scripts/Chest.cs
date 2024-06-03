@@ -27,7 +27,7 @@ public class Chest : MonoBehaviour
     // can transfer int into Text ????
     private int display_money;
 
-    public GameObject inventory_Canvas;
+    public GameObject Inventory_Canvas;
     public AudioClip chest_openning_SFX;
     public AudioClip key_twist_SFX;
 
@@ -40,6 +40,11 @@ public class Chest : MonoBehaviour
         if(crate == false)
         {
             animator = GetComponent<Animator>();          
+        }
+        if(Inventory_Canvas == null || Camera == null)
+        {
+            Inventory_Canvas = GameObject.Find("Inventory");
+            Camera = GameObject.Find("Main Camera");
         }
         chest_Canvas.SetActive(false);
         display_money = goldInChest;
@@ -72,12 +77,12 @@ public class Chest : MonoBehaviour
                     goldInChest = 0;
 
                     //audio SFX for chest
-                    inventory_Canvas.GetComponent<AudioSource>().volume = 0.4f;
-                    inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;     //too low
-                    inventory_Canvas.GetComponent<AudioSource>().Play();            // too low
+                    Inventory_Canvas.GetComponent<AudioSource>().volume = 0.4f;
+                    Inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;     //too low
+                    Inventory_Canvas.GetComponent<AudioSource>().Play();            // too low
 
-                    inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;
-                    inventory_Canvas.GetComponent<AudioSource>().PlayDelayed(1 * Time.deltaTime);
+                    Inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;
+                    Inventory_Canvas.GetComponent<AudioSource>().PlayDelayed(1 * Time.deltaTime);
 
                     chest_is_opened = true;
                     Inventory.amount_of_keySimp--;
@@ -104,11 +109,11 @@ public class Chest : MonoBehaviour
                     goldInChest = 0;
 
                     //audio SFX for chest
-                    inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;          //to low
-                    inventory_Canvas.GetComponent<AudioSource>().Play();            //to low
+                    Inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;          //to low
+                    Inventory_Canvas.GetComponent<AudioSource>().Play();            //to low
 
-                    inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;
-                    inventory_Canvas.GetComponent<AudioSource>().PlayDelayed(1 * Time.deltaTime);
+                    Inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;
+                    Inventory_Canvas.GetComponent<AudioSource>().PlayDelayed(1 * Time.deltaTime);
 
 
                     chest_is_opened = true;
@@ -185,26 +190,26 @@ public class Chest : MonoBehaviour
         int randomNumber = UnityEngine.Random.Range(1, 101);
         if (randomNumber > 0 && randomNumber < 50)
         {
-            inventory_Canvas.GetComponent<AudioSource>().volume = 0.4f;
-            inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;    // Crack1_Wood - sfx
+            Inventory_Canvas.GetComponent<AudioSource>().volume = 0.4f;
+            Inventory_Canvas.GetComponent<AudioSource>().clip = key_twist_SFX;    // Crack1_Wood - sfx
             StartCoroutine(Reset_Audio_Volume());
 
 
         }
         else if (randomNumber >= 50 && randomNumber <= 101)
         {
-            inventory_Canvas.GetComponent<AudioSource>().volume = 0.4f;
-            inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;   // Crack3_Wood - sfx
+            Inventory_Canvas.GetComponent<AudioSource>().volume = 0.4f;
+            Inventory_Canvas.GetComponent<AudioSource>().clip = chest_openning_SFX;   // Crack3_Wood - sfx
             StartCoroutine(Reset_Audio_Volume());
         }
-        inventory_Canvas.GetComponent<AudioSource>().Play();
+        Inventory_Canvas.GetComponent<AudioSource>().Play();
     }
 
 
     IEnumerator Reset_Audio_Volume()
     {
         yield return new WaitForSeconds(1);
-        inventory_Canvas.GetComponent<AudioSource>().volume = 1.0f;
+        Inventory_Canvas.GetComponent<AudioSource>().volume = 1.0f;
     }
     /*public void Destroy_CrateMesh()
     {

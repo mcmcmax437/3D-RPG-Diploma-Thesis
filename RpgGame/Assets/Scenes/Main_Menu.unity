@@ -342,7 +342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &815865882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,6 +551,7 @@ MonoBehaviour:
   amount_of_orangeMushroom_SAVE: 0
   weapons_SAVE: 000000000000
   obj_index_SAVE: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  agression_lvl_SAVE: 0
 --- !u!4 &850863512
 Transform:
   m_ObjectHideFlags: 0

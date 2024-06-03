@@ -38,9 +38,6 @@ public class Inventory : MonoBehaviour
     private float weight_of_animation_layer = 1.0f;
     private bool change_weight = false;
     private AnimatorStateInfo player_information;
-    
-
-    private bool isInventoryOpened = false;
 
     //amount of items in inventory
     public static int amount_of_redMushrooms = 0;
@@ -316,7 +313,7 @@ public class Inventory : MonoBehaviour
                 typeof(Inventory).GetField(entry_text).SetValue(null, curr_amount_of_item);
                 if (curr_amount_of_item == 0)
                 {
-                    DestroyIcon(i);
+                    Destroy_Icon(i);
                 }
             }           
         }
@@ -324,7 +321,7 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public void DestroyIcon(int IconType) 
+    public void Destroy_Icon(int IconType) 
     {
         for (int i = 0; i < maximum_third; i++) 
         {
@@ -340,7 +337,7 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public void OpenInventory()
+    public void Open_Inventory()
     {
         Stats_Page_Canvas.GetComponent<Stats_Info>().OnLoadUpdateOnce();
         SaveScript.spell_target = null;
@@ -362,7 +359,7 @@ public class Inventory : MonoBehaviour
         
     }
 
-    public void CloseInventory()
+    public void Close_Inventory()
     {
         
         inventoryMenu.SetActive(false);
@@ -376,18 +373,19 @@ public class Inventory : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void OpenSpellBook()
+    public void Open_Spell_Book()
     {
    
         spell_Book.SetActive(true);
+        Spell_Canvas.GetComponent<Spell_Creation>().curr_value_of_ingr = 0;
+        Spell_Canvas.GetComponent<Spell_Creation>().value_of_1_ingr = 0;
     }
 
-    public void CloseSpellBook()
+    public void Close_Spell_Book()
     {
         Spell_Canvas.GetComponent<Spell_Creation>().curr_value_of_ingr = 0;
         Spell_Canvas.GetComponent<Spell_Creation>().value_of_1_ingr = 0; 
         spell_Book.SetActive(false);
-        
     }
 
     IEnumerator Reset()
@@ -498,24 +496,23 @@ public class Inventory : MonoBehaviour
     {
         if (amount_of_bread == 0)
         {
-            DestroyIcon(15);
-            ;
+            Destroy_Icon(15);
         }
         if (amount_of_keyGold == 0)
         {
-            DestroyIcon(9);
+            Destroy_Icon(9);
         }
         if (amount_of_cheese == 0)
         {
-            DestroyIcon(16);
+            Destroy_Icon(16);
         }
         if (amount_of_keySimp == 0)
         {
-            DestroyIcon(8);
+            Destroy_Icon(8);
         }
         if (amount_of_meat == 0)
         {
-            DestroyIcon(17);
+            Destroy_Icon(17);
         }
     }
 

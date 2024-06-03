@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TalkingTrigger : MonoBehaviour
 {
+    public GameObject Inventory_Canvas;
     private GameObject compas;
     private GameObject map;
     public GameObject chatbox_trigger;
@@ -14,6 +15,7 @@ public class TalkingTrigger : MonoBehaviour
 
     private void Start()
     {
+        Inventory_Canvas = GameObject.Find("Inventory");
         map = GameObject.FindGameObjectWithTag("map");
         compas = GameObject.FindGameObjectWithTag("compas");
     }
@@ -32,10 +34,11 @@ public class TalkingTrigger : MonoBehaviour
         {
             chatbox_trigger.SetActive(false);
             chatbox_trigger.GetComponentInChildren<ChatScript>().shop_number = shop_number;
-            if(task_was_already_given == false)
+            Check_If_Task_was_Given();
+            if (task_was_already_given == false)
             {
                 task.GetComponent<ChatScript>().Pub_task = aim;
-                StartCoroutine(Reset_Permition());         
+                
             }else if(task_was_already_given == true)
             {
                 task.GetComponent<ChatScript>().Pub_task = "Relax and do your job!";
@@ -43,11 +46,7 @@ public class TalkingTrigger : MonoBehaviour
             
         }
     }
-    IEnumerator Reset_Permition()
-    {
-        yield return new WaitForSeconds(5); //5 sec to take a quest
-        task_was_already_given = true;
-    }
+
     public void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -57,15 +56,26 @@ public class TalkingTrigger : MonoBehaviour
         }
     }
 
-    void TurnOff_MiniMap()
+    public void TurnOff_MiniMap()
     {
         map.SetActive(false);
         compas.SetActive(false);
     }
 
-    void TurnOn_MiniMap()
+    public void TurnOn_MiniMap()
     {
         map.SetActive(true);
         compas.SetActive(true);
+    }
+
+    public void Check_If_Task_was_Given()
+    {
+        for (int i = 1; i < Inventory_Canvas.GetComponent<Inventory>().tasks_text.Length; i++)
+        {
+            if (aim == Inventory_Canvas.GetComponent<Inventory>().tasks_text[i].text)
+            {
+                task_was_already_given = true;
+            }
+        }
     }
 }
