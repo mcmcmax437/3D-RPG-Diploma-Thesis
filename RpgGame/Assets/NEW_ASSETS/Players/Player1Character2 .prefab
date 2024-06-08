@@ -101,8 +101,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34351923356107460}
-  m_LocalRotation: {x: 0.31233856, y: 0.37660858, z: -0.13656047, w: 0.86137205}
-  m_LocalPosition: {x: -7.3410645, y: 9, z: -6.790344}
+  m_LocalRotation: {x: 0.31063348, y: 0.38718617, z: -0.140396, w: 0.85666955}
+  m_LocalPosition: {x: -7.5060425, y: 9, z: -6.6075134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1590,8 +1590,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672717706093691234}
-  m_LocalRotation: {x: 0.1533441, y: -0.7812067, z: 0.21124722, w: 0.5670769}
-  m_LocalPosition: {x: 16.146729, y: 10.559012, z: 5.261444}
+  m_LocalRotation: {x: 0.1533445, y: -0.7812061, z: 0.21124741, w: 0.5670776}
+  m_LocalPosition: {x: 16.14685, y: 10.559093, z: 5.2615356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3957,6 +3957,7 @@ MonoBehaviour:
   - 0.3
   - 0.25
   - 0.4
+  God_Mode_Panel: {fileID: 0}
 --- !u!54 &1286763087663695412
 Rigidbody:
   m_ObjectHideFlags: 0

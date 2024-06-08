@@ -192,7 +192,7 @@ public class SaveScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Index weapon = " + weapon_index);
+       // Debug.Log("Index weapon = " + weapon_index);
         //Debug.Log("Index" + index_of_equiped_armor);
         Mana();
         Stamina();

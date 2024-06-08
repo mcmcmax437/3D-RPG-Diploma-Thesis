@@ -10,6 +10,7 @@ TagManager:
   - Crate
   - map
   - compas
+  - god_mode_panel
   layers:
   - Default
   - TransparentFX

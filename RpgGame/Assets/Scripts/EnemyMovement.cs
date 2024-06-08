@@ -718,7 +718,7 @@ public class EnemyMovement : MonoBehaviour
             StartCoroutine(Reset_Aggression_Lvl());
         }
 
-        Debug.Log("Aggression Level: " + aggression_lvl);
+       // Debug.Log("Aggression Level: " + aggression_lvl);
     }
 
     IEnumerator Reset_Aggression_Lvl()

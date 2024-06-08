@@ -63,11 +63,22 @@ public class PlayerMovement : MonoBehaviour
     public bool critical_attack_is_active = false;
 
     public float[] stamina_cost_for_weapon;
+
+    public GameObject God_Mode_Panel = null;
     void Start()
     {
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
         anim = GetComponent<Animator>();
 
+        if(God_Mode_Panel == null)
+        {
+            God_Mode_Panel = GameObject.FindGameObjectWithTag("god_mode_panel");
+            if(God_Mode_Panel != null)
+            {
+                God_Mode_Panel.SetActive(false);
+            }
+        }
+       
 
         camera_1_static.SetActive(false);
         camera_2_free.SetActive(true);
@@ -103,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Display_Correct_ArmorInShop();
         }
+        God_Mode_Open();
         //Debug.Log("can mpve " + canMove);
         player_information = anim.GetCurrentAnimatorStateInfo(0); //listen to Animator
 
@@ -209,6 +221,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+       
+        
         if (Input.GetKeyDown(KeyCode.C))
         {
             if(is_camera1_active == true)
@@ -408,6 +422,18 @@ public class PlayerMovement : MonoBehaviour
                 GetComponent<Stats_Info>().armor_in_shop[0].SetActive(false);
                 GetComponent<Stats_Info>().armor_in_shop[1].SetActive(true);
             }
+        }
+    }
+
+    public void God_Mode_Open()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            God_Mode_Panel.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            God_Mode_Panel.SetActive(false);
         }
     }
 

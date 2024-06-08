@@ -783,8 +783,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566845929632607524}
-  m_LocalRotation: {x: 0.1524552, y: -0.7815368, z: 0.21002266, w: 0.5673166}
-  m_LocalPosition: {x: 16.16275, y: 10.530025, z: 5.2666626}
+  m_LocalRotation: {x: 0.15245369, y: -0.7815388, z: 0.21002184, w: 0.5673147}
+  m_LocalPosition: {x: 16.162842, y: 10.530054, z: 5.2667847}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7055,6 +7055,7 @@ MonoBehaviour:
   - 0.3
   - 0.25
   - 0.4
+  God_Mode_Panel: {fileID: 0}
 --- !u!195 &3844712371465234905
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9088,8 +9089,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7847266507291718557}
-  m_LocalRotation: {x: 0.31535807, y: 0.35140926, z: -0.127042, w: 0.87230796}
-  m_LocalPosition: {x: -6.932007, y: 9, z: -7.207428}
+  m_LocalRotation: {x: 0.3187039, y: 0.3274991, z: -0.11839787, w: 0.8815635}
+  m_LocalPosition: {x: -6.5289, y: 9, z: -7.574524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -183,6 +183,8 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
+        Activate_Spell_Magic_Canvas();
+
         player_information = player_animation.GetCurrentAnimatorStateInfo(1); //listen to Animator
         health_bar.fillAmount = SaveScript.health;
         if (SaveScript.points_to_upgrade <= 0)

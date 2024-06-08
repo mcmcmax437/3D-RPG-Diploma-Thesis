@@ -626,8 +626,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712749336445766048}
-  m_LocalRotation: {x: 0.15334381, y: -0.78120756, z: 0.2112475, w: 0.5670758}
-  m_LocalPosition: {x: 16.146759, y: 10.559047, z: 5.2614746}
+  m_LocalRotation: {x: 0.15334353, y: -0.7812079, z: 0.21124732, w: 0.56707543}
+  m_LocalPosition: {x: 16.146729, y: 10.559016, z: 5.2614746}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6466,8 +6466,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5823047070231293293}
-  m_LocalRotation: {x: 0.31605774, y: 0.35221967, z: -0.12771688, w: 0.8716291}
-  m_LocalPosition: {x: -6.947418, y: 9, z: -7.1925964}
+  m_LocalRotation: {x: 0.3288724, y: 0.24738857, z: -0.089704454, w: 0.9069702}
+  m_LocalPosition: {x: -5.0775146, y: 9, z: -8.615051}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8658,6 +8658,7 @@ MonoBehaviour:
   - 0.3
   - 0.25
   - 0.4
+  God_Mode_Panel: {fileID: 0}
 --- !u!65 &989719213131351828
 BoxCollider:
   m_ObjectHideFlags: 0
