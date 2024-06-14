@@ -63,6 +63,10 @@ public class EnemyMovement : MonoBehaviour
     private AudioSource audio_Player;
     public AudioClip[] get_Hit_SFX;
 
+    public GameObject Eye_Canvas;
+    public GameObject Question_Canvas;
+    public GameObject Attack_Canvas;
+
     public GameObject bar_Container;
     public Image HP_bar;
     private float fillHealth;
@@ -105,6 +109,10 @@ public class EnemyMovement : MonoBehaviour
         nav.avoidancePriority = UnityEngine.Random.Range(5, 75);
         curr_HP = full_HP;
         maxHP = full_HP;
+
+        Eye_Canvas.SetActive(false);
+        Question_Canvas.SetActive(false);
+        Attack_Canvas.SetActive(false);
 
         if (Goblin_Warrior == true)
         {
@@ -167,19 +175,20 @@ public class EnemyMovement : MonoBehaviour
         }
         if (reset_piglins_chase_range == false && Piglins == true && chasing_Range != 60)
         {
+            Attack_Canvas.SetActive(false);
             chasing_Range = 0.0f;
         }
 
         bar_Container.transform.LookAt(main_camera.transform.position);
 
 
-        if (Input.GetKeyDown(KeyCode.Z) && distance_to_player < 5f && SaveScript.stamina > 0.2)
-        {
-            roll_out = true;
-        }
-
         if (enemy_is_alive == true)
         {
+
+            if (Input.GetKeyDown(KeyCode.Z) && distance_to_player < 5f && SaveScript.stamina > 0.2)
+            {
+                roll_out = true;
+            }
             Enemy_Outline();
             if (player == null)
             {
@@ -189,6 +198,11 @@ public class EnemyMovement : MonoBehaviour
 
             enemy_information = anim.GetCurrentAnimatorStateInfo(0);
             distance_to_player = Vector3.Distance(transform.position, player.transform.position);
+            if(distance_to_player > chasing_Range)
+            {
+                Question_Canvas.SetActive(false);
+                Attack_Canvas.SetActive(false);
+            }
 
             if (destination_run == true && Piglins == true)
             {
@@ -197,35 +211,46 @@ public class EnemyMovement : MonoBehaviour
 
             if (distance_to_player <= chasing_Range && destination_run == false)
             {
-                Check_If_Player_is_InSight();
 
-                if (player_is_inSight == true)
+                if (SaveScript.is_invisible == false)
                 {
-                    //last_seen_position = player.transform.position;
-                    search_Timer = 0f;
-                    nav.destination = player.transform.position;
-                    Main_Attack_System();
-                }
-                else if (!player_is_inSight && last_seen_position != Vector3.zero)
-                {
-                    NavMeshPath path = new NavMeshPath();
-                    nav.CalculatePath(last_seen_position, path);
-                    if (path.status != NavMeshPathStatus.PathComplete)
+                    Question_Canvas.SetActive(true);
+                    Check_If_Player_is_InSight();
+
+                    if (player_is_inSight == true)
                     {
-                        Look_Aroun_Yourself();
+                        Question_Canvas.SetActive(false);
+                        //last_seen_position = player.transform.position;
+                        search_Timer = 0f;
+                        nav.destination = player.transform.position;
+                        Main_Attack_System();
                     }
-                    else if (look_for_player == true)
+                    else if (!player_is_inSight && last_seen_position != Vector3.zero)
                     {
-                        search_Timer += Time.deltaTime;
-                        if (search_Timer >= time_for_search)
+                        NavMeshPath path = new NavMeshPath();
+                        nav.CalculatePath(last_seen_position, path);
+                        if (path.status != NavMeshPathStatus.PathComplete)
                         {
-                            look_for_player = false;
-                            search_Timer = 0f;
+                            Look_Aroun_Yourself();
                         }
-                        //Debug.Log(search_Timer);
-                        Look_Aroun_Yourself();
+                        else if (look_for_player == true)
+                        {
+                            search_Timer += Time.deltaTime;
+                            if (search_Timer >= time_for_search)
+                            {
+                                look_for_player = false;
+                                search_Timer = 0f;
+                            }
+                            //Debug.Log(search_Timer);
+                            Look_Aroun_Yourself();
 
+                        }
                     }
+                }
+                else
+                {
+                    Attack_Canvas.SetActive(false);
+                    Question_Canvas.SetActive(true);               
                 }
 
             }
@@ -234,6 +259,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 if(patrol_main_obj != null)
                 {
+                   
                     Patrol();
                 }
                 Correct_Aggression();
@@ -241,6 +267,7 @@ public class EnemyMovement : MonoBehaviour
 
             if (distance_to_player <= chasing_Range)
             {
+               // Question_Canvas.SetActive(true);
                 is_patroling = false;
             }
 
@@ -322,7 +349,8 @@ public class EnemyMovement : MonoBehaviour
                 {
                     nav.isStopped = true;
                 }
-
+                Question_Canvas.SetActive(false);
+                Attack_Canvas.SetActive(true);
                 //if(distance_to_player < chasing_Range)
                 // {
                 //Look_At_Player_Spherical_LERP();        //can be claimed as self-directed attack
@@ -355,6 +383,7 @@ public class EnemyMovement : MonoBehaviour
                 if (SaveScript.is_invisible == false && destination_run == false)
                 {
                     Go_To_Player();
+                    Attack_Canvas.SetActive(true);
                 }
 
             }
@@ -411,6 +440,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3 Pos = (player.transform.position - transform.position).normalized;
         Quaternion PosRotation = Quaternion.LookRotation(new Vector3(Pos.x, 0, Pos.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, PosRotation, Time.deltaTime * rotation_speed);
+       // Debug.Log("Correct Angle");
     }
 
     public void Enemy_is_Dead()
@@ -610,6 +640,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void Patrol()
     {
+
         is_patroling = true;
         if (!is_waiting && nav.remainingDistance <= 2.0f)
         {
@@ -630,14 +661,17 @@ public class EnemyMovement : MonoBehaviour
                 nav.isStopped = false;
             }
         }
-
-        if (SaveScript.is_invisible == true)
+        if (GetComponent<Enemy_Type>().enemyType != Enemy_Type.EnemyType.Skelet)
         {
-            is_waiting = false;
-            Set_Petrol_Destination();
-            nav.isStopped = false;
+            if (SaveScript.is_invisible == true)
+            {
+                is_waiting = false;
+                Set_Petrol_Destination();
+                nav.isStopped = false;
+            }
         }
     }
+
 
     public void Roll()
     {
@@ -804,7 +838,7 @@ public class EnemyMovement : MonoBehaviour
                 EnemyMovement raycast_system = collider.GetComponent<EnemyMovement>();
                 if (raycast_system != null && collider.gameObject != gameObject)
                 {
-                    Debug.Log(raycast_system + " KNOW");
+                    //Debug.Log(raycast_system + " KNOW");
                     Debug.DrawRay(transform.position, player_dir * 10f, Color.green);
                     raycast_system.player_is_inSight = true;
                     raycast_system.look_for_player = false;
@@ -821,6 +855,8 @@ public class EnemyMovement : MonoBehaviour
 
     public void Look_Aroun_Yourself()
     {
+        Attack_Canvas.SetActive(false);
+        Question_Canvas.SetActive(true);
         transform.Rotate(0, 120 * Time.deltaTime, 0);
     }
 }

@@ -266,6 +266,15 @@ public class PlayerMovement : MonoBehaviour
                 SaveScript.should_change_armor = true;
             }
         }
+        else if (God_Mode.GM_Invise == true && SaveScript.is_invisible == false)
+        {
+            for(int i = 0; i < player_mesh_parts.Length; i++)
+                {
+                player_mesh_parts[i].SetActive(true);
+
+            }
+            SaveScript.should_change_armor = true;
+        }
 
 
         if(SaveScript.should_change_armor == true)

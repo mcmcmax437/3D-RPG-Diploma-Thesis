@@ -6,6 +6,7 @@ public class God_Mode : MonoBehaviour
 {
     public GameObject Inventory_Canvas;
     private int selected_key = 1;
+    public static bool GM_Invise = false;
 
     public void Close()
     {
@@ -92,10 +93,12 @@ public class God_Mode : MonoBehaviour
 
     public void Make_Invisiable()
     {
+
         SaveScript.is_invisible = true;
     }
     public void Make_Visiable()
     {
+        GM_Invise = true;
         SaveScript.is_invisible = false;
     }
 
