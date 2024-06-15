@@ -1074,7 +1074,7 @@ MonoBehaviour:
   current_enemy: {fileID: 2983880302164395405}
   player: {fileID: 0}
   attack_Range: 2
-  chasing_Range: 12
+  chasing_Range: 9
   rotation_speed: 500
   patrol_main_obj: {fileID: 0}
   patrol_radius: 15

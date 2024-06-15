@@ -17,6 +17,10 @@ public class Main_Menu : MonoBehaviour
 
     public void Start_New_Game()
     {
+        SaveScript.health = 1.0f;
+        SaveScript.player_gold = 500;
+        SaveScript.player_diamond = 500;
+        SaveScript.New_Game_Start = true;
         SceneManager.LoadScene(1);
     }
 

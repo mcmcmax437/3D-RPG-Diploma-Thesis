@@ -16,8 +16,9 @@ public class Inventory : MonoBehaviour
     public GameObject Task_Page_Canvas;
     public GameObject Stats_Page_Canvas;
     public GameObject Inventory_Page_Canvas;
+    public GameObject Settings_Canvas;
     //public GameObject Map_Page_Canvas;
-
+    private bool is_settings_open = false;
 
     private AudioSource audio_Player;
     public AudioClip openning_book_SFX;
@@ -130,6 +131,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+        Settings_Canvas.SetActive(false);
         D_Characters_container.SetActive(false);
         Stats_Page_Canvas.GetComponent<Stats_Info>().OnLoadUpdateOnce();
         Task_Page_Canvas.SetActive(false);
@@ -149,8 +151,8 @@ public class Inventory : MonoBehaviour
         maximum_third = empty_slots.Length;
         maximum_forth = tasks_text.Length;
 
-        //Temp
-
+        if(SaveScript.New_Game_Start == true)
+        {
         amount_of_blueFlowers = 0;
         amount_of_whiteFlowers = 0;
         amount_of_purpleFlowers = 0;
@@ -174,7 +176,10 @@ public class Inventory : MonoBehaviour
         amount_of_purpleMushroom = 0;
         amount_of_orangeMushroom = 0;
         amount_of_redMushrooms = 0;
-        //
+        newIcon = 0;
+        iconUpdated = false;
+        }
+
         map = GameObject.FindGameObjectWithTag("map");
         compas = GameObject.FindGameObjectWithTag("compas");
 
@@ -183,6 +188,10 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
+        if(SaveScript.New_Game_Start == true)
+        {
+            SaveScript.New_Game_Start = false;
+        }
         Activate_Spell_Magic_Canvas();
 
         player_information = player_animation.GetCurrentAnimatorStateInfo(1); //listen to Animator
@@ -338,7 +347,21 @@ public class Inventory : MonoBehaviour
         maximum_third = empty_slots.Length;
     }
 
-
+    public void Open_Settings()
+    {
+        if (is_settings_open == false)
+        {
+            Settings_Canvas.SetActive(true);
+            Time.timeScale = 0;
+            is_settings_open = true;
+        }
+        else if (is_settings_open == true)
+        {
+            Settings_Canvas.SetActive(false);
+            Time.timeScale = 1;
+            is_settings_open = false;
+        }
+    }
     public void Open_Inventory()
     {
         Stats_Page_Canvas.GetComponent<Stats_Info>().OnLoadUpdateOnce();

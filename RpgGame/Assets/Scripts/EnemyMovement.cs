@@ -36,7 +36,7 @@ public class EnemyMovement : MonoBehaviour
     private float distance_to_player;
     private bool is_attacking;
     public float attack_Range = 2.0f;
-    public float chasing_Range = 12.0f;   //range in which enemy will run after character
+    public float chasing_Range = 9.0f;   //range in which enemy will run after character
     public float rotation_speed = 500.0f; //perfect
     private float stop_distance = 2f;
     private float group_brain_radius = 10f;
@@ -98,6 +98,7 @@ public class EnemyMovement : MonoBehaviour
     private bool player_is_inSight;
     private bool look_for_player;
     private bool reset_piglins_chase_range = false;
+    private float fov_angle = 60f;
 
     // Start is called before the first frame update
     void Start()
@@ -279,7 +280,7 @@ public class EnemyMovement : MonoBehaviour
             }
 
             //Debug.Log(Skeleton + " " + can_call_support + " " + sup_skill_used);
-            if (Skeleton == true && can_call_support == true && sup_skill_used == false)
+            if (Skeleton == true && can_call_support == true && sup_skill_used == false && player_is_inSight == true)
             {
                 bool enemy_is_near_skeleton = Search_Enemy_Near_Skeleton();
                 if (enemy_is_near_skeleton == false && distance_to_player <= 9f && SaveScript.agression_lvl > 0.7f)
@@ -365,6 +366,8 @@ public class EnemyMovement : MonoBehaviour
 
                         is_attacking = true;
                         anim.SetTrigger("attack");
+                        fov_angle = 80f;
+                        StartCoroutine(Reset_Angle());
                         Look_At_Player_Spherical_LERP();   //little bit chunky
                     }
                 }
@@ -555,11 +558,16 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Reset_Roll_Triger()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         roll_out = false;
         roll_is_active = false;
     }
 
+    IEnumerator Reset_Angle()
+    {
+        yield return new WaitForSeconds(3f);
+        fov_angle = 60f;
+    }
     IEnumerator Reset_Piglin_Renge()
     {
         yield return new WaitForSeconds(7f);
@@ -800,7 +808,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3 player_dir = player.transform.position - transform.position;
         float angle = Vector3.Angle(player_dir, transform.forward);
 
-        if (angle < 90f && player_dir.magnitude < distance_of_ray)
+        if (angle < fov_angle && player_dir.magnitude < distance_of_ray)
         {
             RaycastHit hit;
 

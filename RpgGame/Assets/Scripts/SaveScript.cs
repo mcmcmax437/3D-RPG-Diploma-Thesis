@@ -11,6 +11,8 @@ public class SaveScript : MonoBehaviour
     public static bool class_Seller = false; // 2
     public static bool class_Warrior = false; // 3
 
+    public static int save_obj_inst = 0;
+
     public static int uniqe_features_index = 0;
     public static float time_of_uniqe_feature_activasion = -Mathf.Infinity;
     public static float uniqe_features_index_CD = 500f; // 500 sec couldown
@@ -62,7 +64,7 @@ public class SaveScript : MonoBehaviour
     public static int player_diamond;
      
     public static int weapon_dmg_scaleUP;
-    public static float armora_decrease = 0.0f;
+    public static float armora_decrease = 0.0f; 
 
     public static int amount_of_chasing_enemies;
 
@@ -76,6 +78,8 @@ public class SaveScript : MonoBehaviour
 
     
     public static float agression_lvl = 0;
+
+    public static bool New_Game_Start = false;
 
 
     //for JSON SAVE
@@ -162,16 +166,33 @@ public class SaveScript : MonoBehaviour
     public int amount_of_orangeMushroom_SAVE;
 
     public bool[] weapons_SAVE = new bool[6];
-
+     
     public int[] obj_index_SAVE = new int[20];
 
     public float agression_lvl_SAVE;
 
+    private void Awake()
+    { 
+        save_obj_inst++;
+    }
 
     void Start()
     {
        // Debug.Log("Gold update");
-        DontDestroyOnLoad(this);
+       
+        if(save_obj_inst > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(this);
+        }
+        if(New_Game_Start == true)
+        {
+            is_invisible = false;
+            // write reset value
+        }
 
         if(take_data_to_load == true)
         { 
@@ -186,7 +207,7 @@ public class SaveScript : MonoBehaviour
         {
             player_gold = 25;
         }
-
+         
 
     }
 

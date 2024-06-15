@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private float x;
     private float z;
     private float velocitySpeed;
-    public static int ray_numbers = 6;
+    public static int ray_numbers = 1;
 
     //For Camera
     CinemachineTransposer cinemachineTransposer;
@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     public string[] attacks_tags;
     public AudioClip[] weapon_SFX;
     public AudioSource audio_Player;
+    public GameObject Inventory_Canvas;
 
     private AnimatorStateInfo player_information;
 
@@ -65,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     public float[] stamina_cost_for_weapon;
 
     public GameObject God_Mode_Panel = null;
+    public GameObject Aim_OBJ;
     void Start()
     {
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -85,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         SaveScript.vfx_spawn_point = vfx_spawm_point;
         //cinemachineTransposer = playerCamera.GetCinemachineComponent<CinemachineTransposer>();
         //current_pos = cinemachineTransposer.m_FollowOffset;
-        cinemachineTransposer = camera_1_static.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
+        //cinemachineTransposer = camera_1_static.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
         cinemachine_orbital_Transposer = camera_2_free.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
 
         for (int i = 0; i < weapons_props.Length; i++)
@@ -105,6 +107,10 @@ public class PlayerMovement : MonoBehaviour
         }
         Check_Class_Info();
         get_hit_VFX_Place.SetActive(false);
+        if(Inventory_Canvas == null)
+        {
+            Inventory_Canvas = GameObject.Find("Inventory");
+        }
 
     }
 
@@ -118,6 +124,17 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("can mpve " + canMove);
         player_information = anim.GetCurrentAnimatorStateInfo(0); //listen to Animator
 
+        if (Input.GetMouseButton(1))
+        {
+            if(Input.GetAxis("Mouse X") > 0)
+            {
+                Aim_OBJ.transform.Rotate(0, 75 * Time.deltaTime, 0);
+            }
+            if (Input.GetAxis("Mouse X") < 0)
+            {
+                Aim_OBJ.transform.Rotate(0, -75 * Time.deltaTime, 0);
+            }
+        }
         //change correct weapon
         if (SaveScript.should_change_weapon == true)
         {
@@ -299,20 +316,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if(SaveScript.health <= 0.0f)
-        {   
-                if (SaveScript.uniqe_features_index == 3 && Time.time - SaveScript.time_of_uniqe_feature_activasion > SaveScript.uniqe_features_index_CD)
-            {
-                SaveScript.time_of_uniqe_feature_activasion = Time.time;
-                SaveScript.health = 0.5f;
-            }
-            else
-            {
-                SceneManager.LoadScene(0);   // 0 - Player Select  1 - Terrain1 (More can check in File -> Build Settings)
-                SaveScript.health = 1.0f;
-            }
-   
-        }
+      
 
         if(previous_health > SaveScript.health)
         {
@@ -438,11 +442,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
+
             God_Mode_Panel.SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             God_Mode_Panel.SetActive(false);
+            Inventory_Canvas.GetComponent<Inventory>().Open_Inventory();
+            Inventory_Canvas.GetComponent<Inventory>().Close_Inventory();
         }
     }
 
