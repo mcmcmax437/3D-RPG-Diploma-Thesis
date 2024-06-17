@@ -39,7 +39,7 @@ public class EnemyMovement : MonoBehaviour
     public float chasing_Range = 9.0f;   //range in which enemy will run after character
     public float rotation_speed = 500.0f; //perfect
     private float stop_distance = 2f;
-    private float group_brain_radius = 10f;
+    private float group_brain_radius = 13f;
 
     public Transform patrol_main_obj;
     public float patrol_radius = 10.0f;
@@ -220,7 +220,8 @@ public class EnemyMovement : MonoBehaviour
                 {
                     Question_Canvas.SetActive(true);
                     Check_If_Player_is_InSight();
-                   //Debug.Log(last_seen_position);
+                  // Debug.Log(last_seen_position);
+                  //  Debug.Log(player_is_inSight);
                     if (player_is_inSight == true)
                     {
                         cant_see_player = false;
@@ -232,7 +233,7 @@ public class EnemyMovement : MonoBehaviour
                     }
                     else if (player_is_inSight == false && last_seen_position != Vector3.zero)
                     {
-                       // Debug.Log("INSIDE");
+                        //Debug.Log("INSIDE");
                         NavMeshPath path = new NavMeshPath();
                         nav.CalculatePath(last_seen_position, path); 
                         StartCoroutine(Reset_Angle());
@@ -244,7 +245,7 @@ public class EnemyMovement : MonoBehaviour
                         {
                             nav.destination = last_seen_position;
                             search_Timer += Time.deltaTime;
-                            Debug.Log(search_Timer);
+                            //Debug.Log(search_Timer);
                             if (search_Timer >= time_for_search)
                             {
                                 cant_see_player = true;
@@ -272,10 +273,10 @@ public class EnemyMovement : MonoBehaviour
             {
                 if(patrol_main_obj != null)
                 {
-                  if(Enemy_Type.EnemyType.Goblin == GetComponent<Enemy_Type>().enemyType)
-                    {
-                        is_patroling = true;
-                    }
+                  //if(Enemy_Type.EnemyType.Goblin == GetComponent<Enemy_Type>().enemyType)
+                   // {
+                  //      is_patroling = true;
+                  //  }
                     Set_Patrol_Destination();
                 }
                 Correct_Aggression();
@@ -317,16 +318,18 @@ public class EnemyMovement : MonoBehaviour
                 curr_HP = full_HP;
                 RandomAudio_Hit();
                 fillHealth = Convert.ToSingle(full_HP) / Convert.ToSingle(maxHP);
-                Debug.Log(fillHealth);
+               // Debug.Log(fillHealth);
                 HP_bar.fillAmount = fillHealth;
                 if (GetComponent<Enemy_Type>().enemyType == Enemy_Type.EnemyType.Piglin)
                 {
                     piglin_was_hit = true;
                     chasing_Range = 60f;
                     StartCoroutine(Reset_Piglin_Renge());
+         
                 }
 
             }
+            Debug.Log(destination_run);
 
             if (full_HP < maxHP / 2 && Piglins == true && destination_run == false)
             {
@@ -382,6 +385,7 @@ public class EnemyMovement : MonoBehaviour
                         is_attacking = true;
                         anim.SetTrigger("attack");
                         Look_At_Player_Spherical_LERP();   //little bit chunky
+                        fov_angle = 360f;
                     }
                 }
 
@@ -460,6 +464,14 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, PosRotation, Time.deltaTime * rotation_speed);
        // Debug.Log("Correct Angle");
     }
+    public void Look_At_Escape_Point_LERP()
+    {
+        Vector3 Pos = (escape_point - transform.position).normalized;
+        Quaternion PosRotation = Quaternion.LookRotation(new Vector3(Pos.x, 0, Pos.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, PosRotation, Time.deltaTime * rotation_speed);
+        // Debug.Log("Correct Angle");
+    }
+
 
     public void Enemy_is_Dead()
     {
@@ -555,14 +567,14 @@ public class EnemyMovement : MonoBehaviour
 
     public void Run_Away()
     {
-        anim.SetBool("running", true);
-        nav.isStopped = false;
-
         //int pos = Random.Range(0, 3);
         //nav.destination = escape_target_point[pos].transform.position;
         Calculate_Escape_Point();
+        Look_At_Escape_Point_LERP();
         nav.speed = 1.8f;
         nav.destination = escape_point;
+        anim.SetBool("running", true);
+        nav.isStopped = false;
 
     }
 
@@ -587,7 +599,10 @@ public class EnemyMovement : MonoBehaviour
     IEnumerator Reset_Piglin_Renge()
     {
         yield return new WaitForSeconds(7f);
-        Look_At_Player_Spherical_LERP();
+        if(destination_run == false)
+        {
+            Look_At_Player_Spherical_LERP();
+        }  
         piglin_was_hit = false;
         if(SaveScript.weapon_index != -1)
         {
@@ -647,7 +662,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void Set_Patrol_Destination()
     {
-        if (!is_patroling) return;
+        if (!is_patroling || patrol_main_obj == null) return;
 
         Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrol_radius;
         randomDirection += patrol_main_obj.position;
@@ -830,7 +845,7 @@ public class EnemyMovement : MonoBehaviour
 
             if (Physics.Raycast(transform.position + transform.up, player_dir.normalized, out hit, distance_of_ray))
             {
-                Debug.DrawRay(transform.position, player_dir * 10f, Color.red);
+                //Debug.DrawRay(transform.position, player_dir * 10f, Color.red);
                 if (hit.transform == player.transform)
                 {
                     Debug.DrawRay(transform.position, player_dir * 10f, Color.green);

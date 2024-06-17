@@ -92,23 +92,34 @@ public class Character_Attack : MonoBehaviour
                 can_deal_dmg = false;
             }
 
-
-
-            Debug.Log(basic_weapon_damage + " " + SaveScript.weapon_dmg_scaleUP + " " + SaveScript.strength_increase);
-            if (enemy_type.enemyType == Enemy_Type.EnemyType.Golem)
+            if(enemy_type.enemyType != Enemy_Type.EnemyType.Golem)
             {
-                Debug.Log("Monster = " + other.name + " HP = " + other.transform.gameObject.GetComponent<Golem_Movement>().full_HP + " DMG = " + dmg_check);
+                other.GetComponent<EnemyMovement>().fov_angle = 360f;
             }
-            else
-            {
-                Debug.Log("Monster = " + other.name + " HP = " + other.transform.gameObject.GetComponent<EnemyMovement>().full_HP + " DMG = " + dmg_check);
+            
+          
 
-            }
-            StartCoroutine(ResetDMG());
         }
+    
+
+
+
+    /* Debug.Log(basic_weapon_damage + " " + SaveScript.weapon_dmg_scaleUP + " " + SaveScript.strength_increase);
+     if (enemy_type.enemyType == Enemy_Type.EnemyType.Golem)
+     {
+         Debug.Log("Monster = " + other.name + " HP = " + other.transform.gameObject.GetComponent<Golem_Movement>().full_HP + " DMG = " + dmg_check);
+     }
+     else
+     {
+         Debug.Log("Monster = " + other.name + " HP = " + other.transform.gameObject.GetComponent<EnemyMovement>().full_HP + " DMG = " + dmg_check);
+
+     }*/
+    StartCoroutine(ResetDMG());
+        
 
       
     }
+
 
     IEnumerator Wait_before_Destroy()
     {

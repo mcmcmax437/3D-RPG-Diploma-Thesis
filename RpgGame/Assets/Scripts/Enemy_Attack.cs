@@ -31,12 +31,16 @@ public class Enemy_Attack : MonoBehaviour
                 audio_Player.Play();
                 StartCoroutine(DMG_Delay_Restart());
             }
-            this.GetComponentInParent<EnemyMovement>().fov_angle = 360f;
-            if(reset == true)
+            if(Enemy_Type.EnemyType.Golem != GetComponentInParent<Enemy_Type>().enemyType)
             {
-                reset = false;
-                StartCoroutine(Reset_Angle());
+                this.GetComponentInParent<EnemyMovement>().fov_angle = 360f;
+                if (reset == true)
+                {
+                    reset = false;
+                    StartCoroutine(Reset_Angle());
+                }
             }
+           
             
         } 
     }
@@ -44,6 +48,7 @@ public class Enemy_Attack : MonoBehaviour
     IEnumerator Reset_Angle()
     {
         yield return new WaitForSeconds(4f);
+        //Debug.Log("Reset");
         this.GetComponentInParent<EnemyMovement>().fov_angle = 60f;
         reset = true;
     }
