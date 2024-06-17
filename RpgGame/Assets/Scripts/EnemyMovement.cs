@@ -42,21 +42,15 @@ public class EnemyMovement : MonoBehaviour
     private float group_brain_radius = 10f;
 
     public Transform patrol_main_obj;
-    public float patrol_radius = 15.0f;
+    public float patrol_radius = 10.0f;
     public float wait_time_at_point = 2.0f;
 
-    private Vector3 targetPoint;
-    private bool is_waiting;
-    private float wait_timer;
-    private bool is_patroling = true;
+    private bool is_patroling = true; //true? 
 
     private int maxHP;
 
     public int full_HP = 100;
     private int curr_HP;
-
-    private int fear_lvl = 100;
-    private int fear_lvl_curr;
 
     private bool enemy_is_alive = true;
 
@@ -88,17 +82,16 @@ public class EnemyMovement : MonoBehaviour
     public float min_aggression = 0.0f;
 
     public bool piglin_was_hit = false;
-    private bool player_is_armorless = true;
-    private bool should_reset_armor_trigger = true;
 
     public float distance_of_ray = 12f;
     public float time_for_search = 3f;
     private Vector3 last_seen_position;
     private float search_Timer;
     private bool player_is_inSight;
-    private bool look_for_player;
+    private bool look_for_player = true;
+    private bool cant_see_player = true;
     private bool reset_piglins_chase_range = false;
-    private float fov_angle = 60f;
+    public float fov_angle = 60f;
 
     // Start is called before the first frame update
     void Start()
@@ -117,7 +110,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (Goblin_Warrior == true)
         {
-            Set_Petrol_Destination();
+            Set_Patrol_Destination();
         }
         if (Goblin_Warrior == true && patrol_main_obj == null)
         {
@@ -145,6 +138,12 @@ public class EnemyMovement : MonoBehaviour
                 reset_piglins_chase_range = true;
             }
         }
+
+        if (!Piglins)
+        {
+            distance_of_ray = chasing_Range;
+        }
+    
 
     }
 
@@ -182,6 +181,10 @@ public class EnemyMovement : MonoBehaviour
 
         bar_Container.transform.LookAt(main_camera.transform.position);
 
+        if(SaveScript.is_invisible == true)
+        {
+            cant_see_player = true;
+        }
 
         if (enemy_is_alive == true)
         {
@@ -210,39 +213,45 @@ public class EnemyMovement : MonoBehaviour
                 chasing_Range = 0;
             }
 
-            if (distance_to_player <= chasing_Range && destination_run == false)
+            if (distance_to_player <= chasing_Range && destination_run == false && is_patroling == false)
             {
-
+                //Debug.Log(fov_angle);
                 if (SaveScript.is_invisible == false)
                 {
                     Question_Canvas.SetActive(true);
                     Check_If_Player_is_InSight();
-
+                   //Debug.Log(last_seen_position);
                     if (player_is_inSight == true)
                     {
+                        cant_see_player = false;
                         Question_Canvas.SetActive(false);
                         //last_seen_position = player.transform.position;
                         search_Timer = 0f;
                         nav.destination = player.transform.position;
                         Main_Attack_System();
                     }
-                    else if (!player_is_inSight && last_seen_position != Vector3.zero)
+                    else if (player_is_inSight == false && last_seen_position != Vector3.zero)
                     {
+                       // Debug.Log("INSIDE");
                         NavMeshPath path = new NavMeshPath();
-                        nav.CalculatePath(last_seen_position, path);
+                        nav.CalculatePath(last_seen_position, path); 
+                        StartCoroutine(Reset_Angle());
                         if (path.status != NavMeshPathStatus.PathComplete)
                         {
                             Look_Aroun_Yourself();
                         }
                         else if (look_for_player == true)
                         {
+                            nav.destination = last_seen_position;
                             search_Timer += Time.deltaTime;
+                            Debug.Log(search_Timer);
                             if (search_Timer >= time_for_search)
                             {
+                                cant_see_player = true;
                                 look_for_player = false;
                                 search_Timer = 0f;
-                            }
-                            //Debug.Log(search_Timer);
+                            }       
+                           // Debug.Log("Look around");
                             Look_Aroun_Yourself();
 
                         }
@@ -250,18 +259,24 @@ public class EnemyMovement : MonoBehaviour
                 }
                 else
                 {
+                    Check_If_Player_is_InSight();
                     Attack_Canvas.SetActive(false);
                     Question_Canvas.SetActive(true);               
                 }
 
             }
-
-            if (Goblin_Warrior == true && look_for_player == false)
+            //Debug.Log(search_Timer);
+            //Debug.Log(is_patroling);
+           // Debug.Log("Goblin_Warrior: " + Goblin_Warrior + " look_for_player: " + look_for_player + " cant_see_player: " + cant_see_player);
+            if (Goblin_Warrior == true && look_for_player == false && cant_see_player == true)
             {
                 if(patrol_main_obj != null)
                 {
-                   
-                    Patrol();
+                  if(Enemy_Type.EnemyType.Goblin == GetComponent<Enemy_Type>().enemyType)
+                    {
+                        is_patroling = true;
+                    }
+                    Set_Patrol_Destination();
                 }
                 Correct_Aggression();
             }
@@ -366,8 +381,6 @@ public class EnemyMovement : MonoBehaviour
 
                         is_attacking = true;
                         anim.SetTrigger("attack");
-                        fov_angle = 80f;
-                        StartCoroutine(Reset_Angle());
                         Look_At_Player_Spherical_LERP();   //little bit chunky
                     }
                 }
@@ -392,6 +405,7 @@ public class EnemyMovement : MonoBehaviour
             }
 
         }
+
     }
 
     public void Go_To_Player()
@@ -440,6 +454,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void Look_At_Player_Spherical_LERP()
     {
+        //Debug.Log("LERP");
         Vector3 Pos = (player.transform.position - transform.position).normalized;
         Quaternion PosRotation = Quaternion.LookRotation(new Vector3(Pos.x, 0, Pos.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, PosRotation, Time.deltaTime * rotation_speed);
@@ -497,6 +512,7 @@ public class EnemyMovement : MonoBehaviour
 
             anim.SetBool("running", true);
             // check = anim.GetBool("running");
+            nav.isStopped = false;
             is_attacking = false;
             //Debug.Log("running = " + check);
 
@@ -563,9 +579,9 @@ public class EnemyMovement : MonoBehaviour
         roll_is_active = false;
     }
 
-    IEnumerator Reset_Angle()
+    public IEnumerator Reset_Angle()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         fov_angle = 60f;
     }
     IEnumerator Reset_Piglin_Renge()
@@ -589,11 +605,7 @@ public class EnemyMovement : MonoBehaviour
         sup_skill_used = false;
     }
 
-    IEnumerator Wait_and_Attack()
-    {
-        yield return new WaitForSeconds(10f);
-        Main_Attack_System();
-    }
+    
     public void Calculate_Escape_Point()
     {
 
@@ -633,52 +645,56 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    public void Set_Petrol_Destination()
+    public void Set_Patrol_Destination()
     {
-        Vector3 rand_dirrection = UnityEngine.Random.insideUnitSphere * patrol_radius;
-        rand_dirrection += patrol_main_obj.position;
+        if (!is_patroling) return;
+
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrol_radius;
+        randomDirection += patrol_main_obj.position;
 
         NavMeshHit navHit;
-        NavMesh.SamplePosition(rand_dirrection, out navHit, patrol_radius, -1);
+        bool foundValidPosition = NavMesh.SamplePosition(randomDirection, out navHit, patrol_radius, NavMesh.AllAreas);
 
-        anim.SetBool("running", true);
-        nav.isStopped = false;
-        nav.destination = navHit.position;
+        if (foundValidPosition)
+        {
+            NavMeshPath path = new NavMeshPath();
+            nav.CalculatePath(navHit.position, path);
+
+            if (path.status == NavMeshPathStatus.PathComplete)
+            {
+                nav.destination = navHit.position;
+                nav.isStopped = false;
+
+                anim.SetBool("running", true);
+                is_patroling = true;
+                StartCoroutine(CheckIfReachedDestination());
+            }
+            else
+            {   
+                Set_Patrol_Destination();
+            }
+        }
+        else
+        {
+            Set_Patrol_Destination();
+        }
     }
 
-    public void Patrol()
+    private IEnumerator CheckIfReachedDestination()
     {
-
+        while (nav.pathPending || nav.remainingDistance > nav.stoppingDistance)
+        {
+            yield return null;
+        }  
+        nav.isStopped = true;
+        anim.SetBool("running", false);
+        yield return new WaitForSeconds(2f);
         is_patroling = true;
-        if (!is_waiting && nav.remainingDistance <= 2.0f)
-        {
-
-            is_waiting = true;
-            wait_timer = wait_time_at_point;
-            is_patroling = false;
-        }
-        if (is_waiting)
-        {
-            wait_timer -= Time.deltaTime;
-
-            if (wait_timer <= 0 || SaveScript.is_invisible == true)
-            {
-
-                is_waiting = false;
-                Set_Petrol_Destination();
-                nav.isStopped = false;
-            }
-        }
-        if (GetComponent<Enemy_Type>().enemyType != Enemy_Type.EnemyType.Skelet)
-        {
-            if (SaveScript.is_invisible == true)
-            {
-                is_waiting = false;
-                Set_Petrol_Destination();
-                nav.isStopped = false;
-            }
-        }
+        Set_Patrol_Destination();
     }
+
+
+
 
 
     public void Roll()
@@ -808,7 +824,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3 player_dir = player.transform.position - transform.position;
         float angle = Vector3.Angle(player_dir, transform.forward);
 
-        if (angle < fov_angle && player_dir.magnitude < distance_of_ray)
+        if (angle < fov_angle && player_dir.magnitude < distance_of_ray && SaveScript.is_invisible == false)
         {
             RaycastHit hit;
 
@@ -820,18 +836,24 @@ public class EnemyMovement : MonoBehaviour
                     Debug.DrawRay(transform.position, player_dir * 10f, Color.green);
 
                     Nearby_Enemy_Will_Know();
+                    cant_see_player = false;
                     look_for_player = false;
                     player_is_inSight = true;
                     last_seen_position = player.transform.position;
                 }
             }
         }
-        else if (player_is_inSight)
+        else if (player_is_inSight || SaveScript.is_invisible == true)
         {
             Debug.DrawRay(transform.position, player_dir * 10f, Color.red);
             player_is_inSight = false;
             nav.SetDestination(last_seen_position);
+            if(transform.position == last_seen_position)
+            {
+                Look_Aroun_Yourself();
+            }
             look_for_player = true;
+            cant_see_player = true;
         }
     }
 

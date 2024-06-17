@@ -11,6 +11,7 @@ public class Enemy_Attack : MonoBehaviour
 
     private float correct_dmg_reduce_by_Skill;
     private float correct_dmg_reduce_by_armor;
+    private bool reset = true;
 
 
     void Start()
@@ -30,9 +31,22 @@ public class Enemy_Attack : MonoBehaviour
                 audio_Player.Play();
                 StartCoroutine(DMG_Delay_Restart());
             }
+            this.GetComponentInParent<EnemyMovement>().fov_angle = 360f;
+            if(reset == true)
+            {
+                reset = false;
+                StartCoroutine(Reset_Angle());
+            }
+            
         } 
     }
 
+    IEnumerator Reset_Angle()
+    {
+        yield return new WaitForSeconds(4f);
+        this.GetComponentInParent<EnemyMovement>().fov_angle = 60f;
+        reset = true;
+    }
     IEnumerator DMG_Delay_Restart()
     {
         yield return wait_before_attack;
