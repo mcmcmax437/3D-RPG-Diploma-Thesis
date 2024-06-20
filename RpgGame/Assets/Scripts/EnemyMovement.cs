@@ -743,7 +743,7 @@ public class EnemyMovement : MonoBehaviour
             }
             else
             {
-                weights[i] = -1; // Invalid direction
+                weights[i] = -1; 
             }
         }
         int the_best_dirrection = -1;

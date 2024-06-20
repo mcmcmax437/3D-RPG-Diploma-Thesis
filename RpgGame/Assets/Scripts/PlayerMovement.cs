@@ -116,11 +116,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (isPlayerSelectScene == false)
         {
-            anim.SetBool("sprinting", false);
-            nav.destination = transform.position;
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                anim.SetBool("sprinting", false);
+                nav.destination = transform.position;
+            }
         }
+                    
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             Display_Correct_ArmorInShop();

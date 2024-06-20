@@ -26,8 +26,6 @@ public class Golem_Movement : MonoBehaviour
     public float chasing_Range;   //range in which enemy will run after character   
     public float rotation_speed = 500.0f; //perfect
     public float dmg_block_probability = 0.15f;
-
-    private bool is_reset = false;
     private bool stun = false;
     private int maxHP;
 
@@ -37,8 +35,6 @@ public class Golem_Movement : MonoBehaviour
 
     public int full_HP = 100;
     private int curr_HP;
-    private int fear_lvl = 100;
-    private int fear_lvl_curr;
     public bool enemy_is_alive = true;
 
     private bool skill_was_used = false;
